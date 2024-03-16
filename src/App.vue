@@ -1,26 +1,21 @@
-<template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
-</template>
+<script setup>
+/*
+=========================================================
+* Vue Material Kit 2 - v2.0.0
+=========================================================
 
-<script>
-import HelloWorld from './components/HelloWorld.vue'
+* Product Page: https://www.creative-tim.com/product/vue-material-kit
+* Copyright 2022 Creative Tim (https://www.creative-tim.com)
 
-export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+Coded by www.creative-tim.com
+
+ =========================================================
+
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+*/
+import { RouterView } from "vue-router";
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+<template>
+  <router-view />
+</template>
