@@ -1,0 +1,51 @@
+/* Main.css */
+
+/* 전체 컨테이너 스타일 */
+
+body {
+    margin: 0; /* body 요소의 기본 마진 제거 */
+}
+
+.main-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+}
+
+/* 각 섹션 스타일 */
+.section {
+    width: 100%;
+    color: #ffffff;
+    text-align: center;
+    margin: 0; /* 기본 마진 제거 */
+}
+
+/* 첫 번째 섹션 스타일 */
+.section1 {
+    background: url("@/assets/img/vue-mk-header.jpg") no-repeat center;
+    background-size: cover; /* 배경 이미지를 가득 채우도록 설정 */
+    height: calc(100vh - 60px); /* 높이를 브라우저 높이에서 메뉴의 높이(60px)를 뺀 값으로 설정 */
+}
+
+.section1 h1 {
+    margin-top: 300px;
+}
+
+/* 두 번째 섹션 스타일 */
+.section2 {
+    background-color: #f1e2d9;
+    height: 100vh; /* 높이를 브라우저 높이와 같게 설정 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 세 번째 섹션 스타일 */
+.section3 {
+    background-color: #d3b6bb;
+    height: 100vh; /* 높이를 브라우저 높이와 같게 설정 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
