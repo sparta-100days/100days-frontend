@@ -6,11 +6,11 @@
 </template>
 
 <script>
-import MenuLinks from './components/MenuLinks.vue';
-import MainContent from './components/MainContent.vue';
+import MenuLinks from "./components/MenuLinks.vue";
+import MainContent from "./components/MainContent.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
     MenuLinks,
     MainContent
