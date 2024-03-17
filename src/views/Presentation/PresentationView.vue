@@ -62,11 +62,10 @@ onUnmounted(() => {
               class="text-white pt-3 mt-n5 me-2"
               :style="{ display: 'inline-block ' }"
             >
-              Material Kit 2
+              100Days
             </h1>
             <p class="lead text-white px-5 mt-3" :style="{ fontWeight: '500' }">
-              Start the Development With Bootstrap 5 Design System inspired by
-              Material Design.
+              100일의 도전으로 당신의 삶을 바꿔보세요!
             </p>
           </div>
         </div>
@@ -159,9 +158,9 @@ onUnmounted(() => {
                 </p>
 
                 <a
-                  href="https://www.creative-tim.com/product/vue-material-kit"
+                  href="/pages/landing-pages/basic"
                   class="btn btn-sm mb-0 bg-gradient-success px-5 py-3 mt-4"
-                  >Download Now</a
+                  >Login</a
                 >
               </div>
             </div>
