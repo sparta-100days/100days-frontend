@@ -39,19 +39,19 @@ export default {
       this.showDropdown = !this.showDropdown;
     },
     goToMainPage() {
-      this.$router.push('/');
+      this.$router.push("/");
     },
     handleResize() {
       this.windowWidth = window.innerWidth;
     }
   },
   created() {
-    window.addEventListener('scroll', this.handleScroll);
-    window.addEventListener('resize', this.handleResize);
+    window.addEventListener("scroll", this.handleScroll);
+    window.addEventListener("resize", this.handleResize);
   },
   unmounted() {
-    window.removeEventListener('scroll', this.handleScroll);
-    window.removeEventListener('resize', this.handleResize);
+    window.removeEventListener("scroll", this.handleScroll);
+    window.removeEventListener("resize", this.handleResize);
   }
 }
 </script>
