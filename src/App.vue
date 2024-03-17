@@ -1,21 +1,23 @@
-<script setup>
-/*
-=========================================================
-* Vue Material Kit 2 - v2.0.0
-=========================================================
+<template>
+  <div id="app">
+    <MenuLinks />
+    <MainContent />
+  </div>
+</template>
 
-* Product Page: https://www.creative-tim.com/product/vue-material-kit
-* Copyright 2022 Creative Tim (https://www.creative-tim.com)
+<script>
+import MenuLinks from "./components/MenuLinks.vue";
+import MainContent from "./components/MainContent.vue";
 
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-import { RouterView } from "vue-router";
+export default {
+  name: "App",
+  components: {
+    MenuLinks,
+    MainContent
+  }
+}
 </script>
 
-<template>
-  <router-view />
-</template>
+<style>
+/* Add global styles here */
+</style>
