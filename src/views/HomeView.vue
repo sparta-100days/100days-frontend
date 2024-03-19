@@ -6,13 +6,17 @@
     </div>
     <div class="section section2">
       <!-- lorem ipsum으로 대체 -->
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante
-        dapibus diam.</p>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec
+        odio. Praesent libero. Sed cursus ante dapibus diam.
+      </p>
     </div>
     <div class="section section3">
       <!-- lorem ipsum으로 대체 -->
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante
-        dapibus diam.</p>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec
+        odio. Praesent libero. Sed cursus ante dapibus diam.
+      </p>
     </div>
   </div>
 </template>
@@ -20,10 +24,8 @@
 <script>
 export default {
   data() {
-    return {
-
-    };
-  }
+    return {};
+  },
 };
 </script>
 
