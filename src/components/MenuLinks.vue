@@ -4,14 +4,14 @@
       <img :class="{ 'logo': true, 'centered-logo': windowWidth <= 768 }" src="../assets/img/logo.svg" alt="Logo" @click="goToMainPage">
       <div v-if="windowWidth > 768" class="links">
         <a href="/">목표작성</a>
-        <a href="/">둘러보기</a>
+        <router-link to="/resolutions">둘러보기</router-link>
       </div>
       <button class="login-btn" v-if="windowWidth > 768">로그인</button>
       <div class="dropdown" v-else>
         <button class="dropdown-btn" @click="toggleDropdown">메뉴</button>
         <div v-show="showDropdown" class="dropdown-content">
           <a href="/">목표작성</a>
-          <a href="/">둘러보기</a>
+          <router-link to="/resolutions">둘러보기</router-link>
           <a href="/">로그인</a>
         </div>
       </div>

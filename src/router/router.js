@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
-import ResolutionList from "@/components/ResolutionList.vue";
+import ResolutionList from "@/views/ResolutionList.vue";
 
 const routes = [
   {
