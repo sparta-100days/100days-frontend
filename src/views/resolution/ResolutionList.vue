@@ -26,4 +26,4 @@ export default {
 };
 </script>
 
-<style src="../assets/css/ResolutionList.css" lang="css"></style>
+<style src="../../assets/css/resolution/ResolutionList.css" lang="css"></style>

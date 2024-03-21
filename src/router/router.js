@@ -1,7 +1,8 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
-import ResolutionList from "@/views/ResolutionList.vue";
-import ResolutionPage from "../views/ResolutionView.vue";
+import ResolutionList from "@/views/resolution/ResolutionList.vue";
+import ResolutionPage from "../views/resolution/ResolutionPage.vue";
+import CreateResolution from "@/views/resolution/CreateResolution.vue";
 
 const routes = [
   {
@@ -18,6 +19,11 @@ const routes = [
     path: "/resolutions/:id",
     name: "resolutionPage",
     component: ResolutionPage,
+  },
+  {
+    path: "/create-resolution",
+    name: "createResolution",
+    component: CreateResolution,
   }
 ];
 
