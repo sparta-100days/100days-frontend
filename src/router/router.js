@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import ResolutionList from "@/views/ResolutionList.vue";
+import ResolutionPage from "../views/ResolutionView.vue";
 
 const routes = [
   {
@@ -13,6 +14,11 @@ const routes = [
     name: "resolutionsList",
     component: ResolutionList,
   },
+  {
+    path: "/resolutions/:id",
+    name: "resolutionPage",
+    component: ResolutionPage,
+  }
 ];
 
 const router = createRouter({
