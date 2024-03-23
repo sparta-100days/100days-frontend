@@ -4,7 +4,7 @@
     <form @submit.prevent="submitForm">
       <div class="form-group">
         <label for="title">목표</label>
-        <input type="text" id="title" v-model="resolution.title" required>
+        <input type="text" id="title" v-model="resolution.title" required />
         <span>{{ validationMessages.title }}</span>
       </div>
       <div class="form-group">

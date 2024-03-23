@@ -3,6 +3,9 @@ import HomeView from "../views/HomeView.vue";
 import ResolutionList from "@/views/resolution/ResolutionList.vue";
 import ResolutionPage from "../views/resolution/ResolutionPage.vue";
 import CreateResolution from "@/views/resolution/CreateResolution.vue";
+import Login from "@/views/Login.vue";
+import SignUp from "@/views/SignUp.vue";
+
 
 const routes = [
   {
@@ -24,6 +27,16 @@ const routes = [
     path: "/create-resolution",
     name: "createResolution",
     component: CreateResolution,
+  },
+  {
+    path: "/login",
+    name: "login",
+    component: Login,
+  },
+  {
+    path: "/signup",
+    name: "signup",
+    component: SignUp,
   }
 ];
 
