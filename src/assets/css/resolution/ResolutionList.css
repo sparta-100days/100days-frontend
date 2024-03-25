@@ -1,48 +1,51 @@
-/* ResolutionList.css */
-.resolution-list {
-    max-width: 600px;
+/* 스타일링 */
+.resolution-list-container {
+    max-width: 800px;
     margin: 100px auto;
     padding: 20px;
-    background: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-.resolution-list h2 {
-    color: #333;
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-ul {
-    list-style-type: none;
+.resolution-list {
+    list-style: none;
     padding: 0;
 }
 
-li {
+.resolution-list li {
     padding: 10px;
+    border: 1px solid #eee;
+    border-radius: 8px;
     margin-bottom: 10px;
-    background: #fff;
-    border-radius: 4px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-    transition: transform 0.2s ease-in-out;
+    cursor: pointer;
 }
 
-li:hover {
-    transform: translateY(-3px);
+.resolution-list li:hover {
+    background-color: #f0f0f0;
 }
 
-.resolution-info {
-    margin: 0;
-    color: #555;
-    font-size: 16px;
+.search-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
 }
 
-.resolution-info router-link {
-    text-decoration: none;
-    color: #007bff;
+.search-input {
+    flex-grow: 1;
+    margin-right: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
 }
 
-.resolution-info router-link:hover {
-    text-decoration: underline;
+.search-button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.search-button:hover {
+    background-color: #0056b3;
 }

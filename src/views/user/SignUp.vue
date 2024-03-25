@@ -5,7 +5,7 @@
         <label for="email">이메일 주소</label>
         <input type="email" class="form-control" id="email" v-model="signUpRequest.email"
                :disabled="true" placeholder="example@email.com">
-        <button type="button" @click="openEmailVerificationPopup" class="btn btn-info">인증하기</button>
+        <button type="button" @click="openEmailVerificationPopup" class="verification-btn">인증하기</button>
       </div>
       <div class="form-group">
         <label for="nickname">닉네임</label>
@@ -27,12 +27,12 @@
       </div>
       <button type="submit" class="btn btn-primary">회원가입</button>
     </form>
-    <EmailVerificationPopup v-if="showEmailVerificationPopup" @close="handleVerificationPopupClose" @verified="handleEmailVerified"/>
+    <EmailVerificationPopup v-if="showEmailVerificationPopup" @close="closeEmailVerificationPopup" @verified="handleEmailVerified"/>
   </div>
 </template>
 
 <script>
-import EmailVerificationPopup from '../components/EmailVerification.vue'; // Adjust the path as necessary
+import EmailVerificationPopup from "../../components/EmailVerificationPopup.vue"; // Adjust the path as necessary
 
 export default {
   data() {
@@ -54,7 +54,7 @@ export default {
     openEmailVerificationPopup() {
       this.showEmailVerificationPopup = true;
     },
-    handleVerificationPopupClose() {
+    closeEmailVerificationPopup() {
       this.showEmailVerificationPopup = false;
     },
     handleEmailVerified(email) {
@@ -70,4 +70,4 @@ export default {
 
 </script>
 
-<style src="../assets/css/SignUp.css" lang="css"></style>
+<style src="../../assets/css/SignUp.css" lang="css"></style>

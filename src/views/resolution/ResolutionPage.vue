@@ -36,13 +36,13 @@ export default {
       resolutionId,
     };
   },
+  mounted() {
+    this.checkAuthor();
+  },
   data() {
     return {
       isAuthor: false,
     };
-  },
-  mounted() {
-    this.checkAuthor();
   },
   methods: {
     checkAuthor() {
