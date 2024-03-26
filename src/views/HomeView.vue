@@ -1,5 +1,5 @@
 <template>
-  <div class="main-content">
+  <div class="main-view">
     <div class="section section1">
       <h1>작심백일</h1>
       <p>이루고 싶은 목표가 무엇인가요?</p>
