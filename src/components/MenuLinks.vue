@@ -6,9 +6,17 @@
         <router-link to="/create-resolution">목표작성</router-link>
         <router-link to="/resolutions">둘러보기</router-link>
       </div>
-      <router-link to="/login" v-if="windowWidth > 768" custom v-slot="{ navigate }">
-        <button class="login-btn" @click="navigate">로그인</button>
-      </router-link>
+      <div class="account-menu" v-if="windowWidth > 768">
+        <router-link to="/login">
+          <button class="login-btn">로그인</button>
+        </router-link>
+        <router-link to="/myPage">
+          <button class="login-btn">마이페이지</button>
+        </router-link>
+        <router-link to="/message">
+          <button class="login-btn">내 쪽지함</button>
+        </router-link>
+      </div>
       <div class="dropdown" v-else>
         <button class="dropdown-btn" @click="toggleDropdown">메뉴</button>
         <div v-show="showDropdown" class="dropdown-content">

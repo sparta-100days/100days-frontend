@@ -16,25 +16,34 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   data() {
     return {
       searchQuery: '',
       resolutions: [
-        // 샘플 데이터
-        { title: "목표 1", category: "건강", likeCount: 10, id: 1 },
-        { title: "목표 2", category: "학습", likeCount: 20, id: 2 },
-        { title: "목표 3", category: "취미", likeCount: 5, id: 3 },
-        // 추가 샘플 데이터
       ],
     };
+  },
+  mounted(){
+    this.getAllData();
   },
 
   methods: {
     goToResolutionDetail(resolution) {
+      this.$router.push(`/resolution/${resolution.id}`)
+    },
+    async getAllData(){
+      const token = localStorage.getItem("AccessToken");
       // 클릭한 목표의 상세 페이지로 네비게이션
-      this.$router.push(`/resolution/${resolution.id}`);
-      console.log('상세 페이지로 이동:', resolution.title);
+      const data = await axios.get("http://localhost:8080/api/v1/resolution", {
+        headers: {
+          Authorization: `Bearer ${token}`, // 헤더에 토큰을 추가합니다.
+        },
+      });
+      console.log(data);
+      this.resolutions = data.data.content;
     },
     // eslint-disable-next-line no-unused-vars
     searchResolutions(query) {

@@ -10,7 +10,9 @@ import MenuBar from "@/components/MenuLinks.vue";
 
 export default {
   name: "App",
-  components: { MenuBar },
+  components: {
+    MenuBar,
+  },
 };
 </script>
 
