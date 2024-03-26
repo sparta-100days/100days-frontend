@@ -2,6 +2,9 @@
 require("@rushstack/eslint-patch/modern-module-resolution");
 
 module.exports = {
+  env: {
+    node: true
+  },
   root: true,
   extends: [
     "plugin:vue/vue3-essential",
@@ -10,5 +13,11 @@ module.exports = {
   ],
   rules: {
     "vue/multi-word-component-names": "off",
+    'prettier/prettier': [
+      'error',
+      {
+        endOfLine: 'auto',
+      },
+    ],
   },
 };

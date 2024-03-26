@@ -1,0 +1,51 @@
+/* 스타일링 */
+.resolution-list-container {
+    max-width: 800px;
+    margin: 100px auto;
+    padding: 20px;
+}
+
+.resolution-list {
+    list-style: none;
+    padding: 0;
+}
+
+.resolution-list li {
+    padding: 10px;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.resolution-list li:hover {
+    background-color: #f0f0f0;
+}
+
+.search-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.search-input {
+    flex-grow: 1;
+    margin-right: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+.search-button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.search-button:hover {
+    background-color: #0056b3;
+}

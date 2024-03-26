@@ -40,7 +40,7 @@
     top: 30px; /* 상단에서 30px 띄워진 위치에 고정 */
     left: 0;
     width: 100%;
-    z-index: 1000;
+    z-index: 999;
     height: 70px; /* 메뉴의 높이만큼 설정 (전체 높이에서 30px을 뺀 값) */
     display: flow;
 }
@@ -56,6 +56,9 @@
     margin: 0 10px;
     text-decoration: none;
 }
+.account-menu{
+    margin-right: 50px;
+}
 
 .login-btn {
     background-color: #eab3af;
@@ -64,7 +67,7 @@
     border: none;
     cursor: pointer;
     border-radius: 2px;
-    margin-right: 80px;
+    margin-right: 10px;
 }
 
 .dropdown {

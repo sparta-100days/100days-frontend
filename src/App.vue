@@ -1,21 +1,19 @@
 <template>
   <div id="app">
-    <MenuLinks />
-    <MainContent />
+    <MenuBar />
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import MenuLinks from "./components/MenuLinks.vue";
-import MainContent from "./components/MainContent.vue";
+import MenuBar from "@/components/MenuLinks.vue";
 
 export default {
   name: "App",
   components: {
-    MenuLinks,
-    MainContent
-  }
-}
+    MenuBar,
+  },
+};
 </script>
 
 <style>

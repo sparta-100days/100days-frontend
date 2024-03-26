@@ -1,11 +1,17 @@
-.login-container {
-    max-width: 400px;
+/* CreateResolution.css */
+.create-resolution {
+    max-width: 600px;
     margin: 100px auto;
     padding: 20px;
     background: #f0f0f0;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.create-resolution h2 {
+    color: #333;
     text-align: center;
+    margin-bottom: 20px;
 }
 
 .form-group {
@@ -17,8 +23,8 @@
     margin-bottom: 0.5rem;
 }
 
-.form-group input[type="email"],
-.form-group input[type="password"] {
+.form-group input[type="text"],
+.form-group textarea {
     width: 100%;
     padding: 0.5rem;
     border: 1px solid #ccc;
@@ -26,38 +32,27 @@
     margin-bottom: 0.5rem;
 }
 
-.login-button,
-.signup-button {
+.form-group input[type="text"]:focus,
+.form-group textarea:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+.form-group span {
+    color: red;
+    font-size: 0.9rem;
+}
+
+button[type="submit"] {
     padding: 0.5rem 1rem;
-    margin: 10px;
+    background-color: #007bff;
+    color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    background-color: #007bff;
-    color: white;
     transition: background-color 0.2s;
 }
 
-.signup-button {
-    background-color: #28a745;
-    margin: auto;
-}
-
-.login-button:hover {
+button[type="submit"]:hover {
     background-color: #0056b3;
-}
-
-.signup-button:hover {
-    background-color: #218838;
-}
-
-.forgot-password {
-    display: block;
-    margin-top: 3rem;
-    color: #007bff;
-    text-decoration: none;
-}
-
-.forgot-password:hover {
-    text-decoration: underline;
 }
