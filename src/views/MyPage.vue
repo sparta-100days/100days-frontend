@@ -73,25 +73,25 @@
     <form class="my-profile-update-box" @submit.prevent="updateProfile">
         <div class="my-profile-update-container">
             <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-                <div class="mb-4">
+                <div class="mypage-form">
                     <label class="block text-gray-700 text-sm font-bold mb-2" for="nickname">
                         닉네임
                     </label>
                     <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="nickname" type="text" placeholder="닉네임" v-model="users.nickname" required>
                       <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
-                        확인
+                        중복확인
                     </button>
                   </div>
-                <div class="mb-4">
+                <div class="mypage-form">
                     <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
                         이메일
                     </label>
                     <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" type="email" placeholder="이메일" v-model="users.email" required>
                     <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
-                        확인
+                        중복확인
                     </button>
                   </div>
-                <div class="mb-6">
+                <div class="mypage-form">
                     <label class="block text-gray-700 text-sm font-bold mb-2" for="birthdate">
                         생년월일
                     </label>
@@ -111,6 +111,12 @@
           <h2>회원 탈퇴</h2>
           <form class="my-profile-delete-box">
               <div class="my-profile-delete-container">
+                <label for="delete-user">패스워드</label>
+                <input type="text" id="delete-user" v-model="users.password" required>
+                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+                        탈퇴하기 
+                    </button>
+                <span>{{ users.isDeleted }}</span>
                   <ul class="my-profile-delete-list">
                       <li v-for="(user, index) in likes" :key="index" @click="goToUserDetail(user)">
                         <p>이메일: {{ user.email }}</p>
@@ -136,7 +142,8 @@ data() {
     users: {
       nickname: '',
       email: '',
-      birth: ''
+      birth: '',
+      isDeleted: ''
     },
     selectedMenu: '',
   };
@@ -190,7 +197,7 @@ methods: {
                 alert('회원 정보 업데이트에 실패하였습니다.');
             }
         },
-        // 기존 메소드...
+
     },
 };
 </script>
@@ -237,6 +244,61 @@ h2 {
   color: #333;
 }
 
+.mypage-form {
+    margin-bottom: 20px; /* 폼 간격 조정 */
+  }
+
+.mypage-form label {
+  display: flex;
+  flex-direction: column;
+  color: rebeccapurple; 
+  margin-bottom: 8px; /* 라벨과 입력 필드 간격 */
+  font-size: 0.875rem; /* 14px */
+  font-weight: bold;
+}
+
+.mypage-form input {
+  width: 100%;
+  padding: 12px 15px; 
+  border: 1px solid #cbd5e0;
+  border-radius: 8px; 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+  font-size: 0.875rem; 
+  color: #4a5568; 
+}
+
+.mypage-form input:focus {
+  outline: none;
+  border-color: #63b3ed; 
+  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5); 
+}
+
+.mypage-form button {
+  display: inline-block;
+  background-color: #4299e1; 
+  color: white; 
+  font-weight: bold;
+  margin: 10px 0px;
+  padding: 10px 20px; 
+  border-radius: 8px; 
+  cursor: pointer; 
+  transition: background-color 0.3s; 
+}
+
+.mypage-form button:hover {
+  background-color: #2b6cb0; 
+}
+
+/* 추가적인 레이아웃 조정을 위한 Flex 스타일 */
+.flex {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; 
+}
+
+.flex button {
+  margin-top: 20px; 
+}
 
 /* 검색 입력 및 버튼 스타일 */
 .search-input, .check-button {
