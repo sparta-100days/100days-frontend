@@ -1,9 +1,8 @@
-/* Main.css */
-
-/* 전체 컨테이너 스타일 */
+@import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Hahmlet:wght@100..900&family=Nanum+Myeongjo&family=Noto+Sans+KR:wght@300&display=swap');
 
 body {
     margin: 0; /* body 요소의 기본 마진 제거 */
+    font-family: 'Noto Sans KR', sans-serif; /* 폰트를 전체적으로 설정 */
 }
 
 .main-content {
@@ -23,9 +22,9 @@ body {
 
 /* 첫 번째 섹션 스타일 */
 .section1 {
-    background: url("@/assets/img/vue-mk-header.jpg") no-repeat center;
+    background: url("@/assets/img/back.jpg") no-repeat center;
     background-size: cover; /* 배경 이미지를 가득 채우도록 설정 */
-    height: calc(100vh - 60px); /* 높이를 브라우저 높이에서 메뉴의 높이(60px)를 뺀 값으로 설정 */
+    height: calc(100vh - 60px);
 }
 
 .section1 h1 {
