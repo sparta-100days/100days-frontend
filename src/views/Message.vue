@@ -24,7 +24,7 @@
               <label for="title">제목</label>
               <input type="text" id="title" v-model="CreateMessageRequest.title" required />
               <label for="content">내용:</label>
-            <textarea
+            <textarea rows="10"
               id="content"
               v-model="CreateMessageRequest.content"
               required
@@ -243,6 +243,8 @@ export default {
 .side-message-menu {
   margin: 100px;
   width: 200px;
+  display: flex;
+  flex-direction: column;
   border-right: 1px solid #eee;
   cursor: pointer;
 }
@@ -255,10 +257,15 @@ export default {
   background-color: #f1e2d9;
 }
 .main-content {
-  margin: 100px 100px 100px 10px;
+  margin: 100px 50px 50px 80px;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
+}
+
+.submit-btn {
+  width: 100%;
+  margin: -10px 0px auto 15px;
 }
 
 .form-group label{
