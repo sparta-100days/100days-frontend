@@ -7,17 +7,29 @@
         <router-link to="/resolutions">둘러보기</router-link>
       </div>
       <div class="account-menu" v-if="windowWidth > 768">
-        <router-link to="/login">
-          <img class="login-icon" src="../assets/img/login.png" alt="login" @click="goToMainPage">
+        <router-link to="/login" class="icon-link" data-text="로그인">
+          <div class="icon-container">
+            <img class="login-icon" src="../assets/img/login.png" alt="login" @click="goToMainPage">
+            <span class="icon-text">로그인</span>
+          </div>
         </router-link>
-        <router-link to="/signup">
-          <img class="signup-icon" src="../assets/img/signup.png" alt="signup" @click="goToMainPage">
+        <router-link to="/signup" class="icon-link" data-text="회원가입">
+          <div class="icon-container">
+            <img class="signup-icon" src="../assets/img/signup.png" alt="signup" @click="goToMainPage">
+            <span class="icon-text">회원가입</span>
+          </div>
         </router-link>
-        <router-link to="/myInfo">
-          <img class="myinfo-icon" src="../assets/img/myInfo.png" alt="myinfo" @click="goToMainPage">
+        <router-link to="/myInfo" class="icon-link" data-text="회원정보">
+          <div class="icon-container">
+            <img class="myinfo-icon" src="../assets/img/myInfo.png" alt="myinfo" @click="goToMainPage">
+            <span class="icon-text">회원정보</span>
+          </div>
         </router-link>
-        <router-link to="/message">
-          <img class="message-icon" src="../assets/img/message.png" alt="message" @click="goToMainPage">
+        <router-link to="/message" class="icon-link" data-text="쪽지">
+          <div class="icon-container">
+            <img class="message-icon" src="../assets/img/message.png" alt="message" @click="goToMainPage">
+            <span class="icon-text">쪽지</span>
+          </div>
         </router-link>
       </div>
       <div class="dropdown" v-else @mouseenter="showDropdown = true" @mouseleave="showDropdown = false">
