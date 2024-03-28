@@ -7,6 +7,7 @@ import Login from "@/views/user/Login.vue";
 import SignUp from "@/views/user/SignUp.vue";
 import Message from "@/views/Message.vue";
 import MyPage from "@/views/MyPage.vue";
+import MyPage from "@/views/MyPage.vue";
 
 
 const routes = [
