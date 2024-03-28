@@ -24,9 +24,9 @@
             </ul>
           </div>
           <div class="pagination">
-        <button @click="prevPage" :disabled="currentPage <= 1">이전</button>
-        <button @click="nextPage" :disabled="currentPage >= pageCount">다음</button>
-      </div>
+            <button @click="prevPage" :disabled="currentPage <= 1">이전</button>
+            <button @click="nextPage" :disabled="currentPage >= pageCount">다음</button>
+          </div>
         </form>
       </div>
       <div class="my-like-form" v-if="selectedMenu === 'my-like-list'">
@@ -49,16 +49,9 @@
           <div class="my-password-container">
             <label for="updated-password">패스워드</label>
             <input type="text" id="update-password" v-model="user.changepassword" required>
-            <button class="password-update-button" type="submit">
+            <button class="password-update-button" type="submit" @click="updateUserPassword(changepassword)">
               수정하기
             </button>
-            <ul class="password-change">
-              <li v-for="(user, index) in likes" :key="index" @click="goToUserDetail(user)">
-                <h3>{{ user.title }}</h3>
-                <p>카테고리: {{ user.category }}</p>
-                <p>좋아요: {{ user.likeCount }}</p>
-              </li>
-            </ul>
           </div>
         </form>
       </div>
@@ -81,6 +74,22 @@
             <div class="my-profile-update-container">
               <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
                 <div class="mypage-form">
+                  <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
+                    비밀번호
+                  </label>
+                  <input
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    id="password" type="password" placeholder="비밀번호">
+                  <button
+                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                    @click="checkDuplicate('password')" type="button"> <!-- type을 button으로 변경하여 폼 제출을 방지 -->
+                    확인
+                  </button>
+                  <p v-show="errorEmail" class="input-error">
+                    비밀번호가 맞지 않습니다.
+                  </p>
+                </div>
+                <div class="mypage-form">
                   <label class="block text-gray-700 text-sm font-bold mb-2" for="nickname">
                     닉네임
                   </label>
@@ -89,25 +98,12 @@
                     id="nickname" type="text" placeholder="닉네임" v-model="user.nickname" required>
                   <button
                     class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                    @blur="checkDuplicate" type="submit">
+                    @click="checkDuplicate('nickname')" type="submit"> <!-- type을 button으로 변경하여 폼 제출을 방지 -->
                     중복확인
                   </button>
-                </div>
-                <div class="mypage-form">
-                  <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
-                    이메일
-                  </label>
-                  <input
-                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    id="email" type="email" placeholder="이메일" v-model="user.email" required>
-                  <p v-show="errorEmail" class="input-error">
-                    이메일 형식이 올바르지 않습니다. 다시 한번 확인 해주세요
+                  <p v-show="errorNickname" class="input-error">
+                    닉네임이 중복됩니다. 다른 닉네임을 사용해주세요.
                   </p>
-                  <button
-                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                    type="submit">
-                    중복확인
-                  </button>
                 </div>
                 <div class="mypage-form">
                   <label class="block text-gray-700 text-sm font-bold mb-2" for="birthdate">
@@ -144,7 +140,7 @@
 </template>
 
 <script>
-import {apiClient} from "./index.js"
+import { apiClient } from "./index.js"
 
 export default {
   data() {
@@ -155,16 +151,24 @@ export default {
         birth: '',
         email: '',
         nickname: '',
-        password:''
+        password: ''
       },
+      ModifyInfoRequest: {
+        nickname: "",
+        birth:"",
+        password:""
+      },
+      newPassword: '',
+      errorEmail: false,
+      errorNickname: false,
+      isNicknameDuplicate: false,
+      isEmailDuplicate: false,
       selectedMenu: '',
     };
   },
   mounted() {
     this.getResolutionAllData();
     this.getLikeAllData();
-
-    //내 정보
     this.getUserInfoData();
   },
 
@@ -178,9 +182,6 @@ export default {
     goToLikeDetail(like) {
       this.$router.push(`/likes/${like.id}`);
     },
-    goToUserDetail(user) {
-      this.$router.push(`/users/${user.id}`);
-    },
     async getResolutionAllData() {
       const response = await apiClient.get("/api/v1/resolution")
       this.resolutions = response.data.content;
@@ -193,47 +194,59 @@ export default {
       const response = await apiClient.get("/api/users/myinfo");
       this.user = response.data;
     },
-    async getUserPasswordData() {
-      const response = await apiClient.put("/api/users/passwordChange");
-      console.log("🚀  response:", response)
-      this.newPassword = response.data;
-    },
-    // async checkDuplicate() {
-    //   this.availableEmail = true;
-    //   if (!validateEmail(this.email)) {
-    //     this.availableEmail = false;
-    //     return;
-    //   } else {
-    //     this.availableEmail = true;
-    //   }
-    //   const reponse = await checkDuplicateEmail(this.email);
-    //   if (!reponse.data) {
-    //     this.availableEmail = false;
-    //   } else {
-    //     this.availableEmail = true;
-    //   }
-    // },
-    checkemail() {
-      // 이메일 형식 검사
-      const validateId =
-        /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i
-
-      if (!validateId.test(this.users.email) || !this.users.email) {
-        this.errorEmail = true
-        return
+    async updateUserPassword() {
+      if (!this.newPassword) {
+        alert('새 비밀번호를 입력해주세요.');
+        return;
       }
-      this.errorEmail = false
+      try {
+        const response = await apiClient.put("/api/users/passwordChange", { newPassword: this.newPassword });
+        console.log(response);
+        alert('비밀번호가 성공적으로 변경되었습니다.');
+        this.newPassword = ''; // 비밀번호 변경 후 필드 초기화
+      } catch (error) {
+        console.error('비밀번호 변경 실패:', error);
+        alert('비밀번호 변경에 실패하였습니다.');
+      }
+    },
+
+    async validateField(field, value) {
+      try {
+        const response = await apiClient.get(`/api/users/myinfo?${field}=${value}`);
+        if (response.data.isDuplicate) {
+          alert(`${field}가 중복되었습니다.`);
+          return false;
+        }
+        alert(`${field} 사용이 가능합니다.`);
+        return true;
+      } catch (error) {
+        console.error(`${field} 검사 실패:`, error);
+        alert(`${field} 검사 중 오류가 발생했습니다.`);
+        return false;
+      }
+    },
+    async checkDuplicate(field) {
+      if (field === 'nickname') {
+        const isNicknameValid = await this.validateField('nickname', this.user.nickname);
+        this.isNicknameDuplicate = !isNicknameValid;
+      } else if (field === 'email') {
+        await this.checkEmail();
+      }
     },
     async updateProfile() {
       try {
-        const response = await apiClient.put("/api/users", this.user);
+        const response = await apiClient.put("/api/users", {
+          password: this.ModifyInfoRequest.password,
+          nickname: this.ModifyInfoRequest.nickname,
+          birth: this.ModifyInfoRequest.birth,
+        });
+        console.log(response);
         alert('회원 정보가 성공적으로 업데이트되었습니다.');
       } catch (error) {
         console.error('회원 정보 업데이트 실패:', error);
         alert('회원 정보 업데이트에 실패하였습니다.');
       }
-    },
-
+    }
   },
 };
 </script>
@@ -432,4 +445,3 @@ h2 {
   background-color: #0056b3;
 }
 </style>
-
