@@ -15,22 +15,24 @@
           <button type="submit" class="login-button"><p class="login-text">Login</p></button>
         </div>
         <div class="forgot-password">
-          <a href="#" class="forgot-password-link" @click.prevent="openPasswordResetPopup">비밀번호 찾기</a>
+          <a href="#" class="forgot-password-link" @click.prevent="openReissuePasswordPopup">비밀번호 찾기</a>
           <span class="separator">|</span>
-          <a href="#" class="email-find-link">이메일 찾기</a>
+          <a href="#" class="email-find-link" @click.prevent="openSearchEmailPopup">이메일 찾기</a>
         </div>
         <div class="social-login-buttons">
           <button class="google-login-button"><img src="@/assets/img/GOOGLE.png" class="google" alt="Google Logo"></button>
           <button class="kakao-login-button"><img src="@/assets/img/KAKAO.png" class="kakao" alt="Kakao Logo"></button>
         </div>
       </form>
-      <PasswordResetPopup v-if="showPasswordResetPopup" @close="closePasswordResetPopup"/>
+      <ReissuePasswordPopup v-if="showReissuePasswordPopup" @close="closeReissuePasswordPopup"/>
+      <SearchEmailPopup v-if="showSearchEmailPopup" @close="closeSearchEmailPopup"/>
     </div>
   </div>
 </template>
 
 <script>
-import PasswordResetPopup from "../../components/PasswordResetPopup.vue";
+import ReissuePasswordPopup from "../../components/ReissuePasswrodPopup.vue";
+import SearchEmailPopup from "@/components/SearchEmailPopup.vue";
 import axios from "axios";
 
 export default {
@@ -40,11 +42,13 @@ export default {
         email: "",
         password: "",
       },
-      showPasswordResetPopup: false,
+      showReissuePasswordPopup: false,
+      showSearchEmailPopup: false,
     };
   },
   components: {
-    PasswordResetPopup,
+    ReissuePasswordPopup,
+    SearchEmailPopup,
   },
   methods: {
     async submitLogin() {
@@ -61,14 +65,20 @@ export default {
       // 회원가입 페이지로 이동하는 로직을 여기에 구현합니다.
       this.$router.push("/signup");
     },
-    closePasswordResetPopup() {
-      this.showPasswordResetPopup = false;
+    closeReissuePasswordPopup() {
+      this.showReissuePasswordPopup = false;
     },
-    openPasswordResetPopup() {
-      this.showPasswordResetPopup = true;
+    openReissuePasswordPopup() {
+      this.showReissuePasswordPopup = true;
+    },
+    closeSearchEmailPopup() {
+      this.showSearchEmailPopup = false;
+    },
+    openSearchEmailPopup() {
+      this.showSearchEmailPopup = true;
     },
   },
 };
 </script>
 
-<style src="../../assets/css/Login.css" lang="css"></style>
+<style src="../../assets/css/user/Login.css" lang="css"></style>

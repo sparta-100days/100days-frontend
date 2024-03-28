@@ -1,3 +1,5 @@
+
+
 .login-background {
     position: fixed;
     top: 0;
@@ -151,12 +153,13 @@
     animation: shimmer 2s infinite linear;
 }
 
-
 /* 입력 폼에 포커스 시 테두리 색상 변경 */
 .form-group input[type="email"]:focus,
 .form-group input[type="password"]:focus {
-    border-color: #8a2be2; /* 포커스 시 보라색 테두리 색상 적용 */
+    border-color: #8a2be2; /* 핑크색 테두리 색상 적용 */
+    border-width: 2px; /* 테두리 선 굵기 조정 */
     outline: none; /* 포커스 효과 제거 */
+    box-shadow: 0 0 5px rgba(72, 209, 204, 0.8); /* 포커스 시 반짝이는 효과 추가 */
 }
 
 .forgot-password {
@@ -172,8 +175,14 @@
     color: #FFB0B0FF; /* 요청된 색상 적용 */
 }
 
+.forgot-password-link {
+    color: #000000; /* 로그인 타이틀과 같은 검정색 */
+    text-decoration: none;
+}
+
 .email-find-link {
     color: #000000; /* 로그인 타이틀과 같은 검정색 */
+    text-decoration: none;
 }
 
 .social-login-buttons {

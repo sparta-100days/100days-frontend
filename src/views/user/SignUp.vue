@@ -70,4 +70,4 @@ export default {
 
 </script>
 
-<style src="../../assets/css/SignUp.css" lang="css"></style>
+<style src="../../assets/css/user/SignUp.css" lang="css"></style>
