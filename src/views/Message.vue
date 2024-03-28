@@ -49,7 +49,7 @@
             </tr>
           </tbody>
         </table>
-        <button @click="deleteSelectedMessages">선택된 쪽지 삭제</button>
+        <button @click="deleteSendMessages(sendMessage.id)">선택된 쪽지 삭제</button>
       </div>
       <div class="table-form" v-if="selectedMenu === 'received'">
         <h2>받은 쪽지함</h2>
@@ -75,7 +75,7 @@
             </tr>
           </tbody>
         </table>
-        <button @click="deleteSelectedMessages">선택된 쪽지 삭제</button>
+        <button @click="deleteData()">선택된 쪽지 삭제</button>
       </div>
       <div class="table-form" v-if="selectedMenu === 'admin'">
         <h2>관리자 쪽지</h2>
@@ -101,13 +101,13 @@
             </tr>
           </tbody>
         </table>
-        <button @click="deleteSelectedMessages">선택된 쪽지 삭제</button>
+        <button @click="deleteData()">선택된 쪽지 삭제</button>
       </div>
       <div class="message-detail" v-if="selectedMenu === 'detail' && selectedMessage">
         <h2>쪽지 상세보기</h2>
         <div><strong>작성자:</strong> {{ selectedMessage.senderNickname || 'N/A' }}</div>
         <div><strong>수신자:</strong> {{ selectedMessage.receiverNickname || 'N/A' }}</div>
-        <div><strong>전송 시간:</strong> {{ selectedMessage.date }}</div>
+        <div><strong>전송 시간:</strong> {{ selectedMessage.sentAt }}</div>
         <hr>
         <h3>{{ selectedMessage.title }}</h3>
         <p>{{ selectedMessage.content }}</p>
@@ -125,6 +125,7 @@ export default {
       selectedMenu(menu) {
         this.selectedMenu = menu;
       },
+      message: [],
 
       CreateMessageRequest: {
         title: '',
@@ -161,7 +162,7 @@ export default {
           readStatus: false,
         },
       ],
-      selectedMessage: null,
+      selectedMessage: '',
       selectAll: false,
     };
   },
@@ -200,11 +201,21 @@ export default {
       );
       this.adminMessages = response.data.content
     },
+    async deleteSendMessages(id) {
+      try {
+        const response = await apiClient.delete(
+          `/api/messages/${id}`
+        )
+        this.sendMessage = this.sendMessage.filter(sendMessage => sendMessage.id !== id)
+      } catch (Error) {
+        console.error('실패했습니다.', Error);
+      }
+    },
     toggleSelectAll() {
       this.selectAll = !this.selectAll;
-      this.sentMessages.forEach((message) => {
-        message.selected = this.selectAll;
-      });
+      // this.sentMessages.forEach((message) => {
+      //   message.selected = this.selectAll;
+      // });
     },
     selectMessage(message) {
       this.selectedMessage = message;
@@ -222,7 +233,7 @@ export default {
 <style>
 .message-container {
   display: grid;
-  grid-template-columns: 15% 60%;
+  grid-template-columns: 15% 70%;
   height: 100%;
 }
 
@@ -232,6 +243,7 @@ export default {
   display: flex;
   flex-direction: column;
   border-right: 1px solid #eee;
+  color: rgb(65, 35, 95);
   cursor: pointer;
 }
 
@@ -249,6 +261,7 @@ export default {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
+  color: rgb(65, 35, 95);
 }
 
 .submit-btn {
