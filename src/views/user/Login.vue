@@ -31,7 +31,7 @@
 
 <script>
 import PasswordResetPopup from "../../components/PasswordResetPopup.vue";
-import axios from "axios";
+import {apiClient} from "../index.js"
 
 export default {
   data() {
@@ -49,13 +49,14 @@ export default {
   methods: {
     async submitLogin() {
       // 로그인 요청 로직을 여기에 구현
-      const response = await axios.post(
-        "http://localhost:8080/api/users/login",
+      const response = await apiClient.post(
+        "/api/users/login",
         { email: this.loginRequest.email, password: this.loginRequest.password }
       );
       console.log("로그인 요청: ", response.data.accessToken);
       localStorage.setItem("AccessToken", response.data.accessToken);
       console.log("토큰: ", localStorage.getItem("AccessToken"));
+      this.$router.push("/")
     },
     goToSignUp() {
       // 회원가입 페이지로 이동하는 로직을 여기에 구현합니다.
