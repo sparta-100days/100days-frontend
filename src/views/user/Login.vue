@@ -1,20 +1,31 @@
 <template>
-  <div class="login-container">
-    <h2>로그인</h2>
-    <form @submit.prevent="submitLogin">
-      <div class="form-group">
-        <label for="email">이메일</label>
-        <input type="email" id="email" v-model="loginRequest.email" required placeholder="example@email.com">
-      </div>
-      <div class="form-group">
-        <label for="password">비밀번호</label>
-        <input type="password" id="password" v-model="loginRequest.password" required placeholder="8~16자의 영문, 숫자, 특수문자">
-      </div>
-      <button type="submit" class="login-button">로그인</button>
-      <button type="button" @click="goToSignUp" class="signup-button">회원가입</button>
-      <a href="#" class="forgot-password" @click.prevent="openPasswordResetPopup">비밀번호 찾기</a>
-    </form>
-    <PasswordResetPopup v-if="showPasswordResetPopup" @close="closePasswordResetPopup"/>
+  <div class="login-background">
+    <div class="login-container">
+      <h2>로그인</h2>
+      <form @submit.prevent="submitLogin">
+        <div class="form-group">
+          <label for="email"></label>
+          <input type="email" id="email" v-model="loginRequest.email" required placeholder="example@email.com">
+        </div>
+        <div class="form-group">
+          <label for="password"></label>
+          <input type="password" id="password" v-model="loginRequest.password" required placeholder="8~16자의 영문, 숫자, 특수문자">
+        </div>
+        <div class="login-button-container">
+          <button type="submit" class="login-button"><p class="login-text">Login</p></button>
+        </div>
+        <div class="forgot-password">
+          <a href="#" class="forgot-password-link" @click.prevent="openPasswordResetPopup">비밀번호 찾기</a>
+          <span class="separator">|</span>
+          <a href="#" class="email-find-link">이메일 찾기</a>
+        </div>
+        <div class="social-login-buttons">
+          <button class="google-login-button"><img src="@/assets/img/GOOGLE.png" class="google" alt="Google Logo"></button>
+          <button class="kakao-login-button"><img src="@/assets/img/KAKAO.png" class="kakao" alt="Kakao Logo"></button>
+        </div>
+      </form>
+      <PasswordResetPopup v-if="showPasswordResetPopup" @close="closePasswordResetPopup"/>
+    </div>
   </div>
 </template>
 
@@ -62,4 +73,3 @@ export default {
 </script>
 
 <style src="../../assets/css/Login.css" lang="css"></style>
-

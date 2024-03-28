@@ -8,18 +8,22 @@
       </div>
       <div class="account-menu" v-if="windowWidth > 768">
         <router-link to="/login">
-          <button class="login-btn">로그인</button>
+          <img class="login-icon" src="../assets/img/login.png" alt="login" @click="goToMainPage">
         </router-link>
-        <router-link to="/myPage">
-          <button class="login-btn">마이페이지</button>
+        <router-link to="/signup">
+          <img class="signup-icon" src="../assets/img/signup.png" alt="signup" @click="goToMainPage">
+        </router-link>
+        <router-link to="/myInfo">
+          <img class="myinfo-icon" src="../assets/img/myInfo.png" alt="myinfo" @click="goToMainPage">
         </router-link>
         <router-link to="/message">
-          <button class="login-btn">내 쪽지함</button>
+          <img class="message-icon" src="../assets/img/message.png" alt="message" @click="goToMainPage">
         </router-link>
       </div>
-      <div class="dropdown" v-else>
-        <button class="dropdown-btn" @click="toggleDropdown">메뉴</button>
-        <div v-show="showDropdown" class="dropdown-content">
+      <div class="dropdown" v-else @mouseenter="showDropdown = true" @mouseleave="showDropdown = false">
+        <button class="dropdown-btn" @mouseenter="showDropdown = true" @mouseleave="showDropdown = false">메뉴</button>
+        <div v-show="showDropdown" class="dropdown-content show" :style="{ transform: 'translateX(calc(-50% + ' +
+        dropdownPositionX + 'px))' }" @mouseenter="showDropdown = true" @mouseleave="showDropdown = false">
           <router-link to="/create-resolution">목표작성</router-link>
           <router-link to="/resolutions">둘러보기</router-link>
           <router-link to="/login">로그인</router-link>
@@ -37,7 +41,8 @@ export default {
       showDropdown: false,
       windowWidth: window.innerWidth,
       isMenuFixed: false,
-      lastScrollPosition: 0
+      lastScrollPosition: 0,
+      dropdownPositionX: 0,
     };
   },
   methods: {
@@ -48,13 +53,17 @@ export default {
     },
     toggleDropdown() {
       this.showDropdown = !this.showDropdown;
+      if (this.showDropdown) {
+        // 드롭다운 메뉴가 펼쳐질 때 현재 마우스의 X 위치를 저장
+        this.dropdownPositionX = event.clientX;
+      }
     },
     goToMainPage() {
       this.$router.push("/");
     },
     handleResize() {
       this.windowWidth = window.innerWidth;
-    }
+    },
   },
   created() {
     window.addEventListener("scroll", this.handleScroll);
@@ -63,7 +72,7 @@ export default {
   unmounted() {
     window.removeEventListener("scroll", this.handleScroll);
     window.removeEventListener("resize", this.handleResize);
-  }
+  },
 }
 </script>
 

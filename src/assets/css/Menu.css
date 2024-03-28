@@ -1,3 +1,60 @@
+@import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Gowun+Dodum&family=Hahmlet:wght@100..900&family=Nanum+Myeongjo&family=Noto+Sans+KR:wght@300&display=swap');
+
+body {
+    font-family: 'Black Han Sans', sans-serif;
+}
+
+.login-icon,
+.signup-icon,
+.myinfo-icon,
+.message-icon {
+    /* 그라데이션 색상 설정 */
+    background: linear-gradient(to right, #ffc0cb, #add8e6);
+    /* 아이콘 크기 및 여백 설정 */
+    width: 20px;
+    height: 20px;
+    margin: 0 5px;
+    /* 그라데이션을 뒤에 표시하기 위해 Z 인덱스를 설정 */
+    z-index: 1;
+    /* 아이콘 모양 및 크기 설정 */
+    font-size: 12px;
+    /* 원형 아이콘 모양 설정 */
+    border-radius: 50%;
+    /* 그라데이션 색상을 반투명하게 만들어 파스텔 톤으로 표현 */
+    opacity: 0.6; /* 기존 0.8에서 0.6으로 수정 */
+    /* 아이콘을 버튼처럼 보이도록 설정 */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    /* 아이콘에 버무린 효과 추가 */
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+    /* 아이콘에 마우스를 올렸을 때 효과 추가 */
+    position: relative;
+    overflow: hidden;
+}
+
+/* 아이콘에 마우스를 올렸을 때 테두리에 그림자 효과를 추가하여 빛무리 효과 시뮬레이션 */
+.login-icon:hover,
+.signup-icon:hover,
+.myinfo-icon:hover,
+.message-icon:hover {
+    box-shadow: 0 0 20px 10px rgba(255, 255, 255, 0.5);
+}
+
+.fixed-menu {
+    position: fixed;
+    top: 30px;
+    left: 0;
+    width: 100%;
+    z-index: 999;
+    height: 70px;
+    display: block;
+    background-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(20px);
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
 
 .menu-links {
     display: flex;
@@ -5,9 +62,9 @@
     margin-bottom: 0;
     justify-content: space-between;
     align-items: center;
-    background: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.6);
     padding: 10px;
-    width: 100%; /* 메뉴의 가로 길이를 창의 가로 길이와 일치하도록 설정 */
+    width: 100%;
 }
 
 .logo {
@@ -35,16 +92,6 @@
     position: relative;
 }
 
-.fixed-menu {
-    position: fixed;
-    top: 30px; /* 상단에서 30px 띄워진 위치에 고정 */
-    left: 0;
-    width: 100%;
-    z-index: 999;
-    height: 70px; /* 메뉴의 높이만큼 설정 (전체 높이에서 30px을 뺀 값) */
-    display: flow;
-}
-
 .links {
     flex: 1;
     display: flex;
@@ -56,12 +103,13 @@
     margin: 0 10px;
     text-decoration: none;
 }
-.account-menu{
+
+.account-menu {
     margin-right: 50px;
 }
 
 .login-btn {
-    background-color: #eab3af;
+    background-color: #ffb0b0;
     color: white;
     padding: 8px 20px;
     border: none;
@@ -78,10 +126,18 @@
     display: none;
     position: absolute;
     top: 100%;
-    right: 0;
-    background-color: rgba(234, 179, 175, 0.7);
-    min-width: 160px;
+    left: -1.1cm; /* 버튼에 상대적으로 배치되도록 왼쪽으로 이동 */
+    background-color: rgb(255, 176, 176, 0.8);
+    min-width: 200px;
     z-index: 1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.dropdown-content.show {
+    display: block;
+    margin-right: 10px;
+    opacity: 1;
 }
 
 .dropdown-content a {
@@ -92,7 +148,7 @@
 }
 
 .dropdown-btn {
-    background-color: #eab3af;
+    background-color: #ffb0b0;
     color: white;
     padding: 8px 16px;
     border: none;
@@ -105,4 +161,8 @@
     display: block;
     border-radius: 2px;
     margin-right: 35px;
+}
+
+.menu-links a {
+    font-weight: 700; /* 폰트를 두껍게 설정 */
 }
