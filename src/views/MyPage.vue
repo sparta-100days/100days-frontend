@@ -48,8 +48,12 @@
         <form class="my-password-box">
           <div class="my-password-container">
             <label for="updated-password">패스워드</label>
-            <input type="text" id="update-password" v-model="user.changepassword" required>
-            <button class="password-update-button" type="submit" @click="updateUserPassword(changepassword)">
+            <input type="text" id="update-password" v-model="UserPasswordRequest.password" required>
+          </div>
+          <div class="my-password-container">
+            <label for="updated-password">패스워드 다시 입력해주세요!</label>
+            <input type="text" id="update-password" v-model="UserPasswordRequest.newPassword" required>
+            <button class="password-update-button" type="submit" @click="updateUserPassword(newPassword)">
               수정하기
             </button>
           </div>
@@ -82,7 +86,7 @@
                     id="password" type="password" placeholder="비밀번호">
                   <button
                     class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                    @click="checkDuplicate('password')" type="button"> <!-- type을 button으로 변경하여 폼 제출을 방지 -->
+                    @click="checkPassword('password')" type="button"> <!-- type을 button으로 변경하여 폼 제출을 방지 -->
                     확인
                   </button>
                   <p v-show="errorEmail" class="input-error">
@@ -149,20 +153,9 @@ export default {
       likes: [],
       user: {
         birth: '',
-        email: '',
         nickname: '',
         password: ''
       },
-      ModifyInfoRequest: {
-        nickname: "",
-        birth:"",
-        password:""
-      },
-      newPassword: '',
-      errorEmail: false,
-      errorNickname: false,
-      isNicknameDuplicate: false,
-      isEmailDuplicate: false,
       selectedMenu: '',
     };
   },
@@ -194,59 +187,6 @@ export default {
       const response = await apiClient.get("/api/users/myinfo");
       this.user = response.data;
     },
-    async updateUserPassword() {
-      if (!this.newPassword) {
-        alert('새 비밀번호를 입력해주세요.');
-        return;
-      }
-      try {
-        const response = await apiClient.put("/api/users/passwordChange", { newPassword: this.newPassword });
-        console.log(response);
-        alert('비밀번호가 성공적으로 변경되었습니다.');
-        this.newPassword = ''; // 비밀번호 변경 후 필드 초기화
-      } catch (error) {
-        console.error('비밀번호 변경 실패:', error);
-        alert('비밀번호 변경에 실패하였습니다.');
-      }
-    },
-
-    async validateField(field, value) {
-      try {
-        const response = await apiClient.get(`/api/users/myinfo?${field}=${value}`);
-        if (response.data.isDuplicate) {
-          alert(`${field}가 중복되었습니다.`);
-          return false;
-        }
-        alert(`${field} 사용이 가능합니다.`);
-        return true;
-      } catch (error) {
-        console.error(`${field} 검사 실패:`, error);
-        alert(`${field} 검사 중 오류가 발생했습니다.`);
-        return false;
-      }
-    },
-    async checkDuplicate(field) {
-      if (field === 'nickname') {
-        const isNicknameValid = await this.validateField('nickname', this.user.nickname);
-        this.isNicknameDuplicate = !isNicknameValid;
-      } else if (field === 'email') {
-        await this.checkEmail();
-      }
-    },
-    async updateProfile() {
-      try {
-        const response = await apiClient.put("/api/users", {
-          password: this.ModifyInfoRequest.password,
-          nickname: this.ModifyInfoRequest.nickname,
-          birth: this.ModifyInfoRequest.birth,
-        });
-        console.log(response);
-        alert('회원 정보가 성공적으로 업데이트되었습니다.');
-      } catch (error) {
-        console.error('회원 정보 업데이트 실패:', error);
-        alert('회원 정보 업데이트에 실패하였습니다.');
-      }
-    }
   },
 };
 </script>
@@ -389,15 +329,6 @@ h2 {
   margin-top: 20px;
 }
 
-/* 검색 입력 및 버튼 스타일 */
-.search-input,
-.check-button {
-  padding: 10px;
-  margin: 10px 0;
-  display: block;
-  width: 95%;
-}
-
 /* 리스트 아이템 스타일 */
 .my-resolution-list,
 .my-like-list,
@@ -416,32 +347,5 @@ h2 {
 .my-resolution-list li:hover,
 .my-like-list li:hover {
   background-color: #f8f8f8;
-}
-
-.button-container {
-  position: relative;
-  height: 100px;
-  /* 높이는 예시입니다. 필요에 따라 조정하세요. */
-}
-
-.custom-button {
-  position: relative;
-  top: -30px;
-  /* 상단으로부터 50% 위치 */
-  left: 290px;
-  /* 왼쪽으로부터 50% 위치 */
-  transform: translate(-50%, -50%);
-  /* 정확한 중앙 정렬 */
-  background-color: #007bff;
-  color: white;
-  font-weight: bold;
-  padding: 12px 24px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.custom-button:hover {
-  background-color: #0056b3;
 }
 </style>
