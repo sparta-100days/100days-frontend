@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import {apiClient} from "../index.js"
 
 export default {
   data() {
@@ -35,15 +35,8 @@ export default {
       this.$router.push(`/resolution/${resolution.id}`)
     },
     async getAllData(){
-      const token = localStorage.getItem("AccessToken");
-      // 클릭한 목표의 상세 페이지로 네비게이션
-      const data = await axios.get("http://localhost:8080/api/v1/resolution", {
-        headers: {
-          Authorization: `Bearer ${token}`, // 헤더에 토큰을 추가합니다.
-        },
-      });
-      console.log(data);
-      this.resolutions = data.data.content;
+      const response = await apiClient.get("/api/v1/resolution")
+      this.resolutions = response.data.content;
     },
     // eslint-disable-next-line no-unused-vars
     searchResolutions(query) {
