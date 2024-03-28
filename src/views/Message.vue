@@ -14,7 +14,7 @@
         <form @submit.prevent="summitMessage">
           <div class="info-box">
             <div class="form-group">
-              <label for="receiverNickname">받는 사람 닉네임:</label>
+              <label for="receiverNickname">받는 사람 닉네임</label>
               <input
                 type="text"
                 id="receiverNickname"
@@ -23,7 +23,7 @@
               />
               <label for="title">제목</label>
               <input type="text" id="title" v-model="CreateMessageRequest.title" required />
-              <label for="content">내용:</label>
+              <label for="content">내용</label>
             <textarea rows="10"
               id="content"
               v-model="CreateMessageRequest.content"
@@ -48,7 +48,7 @@
               </th>
               <th>받는사람</th>
               <th>제목</th>
-              <th>날짜</th>
+              <th>보낸 날짜</th>
             </tr>
           </thead>
           <tbody>
@@ -62,7 +62,7 @@
               </td>
               <td>{{ message.receiverNickname }}</td>
               <td>{{ message.title }}</td>
-              <td>{{ message.date }}</td>
+              <td>{{ message.sentAt }}</td>
             </tr>
           </tbody>
         </table>
@@ -82,7 +82,7 @@
               </th>
               <th>보낸사람</th>
               <th>제목</th>
-              <th>날짜</th>
+              <th>받은 날짜</th>
             </tr>
           </thead>
           <tbody>
@@ -164,14 +164,14 @@ export default {
         receiverNickname: '',
         content: '',
       },
-      sentMessages: [
+      sentMessages: [ 
         {
-          id: 1,
-          receiverNickname: "test_member",
-          title: "test_title",
-          content: "test_content",
-          date: "24-03-26 [13:40]",
-          selected: false,
+          id: '',
+          receiverNickname: '',
+          title: '',
+          content: '',
+          sentAt: '',
+          readStatus: false,
         },
       ],
       receivedMessages: [
@@ -198,6 +198,9 @@ export default {
       selectAll: false,
     };
   },
+  mounted() {
+    this.toggleSelectAll();
+  },
   methods: {
     selectMenu(menu) {
       this.selectedMenu = menu;
@@ -209,17 +212,25 @@ export default {
       alert("쪽지가 전송되었습니다.");
       console.log(response)
       localStorage.setItem(response.data)
-      // //초기화
-      // this.message.title = "";
-      // this.message.receiverNickname = "";
-      // this.message.content = "";
     },
-    toggleSelectAll() {
+    async toggleSelectAll() {
       this.selectAll = !this.selectAll;
-      this.sentMessages.forEach((message) => {
-        message.selected = this.selectAll;
-      });
+      const response = await apiClient.get(
+        "/api/messages/sender"
+      );
+      console.log(response.data.content)
+      this.sentMessages = response.data.content
+
+      // this.sentMessages.forEach((message) => {
+      //   message.selected = this.selectAll;
+      // });
     },
+    // async receiverMessage() {
+    //   const response = await apiClient.get(
+    //     "/api/messages/receiver"
+    //   );
+    //   this.
+    // },
     selectMessage(message) {
       this.selectedMessage = message;
       this.selectedMenu = "detail";
