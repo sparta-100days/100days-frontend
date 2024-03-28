@@ -2,10 +2,10 @@
   <div class="message-container">
     <div class="side-message-menu">
       <ul>
-        <li @click="selectMenu('write')">쪽지 작성</li>
-        <li @click="selectMenu('sent')">보낸 쪽지함</li>
-        <li @click="selectMenu('received')">받은 쪽지함</li>
-        <li @click="selectMenu('admin')">관리자에게 받은 쪽지함</li>
+        <p @click="selectMenu('write')">쪽지 작성</p>
+        <p @click="selectMenu('sent')">보낸 쪽지함</p>
+        <p @click="selectMenu('received')">받은 쪽지함</p>
+        <p @click="selectMenu('admin')">관리자에게 받은 쪽지함</p>
       </ul>
     </div>
     <div class="main-content">
@@ -14,26 +14,22 @@
         <form @submit.prevent="summitMessage">
           <div class="info-box">
             <div class="form-group">
-              <label for="title">제목:</label>
-              <input type="text" id="title" v-model="message.title" required />
-            </div>
-            <div class="form-group">
               <label for="receiverNickname">받는 사람 닉네임:</label>
               <input
                 type="text"
                 id="receiverNickname"
-                v-model="message.receiverNickname"
+                v-model="CreateMessageRequest.receiverNickname"
                 required
               />
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="content">내용:</label>
+              <label for="title">제목</label>
+              <input type="text" id="title" v-model="CreateMessageRequest.title" required />
+              <label for="content">내용:</label>
             <textarea
               id="content"
-              v-model="message.content"
+              v-model="CreateMessageRequest.content"
               required
             ></textarea>
+          </div>
           </div>
           <button type="submit" class="submit-btn">보내기</button>
         </form>
@@ -154,14 +150,19 @@
 </template>
 
 <script>
+import { apiClient } from '.';
+
 export default {
   data() {
     return {
-      selectedMenu: "write",
-      message: {
-        title: "",
-        receiverNickname: "",
-        content: "",
+      selectedMenu(menu) {
+        this.selectedMenu = menu;
+      },
+    
+      CreateMessageRequest: {
+        title: '',
+        receiverNickname: '',
+        content: '',
       },
       sentMessages: [
         {
@@ -201,13 +202,17 @@ export default {
     selectMenu(menu) {
       this.selectedMenu = menu;
     },
-    summitMessage() {
-      // 여기에 쪽지 전송 구현
+    async summitMessage() {
+      const response = await apiClient.post(
+        "/api/messages",{title: this.CreateMessageRequest.title, receiverNickname: this.CreateMessageRequest.receiverNickname, content: this.CreateMessageRequest.content}
+      );
       alert("쪽지가 전송되었습니다.");
-      //초기화
-      this.message.title = "";
-      this.message.receiverNickname = "";
-      this.message.content = "";
+      console.log(response)
+      localStorage.setItem(response.data)
+      // //초기화
+      // this.message.title = "";
+      // this.message.receiverNickname = "";
+      // this.message.content = "";
     },
     toggleSelectAll() {
       this.selectAll = !this.selectAll;
@@ -231,7 +236,7 @@ export default {
 <style>
 .message-container {
   display: grid;
-  grid-template-columns: 15% 85%;
+  grid-template-columns: 15% 60%;
   height: 100%;
 }
 
@@ -239,19 +244,25 @@ export default {
   margin: 100px;
   width: 200px;
   border-right: 1px solid #eee;
+  cursor: pointer;
 }
-.side-message-menu li {
+.side-message-menu p {
   padding: 10px;
   border: 1px solid #eee;
   border-radius: 8px;
   margin-bottom: 10px;
   cursor: pointer;
+  background-color: #f1e2d9;
 }
 .main-content {
   margin: 100px 100px 100px 10px;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
+}
+
+.form-group label{
+  color: rebeccapurple;
 }
 
 .info-box {
