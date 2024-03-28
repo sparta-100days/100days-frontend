@@ -15,21 +15,12 @@
           <div class="info-box">
             <div class="form-group">
               <label for="receiverNickname">받는 사람 닉네임</label>
-              <input
-                type="text"
-                id="receiverNickname"
-                v-model="CreateMessageRequest.receiverNickname"
-                required
-              />
+              <input type="text" id="receiverNickname" v-model="CreateMessageRequest.receiverNickname" required />
               <label for="title">제목</label>
               <input type="text" id="title" v-model="CreateMessageRequest.title" required />
               <label for="content">내용</label>
-            <textarea rows="10"
-              id="content"
-              v-model="CreateMessageRequest.content"
-              required
-            ></textarea>
-          </div>
+              <textarea rows="10" id="content" v-model="CreateMessageRequest.content" required></textarea>
+            </div>
           </div>
           <button type="submit" class="submit-btn">보내기</button>
         </form>
@@ -40,11 +31,7 @@
           <thead>
             <tr>
               <th>
-                <input
-                  type="checkbox"
-                  v-model="selectAll"
-                  @click="toggleSelectAll"
-                />
+                <input type="checkbox" v-model="selectAll" @click="toggleSelectAll" />
               </th>
               <th>받는사람</th>
               <th>제목</th>
@@ -52,11 +39,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr
-              v-for="(message, index) in sentMessages"
-              :key="index"
-              @click="selectMessage(message)"
-            >
+            <tr v-for="(message, index) in sendMessages" :key="index" @click="selectMessage(message)">
               <td>
                 <input type="checkbox" v-model="message.selected" @click.stop />
               </td>
@@ -74,11 +57,7 @@
           <thead>
             <tr>
               <th>
-                <input
-                  type="checkbox"
-                  v-model="selectAll"
-                  @click="toggleSelectAll"
-                />
+                <input type="checkbox" v-model="selectAll" @click="toggleSelectAll" />
               </th>
               <th>보낸사람</th>
               <th>제목</th>
@@ -86,17 +65,13 @@
             </tr>
           </thead>
           <tbody>
-            <tr
-              v-for="(message, index) in receivedMessages"
-              :key="index"
-              @click="selectMessage(message)"
-            >
+            <tr v-for="(message, index) in receiveMessages" :key="index" @click="selectMessage(message)">
               <td>
                 <input type="checkbox" v-model="message.selected" @click.stop />
               </td>
               <td>{{ message.senderNickname }}</td>
               <td>{{ message.title }}</td>
-              <td>{{ message.date }}</td>
+              <td>{{ message.sentAt }}</td>
             </tr>
           </tbody>
         </table>
@@ -108,11 +83,7 @@
           <thead>
             <tr>
               <th>
-                <input
-                  type="checkbox"
-                  v-model="selectAll"
-                  @click="toggleSelectAll"
-                />
+                <input type="checkbox" v-model="selectAll" @click="toggleSelectAll" />
               </th>
               <th>보낸사람</th>
               <th>제목</th>
@@ -120,17 +91,13 @@
             </tr>
           </thead>
           <tbody>
-            <tr
-              v-for="(message, index) in adminMessages"
-              :key="index"
-              @click="selectMessage(message)"
-            >
+            <tr v-for="(message, index) in adminMessages" :key="index" @click="selectMessage(message)">
               <td>
                 <input type="checkbox" v-model="message.selected" @click.stop />
               </td>
               <td>{{ message.senderNickname }}</td>
               <td>{{ message.title }}</td>
-              <td>{{ message.date }}</td>
+              <td>{{ message.sentAt }}</td>
             </tr>
           </tbody>
         </table>
@@ -158,13 +125,13 @@ export default {
       selectedMenu(menu) {
         this.selectedMenu = menu;
       },
-    
+
       CreateMessageRequest: {
         title: '',
         receiverNickname: '',
         content: '',
       },
-      sentMessages: [ 
+      sendMessages: [
         {
           id: '',
           receiverNickname: '',
@@ -174,24 +141,24 @@ export default {
           readStatus: false,
         },
       ],
-      receivedMessages: [
+      receiveMessages: [
         {
-          id: 2,
-          senderNickname: "test_member",
-          title: "test_title",
-          content: "test_content",
-          date: "24-03-26 [13:40]",
-          selected: false,
+          id: '',
+          senderNickname: '',
+          title: '',
+          content: '',
+          sentAt: '',
+          readStatus: false,
         },
       ],
       adminMessages: [
         {
-          id: 3,
-          senderNickname: "test_member",
-          title: "test_title",
-          content: "test_content",
-          date: "24-03-26 [13:40]",
-          selected: false,
+          id: '',
+          receiverNickname: '',
+          title: '',
+          content: '',
+          sentAt: '',
+          readStatus: false,
         },
       ],
       selectedMessage: null,
@@ -199,7 +166,9 @@ export default {
     };
   },
   mounted() {
-    this.toggleSelectAll();
+    this.sendMessage();
+    this.receiverMessage();
+    this.adminMessage();
   },
   methods: {
     selectMenu(menu) {
@@ -207,30 +176,36 @@ export default {
     },
     async summitMessage() {
       const response = await apiClient.post(
-        "/api/messages",{title: this.CreateMessageRequest.title, receiverNickname: this.CreateMessageRequest.receiverNickname, content: this.CreateMessageRequest.content}
+        "/api/messages", { title: this.CreateMessageRequest.title, receiverNickname: this.CreateMessageRequest.receiverNickname, content: this.CreateMessageRequest.content }
       );
       alert("쪽지가 전송되었습니다.");
       console.log(response)
       localStorage.setItem(response.data)
     },
-    async toggleSelectAll() {
-      this.selectAll = !this.selectAll;
+    async sendMessage() {
       const response = await apiClient.get(
         "/api/messages/sender"
       );
-      console.log(response.data.content)
-      this.sentMessages = response.data.content
-
-      // this.sentMessages.forEach((message) => {
-      //   message.selected = this.selectAll;
-      // });
+      this.sendMessages = response.data.content
     },
-    // async receiverMessage() {
-    //   const response = await apiClient.get(
-    //     "/api/messages/receiver"
-    //   );
-    //   this.
-    // },
+    async receiverMessage() {
+      const response = await apiClient.get(
+        "/api/messages/receiver"
+      );
+      this.receiveMessages = response.data.content
+    },
+    async adminMessage() {
+      const response = await apiClient.get(
+        "/api/messages/admins"
+      );
+      this.adminMessages = response.data.content
+    },
+    toggleSelectAll() {
+      this.selectAll = !this.selectAll;
+      this.sentMessages.forEach((message) => {
+        message.selected = this.selectAll;
+      });
+    },
     selectMessage(message) {
       this.selectedMessage = message;
       this.selectedMenu = "detail";
@@ -259,6 +234,7 @@ export default {
   border-right: 1px solid #eee;
   cursor: pointer;
 }
+
 .side-message-menu p {
   padding: 10px;
   border: 1px solid #eee;
@@ -267,6 +243,7 @@ export default {
   cursor: pointer;
   background-color: #f1e2d9;
 }
+
 .main-content {
   margin: 100px 50px 50px 80px;
   display: flex;
@@ -279,7 +256,7 @@ export default {
   margin: -10px 0px auto 15px;
 }
 
-.form-group label{
+.form-group label {
   color: rebeccapurple;
 }
 
@@ -288,6 +265,7 @@ export default {
   justify-content: flex-start;
   border: none;
 }
+
 .table-form {
   width: 80%;
 }
@@ -307,9 +285,11 @@ export default {
 .table-form th {
   background-color: #f2f2f2;
 }
+
 .table-form tr {
   cursor: pointer;
 }
+
 .table-form tr:nth-child(even) {
   background-color: #f9f9f9;
 }
@@ -331,15 +311,18 @@ export default {
 .table-form button:hover {
   background-color: #45a049;
 }
+
 .table-form th:first-child,
 .table-form td:first-child {
   width: 30px;
   text-align: center;
 }
+
 .table-form th:nth-child(2),
 .table-form td:nth-child(2) {
   width: 150px;
 }
+
 .table-form th:nth-child(4),
 .table-form td:nth-child(4) {
   width: 150px;
