@@ -2,10 +2,10 @@
   <div class="message-container">
     <div class="side-message-menu">
       <ul>
-        <li @click="selectMenu('write')">쪽지 작성</li>
-        <li @click="selectMenu('sent')">보낸 쪽지함</li>
-        <li @click="selectMenu('received')">받은 쪽지함</li>
-        <li @click="selectMenu('admin')">관리자에게 받은 쪽지함</li>
+        <p @click="selectMenu('write')">쪽지 작성</p>
+        <p @click="selectMenu('sent')">보낸 쪽지함</p>
+        <p @click="selectMenu('received')">받은 쪽지함</p>
+        <p @click="selectMenu('admin')">관리자에게 받은 쪽지함</p>
       </ul>
     </div>
     <div class="main-content">
@@ -14,26 +14,13 @@
         <form @submit.prevent="summitMessage">
           <div class="info-box">
             <div class="form-group">
-              <label for="title">제목:</label>
-              <input type="text" id="title" v-model="message.title" required />
+              <label for="receiverNickname">받는 사람 닉네임</label>
+              <input type="text" id="receiverNickname" v-model="CreateMessageRequest.receiverNickname" required />
+              <label for="title">제목</label>
+              <input type="text" id="title" v-model="CreateMessageRequest.title" required />
+              <label for="content">내용</label>
+              <textarea rows="10" id="content" v-model="CreateMessageRequest.content" required></textarea>
             </div>
-            <div class="form-group">
-              <label for="receiverNickname">받는 사람 닉네임:</label>
-              <input
-                type="text"
-                id="receiverNickname"
-                v-model="message.receiverNickname"
-                required
-              />
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="content">내용:</label>
-            <textarea
-              id="content"
-              v-model="message.content"
-              required
-            ></textarea>
           </div>
           <button type="submit" class="submit-btn">보내기</button>
         </form>
@@ -44,33 +31,25 @@
           <thead>
             <tr>
               <th>
-                <input
-                  type="checkbox"
-                  v-model="selectAll"
-                  @click="toggleSelectAll"
-                />
+                <input type="checkbox" v-model="selectAll" @click="toggleSelectAll" />
               </th>
               <th>받는사람</th>
               <th>제목</th>
-              <th>날짜</th>
+              <th>보낸 날짜</th>
             </tr>
           </thead>
           <tbody>
-            <tr
-              v-for="(message, index) in sentMessages"
-              :key="index"
-              @click="selectMessage(message)"
-            >
+            <tr v-for="(message, index) in sendMessages" :key="index" @click="selectMessage(message)">
               <td>
                 <input type="checkbox" v-model="message.selected" @click.stop />
               </td>
               <td>{{ message.receiverNickname }}</td>
               <td>{{ message.title }}</td>
-              <td>{{ message.date }}</td>
+              <td>{{ message.sentAt }}</td>
             </tr>
           </tbody>
         </table>
-        <button @click="deleteSelectedMessages">선택된 쪽지 삭제</button>
+        <button @click="deleteSendMessages(sendMessage.id)">선택된 쪽지 삭제</button>
       </div>
       <div class="table-form" v-if="selectedMenu === 'received'">
         <h2>받은 쪽지함</h2>
@@ -78,33 +57,25 @@
           <thead>
             <tr>
               <th>
-                <input
-                  type="checkbox"
-                  v-model="selectAll"
-                  @click="toggleSelectAll"
-                />
+                <input type="checkbox" v-model="selectAll" @click="toggleSelectAll" />
               </th>
               <th>보낸사람</th>
               <th>제목</th>
-              <th>날짜</th>
+              <th>받은 날짜</th>
             </tr>
           </thead>
           <tbody>
-            <tr
-              v-for="(message, index) in receivedMessages"
-              :key="index"
-              @click="selectMessage(message)"
-            >
+            <tr v-for="(message, index) in receiveMessages" :key="index" @click="selectMessage(message)">
               <td>
                 <input type="checkbox" v-model="message.selected" @click.stop />
               </td>
               <td>{{ message.senderNickname }}</td>
               <td>{{ message.title }}</td>
-              <td>{{ message.date }}</td>
+              <td>{{ message.sentAt }}</td>
             </tr>
           </tbody>
         </table>
-        <button @click="deleteSelectedMessages">선택된 쪽지 삭제</button>
+        <button @click="deleteData()">선택된 쪽지 삭제</button>
       </div>
       <div class="table-form" v-if="selectedMenu === 'admin'">
         <h2>관리자 쪽지</h2>
@@ -112,11 +83,7 @@
           <thead>
             <tr>
               <th>
-                <input
-                  type="checkbox"
-                  v-model="selectAll"
-                  @click="toggleSelectAll"
-                />
+                <input type="checkbox" v-model="selectAll" @click="toggleSelectAll" />
               </th>
               <th>보낸사람</th>
               <th>제목</th>
@@ -124,27 +91,23 @@
             </tr>
           </thead>
           <tbody>
-            <tr
-              v-for="(message, index) in adminMessages"
-              :key="index"
-              @click="selectMessage(message)"
-            >
+            <tr v-for="(message, index) in adminMessages" :key="index" @click="selectMessage(message)">
               <td>
                 <input type="checkbox" v-model="message.selected" @click.stop />
               </td>
               <td>{{ message.senderNickname }}</td>
               <td>{{ message.title }}</td>
-              <td>{{ message.date }}</td>
+              <td>{{ message.sentAt }}</td>
             </tr>
           </tbody>
         </table>
-        <button @click="deleteSelectedMessages">선택된 쪽지 삭제</button>
+        <button @click="deleteData()">선택된 쪽지 삭제</button>
       </div>
       <div class="message-detail" v-if="selectedMenu === 'detail' && selectedMessage">
         <h2>쪽지 상세보기</h2>
         <div><strong>작성자:</strong> {{ selectedMessage.senderNickname || 'N/A' }}</div>
         <div><strong>수신자:</strong> {{ selectedMessage.receiverNickname || 'N/A' }}</div>
-        <div><strong>전송 시간:</strong> {{ selectedMessage.date }}</div>
+        <div><strong>전송 시간:</strong> {{ selectedMessage.sentAt }}</div>
         <hr>
         <h3>{{ selectedMessage.title }}</h3>
         <p>{{ selectedMessage.content }}</p>
@@ -154,66 +117,105 @@
 </template>
 
 <script>
+import { apiClient } from '.';
+
 export default {
   data() {
     return {
-      selectedMenu: "write",
-      message: {
-        title: "",
-        receiverNickname: "",
-        content: "",
+      selectedMenu(menu) {
+        this.selectedMenu = menu;
       },
-      sentMessages: [
+      message: [],
+
+      CreateMessageRequest: {
+        title: '',
+        receiverNickname: '',
+        content: '',
+      },
+      sendMessages: [
         {
-          id: 1,
-          receiverNickname: "test_member",
-          title: "test_title",
-          content: "test_content",
-          date: "24-03-26 [13:40]",
-          selected: false,
+          id: '',
+          receiverNickname: '',
+          title: '',
+          content: '',
+          sentAt: '',
+          readStatus: false,
         },
       ],
-      receivedMessages: [
+      receiveMessages: [
         {
-          id: 2,
-          senderNickname: "test_member",
-          title: "test_title",
-          content: "test_content",
-          date: "24-03-26 [13:40]",
-          selected: false,
+          id: '',
+          senderNickname: '',
+          title: '',
+          content: '',
+          sentAt: '',
+          readStatus: false,
         },
       ],
       adminMessages: [
         {
-          id: 3,
-          senderNickname: "test_member",
-          title: "test_title",
-          content: "test_content",
-          date: "24-03-26 [13:40]",
-          selected: false,
+          id: '',
+          receiverNickname: '',
+          title: '',
+          content: '',
+          sentAt: '',
+          readStatus: false,
         },
       ],
-      selectedMessage: null,
+      selectedMessage: '',
       selectAll: false,
     };
+  },
+  mounted() {
+    this.sendMessage();
+    this.receiverMessage();
+    this.adminMessage();
   },
   methods: {
     selectMenu(menu) {
       this.selectedMenu = menu;
     },
-    summitMessage() {
-      // 여기에 쪽지 전송 구현
+    async summitMessage() {
+      const response = await apiClient.post(
+        "/api/messages", { title: this.CreateMessageRequest.title, receiverNickname: this.CreateMessageRequest.receiverNickname, content: this.CreateMessageRequest.content }
+      );
       alert("쪽지가 전송되었습니다.");
-      //초기화
-      this.message.title = "";
-      this.message.receiverNickname = "";
-      this.message.content = "";
+      console.log(response)
+      localStorage.setItem(response.data)
+    },
+    async sendMessage() {
+      const response = await apiClient.get(
+        "/api/messages/sender"
+      );
+      this.sendMessages = response.data.content
+    },
+    async receiverMessage() {
+      const response = await apiClient.get(
+        "/api/messages/receiver"
+      );
+      this.receiveMessages = response.data.content
+    },
+    async adminMessage() {
+      const response = await apiClient.get(
+        "/api/messages/admins"
+      );
+      this.adminMessages = response.data.content
+    },
+    async deleteSendMessages(id) {
+      try {
+        const response = await apiClient.delete(
+          `/api/messages/${id}`
+        )
+        this.sendMessage = this.sendMessage.filter(sendMessage => sendMessage.id !== id)
+      } catch (Error) {
+        console.error('실패했습니다.', Error);
+      }
     },
     toggleSelectAll() {
       this.selectAll = !this.selectAll;
-      this.sentMessages.forEach((message) => {
-        message.selected = this.selectAll;
-      });
+      // this.sentMessages.forEach((message) => {
+      //   message.selected = this.selectAll;
+      // });
     },
     selectMessage(message) {
       this.selectedMessage = message;
@@ -231,27 +233,44 @@ export default {
 <style>
 .message-container {
   display: grid;
-  grid-template-columns: 15% 85%;
+  grid-template-columns: 15% 70%;
   height: 100%;
 }
 
 .side-message-menu {
   margin: 100px;
   width: 200px;
+  display: flex;
+  flex-direction: column;
   border-right: 1px solid #eee;
+  color: rgb(65, 35, 95);
+  cursor: pointer;
 }
-.side-message-menu li {
+
+.side-message-menu p {
   padding: 10px;
   border: 1px solid #eee;
   border-radius: 8px;
   margin-bottom: 10px;
   cursor: pointer;
+  background-color: #f1e2d9;
 }
+
 .main-content {
-  margin: 100px 100px 100px 10px;
+  margin: 100px 50px 50px 80px;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
+  color: rgb(65, 35, 95);
+}
+
+.submit-btn {
+  width: 100%;
+  margin: -10px 0px auto 15px;
+}
+
+.form-group label {
+  color: rebeccapurple;
 }
 
 .info-box {
@@ -259,6 +278,7 @@ export default {
   justify-content: flex-start;
   border: none;
 }
+
 .table-form {
   width: 80%;
 }
@@ -278,9 +298,11 @@ export default {
 .table-form th {
   background-color: #f2f2f2;
 }
+
 .table-form tr {
   cursor: pointer;
 }
+
 .table-form tr:nth-child(even) {
   background-color: #f9f9f9;
 }
@@ -302,15 +324,18 @@ export default {
 .table-form button:hover {
   background-color: #45a049;
 }
+
 .table-form th:first-child,
 .table-form td:first-child {
   width: 30px;
   text-align: center;
 }
+
 .table-form th:nth-child(2),
 .table-form td:nth-child(2) {
   width: 150px;
 }
+
 .table-form th:nth-child(4),
 .table-form td:nth-child(4) {
   width: 150px;
