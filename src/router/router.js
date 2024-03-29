@@ -6,6 +6,7 @@ import CreateResolution from "@/views/resolution/CreateResolution.vue";
 import Login from "@/views/user/Login.vue";
 import SignUp from "@/views/user/SignUp.vue";
 import Message from "@/views/Message.vue";
+import MyInfo from "@/views/MyInfo.vue";
 
 
 const routes = [
@@ -44,6 +45,13 @@ const routes = [
     name: "message",
     component: Message,
   },
+  {
+    path: "/myInfo",
+    name: "myInfo",
+    component: MyInfo,
+  },
+
+
 ];
 
 const router = createRouter({
