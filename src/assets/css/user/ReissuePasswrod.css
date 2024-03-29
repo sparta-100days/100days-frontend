@@ -1,0 +1,94 @@
+
+/* 팝업창 전체 배경 스타일 */
+.reissue-password-popup {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 1000; /* 확실한 최상위 레이어 */
+}
+
+/* 팝업 내 버튼 고유 스타일 */
+.reissue-password-popup .send-button {
+    width: calc(50% - 15px); /* 버튼의 너비를 50%로 설정하고, 좌우 여백을 조정 */
+    height: 43px;
+    padding: 10px 0;
+    margin-right: 8px;
+    border: none;
+    border-radius: 3px;
+    background-color: #ffb0b0;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 1rem;
+    text-shadow: 0 0 0 #fcfcfc;
+}
+
+.reissue-password-popup .close-button {
+    width: calc(50% - 15px); /* 버튼의 너비를 50%로 설정하고, 좌우 여백을 조정 */
+    height: 43px;
+    padding: 10px 0;
+    margin-left: 8px;
+    border: none;
+    border-radius: 3px;
+    background-color: #ffb0b0;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 1rem;
+    text-shadow: 0 0 0 #fcfcfc;
+}
+
+.reissue-password-popup .send-button:hover,
+.reissue-password-popup .close-button:hover {
+    background-color: #000000;
+}
+
+/* 입력 필드 스타일 */
+.reissue-password-popup input[type="email"] {
+    width: 370px; /* 입력 필드를 가득 채우도록 설정 */
+    height: 30px;
+    padding: 10px;
+    margin: 10px 0 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.reissue-password-popup input[type="email"]:focus {
+    border-color: #8a2be2; /* 핑크색 테두리 색상 적용 */
+    border-width: 2px; /* 테두리 선 굵기 조정 */
+    outline: none; /* 포커스 효과 제거 */
+    box-shadow: 0 0 5px rgba(72, 209, 204, 0.8); /* 포커스 시 반짝이는 효과 추가 */
+}
+
+/* SweetAlert2 알림 창 스타일 */
+.swal2-popup {
+    width: 500px !important; /* 알림 창 가로 너비 */
+    height: 380px !important; /* 알림 창 세로 높이 */
+    padding: 20px !important; /* 내부 여백 */
+    display: flex !important; /* 내용을 가로로 정렬 */
+    flex-direction: column !important; /* 내용을 위에서 아래로 정렬 */
+    justify-content: space-between !important; /* 요소들 사이의 공간을 균등하게 배치 */
+}
+
+/* SweetAlert2 아이콘 스타일 */
+.swal2-icon svg {
+    width: 30px !important; /* 아이콘 가로 크기 */
+    height: 30px !important; /* 아이콘 세로 크기 */
+}
+
+/* SweetAlert2 확인 버튼 스타일 */
+.swal2-confirm {
+    color: #ffffff !important; /* 확인 버튼 텍스트 색상 */
+    background-color: #FFB0B0FF !important; /* 확인 버튼 배경색 */
+}
+
+/* SweetAlert2 확인 버튼 호버 스타일 */
+.swal2-confirm:hover {
+    background-color: #000000 !important; /* 확인 버튼 호버 배경색 */
+}

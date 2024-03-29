@@ -1,0 +1,150 @@
+.search-email-popup {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 1000;
+}
+
+.search-email-popup-content {
+    background: radial-gradient(circle, #d3d7e5, #eee9f3, #f5eeee);
+    padding: 20px;
+    border-radius: 10px;
+    width: 500px; /* 적당한 너비 설정 */
+    height: 400px; /* 세로 길이 조정 */
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* 검색 버튼이 항상 최하단에 붙도록 */
+}
+
+.search-form {
+    display: flex;
+    align-items: center;
+    width: 500px;
+}
+
+.search-button {
+    width: 120px;
+    height: 43px;
+    border-radius: 3px;
+    background-color: #ffb0b0;
+}
+
+.search-button:hover {
+    background-color: #000000;
+}
+
+.search-form input[type="text"] {
+    height: 24px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    flex: 1;
+    margin-right: 10px;
+    background-color: white; /* 검색 전 배경색을 흰색으로 설정 */
+    transition: background-color 0.3s ease; /* 검색 효과를 위한 트랜지션 추가 */
+}
+
+.search-form input[type="text"]:focus {
+    border-color: #8a2be2; /* 핑크색 테두리 색상 적용 */
+    border-width: 2px; /* 테두리 선 굵기 조정 */
+    outline: none; /* 포커스 효과 제거 */
+    box-shadow: 0 0 5px rgba(72, 209, 204, 0.8);
+}
+
+.search-form.searching input[type="text"] {
+    background-color: black; /* 검색 중 배경색을 검은색으로 설정 */
+    color: transparent; /* 투명 텍스트로 설정하여 검색 중 효과 구현 */
+    text-shadow: 0 0 3px white; /* 어안 렌즈 효과를 위한 텍스트 그림자 */
+    animation: wave-effect 0.5s ease infinite; /* 물결치는 흑백 효과를 위한 애니메이션 */
+}
+
+@keyframes wave-effect {
+    0% {
+        background-position: 0 0;
+    }
+    50% {
+        background-position: 100% 100%;
+    }
+    100% {
+        background-position: 0 0;
+    }
+}
+
+.search-results {
+    position: relative;
+    background-color: rgba(255, 255, 255, 0.3);
+    width: 500px;
+    max-height: 400px;
+    overflow-y: auto;
+    border-radius: 10px;
+}
+
+.search-results::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: -1px;
+    width: 100%;
+    height: 1px;
+    background-color: white;
+    animation: moveLine 2s linear infinite;
+}
+
+.search-results ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.search-results table {
+    width: 100%;
+    text-align: center; /* 표 전체를 가운데 정렬 */
+}
+
+.search-results th,
+.search-results td {
+    padding: 8px; /* 셀 안의 내용과 여백 조정 */
+    text-align: center; /* 셀 내용을 가운데 정렬 */
+}
+
+.result-text {
+    color: #000000;
+    font-size: large;
+}
+
+.search-success {
+    color: #000000; /* 검색 성공 메시지의 색상을 설정 */
+    margin-top: 12px; /* 성공 메시지와 다음 줄을 구분하기 위한 여백 추가 */
+    padding-bottom: 40px;
+}
+
+.close-results-button {
+    width: 100%;
+    height: 43px;
+    padding: 10px;
+    margin-top: 10px;
+    background-color: #ffb0b0;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 3px;
+    transition: background-color 0.5s ease; /* 버튼의 마우스 오버 효과를 위한 트랜지션 추가 */
+}
+
+.close-results-button:hover {
+    background-color: black; /* 마우스 오버 시 배경색 변경 */
+}
+
+.fade-enter-active, .fade-leave-active {
+    transition: opacity 0.5s;
+}
+
+.fade-enter, .fade-leave-to {
+    opacity: 0;
+}
