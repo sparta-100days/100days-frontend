@@ -5,6 +5,7 @@
       <div v-if="windowWidth > 768" class="links">
         <router-link to="/create-resolution">목표작성</router-link>
         <router-link to="/resolutions">둘러보기</router-link>
+        <router-link to="/resolution/:id">(페이지 제작시 바로 확인용 임시링크) 목표상세페이지</router-link>
       </div>
       <div class="account-menu" v-if="windowWidth > 768">
         <router-link to="/login" class="icon-link" data-text="로그인">
