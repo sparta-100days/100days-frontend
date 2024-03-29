@@ -12,7 +12,7 @@
 }
 
 .search-email-popup-content {
-    background: radial-gradient(circle, #d3e5d9, #eee9f3, #f5eeee);
+    background: radial-gradient(circle, #d3d7e5, #eee9f3, #f5eeee);
     padding: 20px;
     border-radius: 10px;
     width: 500px; /* 적당한 너비 설정 */
@@ -79,7 +79,7 @@
 
 .search-results {
     position: relative;
-    background-color: rgba(0, 0, 0, 0.9);
+    background-color: rgba(255, 255, 255, 0.3);
     width: 500px;
     max-height: 400px;
     overflow-y: auto;
@@ -97,29 +97,29 @@
     animation: moveLine 2s linear infinite;
 }
 
-@keyframes moveLine {
-    0% {
-        top: -1px;
-    }
-    100% {
-        top: 100%;
-    }
-}
-
 .search-results ul {
     list-style-type: none;
     padding: 0;
 }
 
+.search-results table {
+    width: 100%;
+    text-align: center; /* 표 전체를 가운데 정렬 */
+}
+
+.search-results th,
+.search-results td {
+    padding: 8px; /* 셀 안의 내용과 여백 조정 */
+    text-align: center; /* 셀 내용을 가운데 정렬 */
+}
+
 .result-text {
-    color: lime;
-    font-family: "Courier New", Courier, monospace;
+    color: #000000;
     font-size: large;
 }
 
 .search-success {
-    color: lime; /* 검색 성공 메시지의 색상을 설정 */
-    font-family: "Courier New", Courier, monospace; /* 폰트 설정 */
+    color: #000000; /* 검색 성공 메시지의 색상을 설정 */
     margin-top: 12px; /* 성공 메시지와 다음 줄을 구분하기 위한 여백 추가 */
     padding-bottom: 40px;
 }
@@ -147,32 +147,4 @@
 
 .fade-enter, .fade-leave-to {
     opacity: 0;
-}
-
-.cursor-blink-enter-active, .cursor-blink-leave-active {
-    animation: cursor-blink 0.5s 2 linear infinite; /* 깜박임 애니메이션 추가 */
-}
-
-.cursor-blink {
-    color: lime;
-    font-family: "Courier New", Courier, monospace;
-    animation: cursor-blink-animation 1s infinite step-end;
-}
-
-@keyframes cursor-blink-animation {
-    0%, 100% {
-        opacity: 0;
-    }
-    50% {
-        opacity: 1;
-    }
-}
-
-@keyframes cursor-blink {
-    0%, 100% {
-        opacity: 0;
-    }
-    50% {
-        opacity: 1;
-    }
 }

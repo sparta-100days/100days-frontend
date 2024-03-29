@@ -7,15 +7,22 @@
       </div>
       <transition name="fade">
         <div class="search-results" v-show="showResults" ref="searchResultsContainer">
-          <ul>
-            <li v-for="(result, index) in searchResults" :key="result.id">
-              <span class="result-text">{{ result.email }}</span>
-            </li>
-          </ul>
-          <transition name="cursor-blink" v-if="showResults">
-            <span class="search-success cursor-blink">Search Successful</span>
-          </transition>
-          <span class="cursor-blink">. . . []</span>
+          <table>
+            <thead>
+            <tr>
+              <th>ID</th>
+              <th>Email</th>
+              <th>Created At</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr v-for="(result, index) in searchResults" :key="index">
+              <td>{{ result.id }}</td>
+              <td>{{ result.email }}</td>
+              <td>{{ result.createdAt }}</td>
+            </tr>
+            </tbody>
+          </table>
         </div>
       </transition>
       <button class="close-results-button" @click="closePopup">닫기</button>
@@ -41,19 +48,46 @@ export default {
       // 가짜 검색 결과 예시
       setTimeout(() => {
         this.searchResults = [
-          { id: 1, email: "example1@example.com" },
-          { id: 2, email: "example2@example.com" },
-          { id: 3, email: "example3@example.com" },
-          { id: 4, email: "example3@example.com" },
-          { id: 5, email: "example3@example.com" },
-          { id: 6, email: "example3@example.com" },
-          { id: 7, email: "example3@example.com" },
-          { id: 8, email: "example3@example.com" },
-          { id: 9, email: "example3@example.com" },
-          { id: 10, email: "example3@example.com" },
-          { id: 11, email: "example3@example.com" },
-          { id: 12, email: "example3@example.com" },
-          { id: 13, email: "example3@example.com" },
+          {
+            id: 1,
+            email: "example1@example.com",
+            createdAt: "2020-10-10 23:10:10",
+          },
+          {
+            id: 2,
+            email: "example1@example.com",
+            createdAt: "2020-10-10 23:10:10",
+          },
+          {
+            id: 3,
+            email: "example1@example.com",
+            createdAt: "2020-10-10 23:10:10",
+          },
+          {
+            id: 4,
+            email: "example1@example.com",
+            createdAt: "2020-10-10 23:10:10",
+          },
+          {
+            id: 5,
+            email: "example1@example.com",
+            createdAt: "2020-10-10 23:10:10",
+          },
+          {
+            id: 6,
+            email: "example1@example.com",
+            createdAt: "2020-10-10 23:10:10",
+          },
+          {
+            id: 7,
+            email: "example1@example.com",
+            createdAt: "2020-10-10 23:10:10",
+          },
+          {
+            id: 8,
+            email: "example1@example.com",
+            createdAt: "2020-10-10 23:10:10",
+          },
         ];
         this.showResults = true;
         this.isSearching = false;
@@ -76,7 +110,8 @@ export default {
       this.$emit("close");
     },
     scrollToBottom() {
-      this.$refs.searchResultsContainer.scrollTop = this.$refs.searchResultsContainer.scrollHeight;
+      this.$refs.searchResultsContainer.scrollTop =
+        this.$refs.searchResultsContainer.scrollHeight;
     },
   },
 };
