@@ -38,7 +38,6 @@
   </div>
 </template>
 
-
 <script>
 import ReissuePasswordPopup from "../../components/ReissuePasswrodPopup.vue";
 import SearchEmailPopup from "@/components/SearchEmailPopup.vue";
