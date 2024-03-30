@@ -26,8 +26,8 @@
 
 .signup-container {
     width: 350px;
-    height: 600px;
-    padding: 20px;
+    height: 680px;
+    padding: 30px;
     background: rgba(255, 255, 255, 0.5);
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(234, 234, 234, 0.1);
@@ -35,7 +35,7 @@
 }
 
 .form-group {
-    margin-bottom: 5px;
+    margin-bottom: 3px;
 }
 
 .form-group input[type="email"],

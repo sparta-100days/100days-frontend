@@ -5,11 +5,11 @@
       <form @submit.prevent="submitLogin">
         <div class="form-group">
           <label for="email"></label>
-          <input type="email" id="email" v-model="loginRequest.email" required placeholder="example@email.com">
+          <input type="email" id="email" v-model="loginRequest.email" required placeholder="이메일 주소">
         </div>
         <div class="form-group">
           <label for="password"></label>
-          <input type="password" id="password" v-model="loginRequest.password" required placeholder="8~16자의 영문, 숫자, 특수문자">
+          <input type="password" id="password" v-model="loginRequest.password" required placeholder="비밀번호">
         </div>
         <div class="login-button-container">
           <button type="submit" class="login-button">Login</button>
