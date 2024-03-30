@@ -1,21 +1,25 @@
-.myinfo-profile-container {
+.myinfo-withdraw-container {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 800px;
 }
 
-.myinfo-profile-black-box {
+.myinfo-withdraw-black-box {
     width: 300px;
     padding: 20px;
     border-radius: 10px;
     background-color: rgba(255, 255, 255, 0.0);
     margin-right: 20px;
-    margin-bottom: 70px;
+    margin-bottom: 200px;
 }
 
 .myinfo-title {
-    margin-left: 100px;
+    margin-left: 120px;
+}
+
+.withdraw-info-container {
+    width: 400px;
 }
 
 .form-item {
@@ -31,11 +35,7 @@ input {
     border-radius: 3px;
     background-color: rgba(255, 255, 255, 0.5);
     outline: none; /* 포커스 효과 제거 */
-}
-
-input[readonly] {
-    background-color: rgba(227, 192, 193, 0.8);
-    cursor: not-allowed;
+    margin-top: 10px;
 }
 
 input:hover {
@@ -44,8 +44,7 @@ input:hover {
     box-shadow: 0 0 5px rgba(72, 209, 204, 0.8);
 }
 
-
-.save-button {
+.withdraw-button {
     width: 328px;
     height: 50px;
     padding: 10px;
@@ -58,6 +57,7 @@ input:hover {
     transition: background-color 0.1s ease;
 }
 
-.save-button:hover {
+.withdraw-button:hover {
     background-color: #000000;
 }
+
