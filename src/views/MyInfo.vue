@@ -4,10 +4,7 @@
       <ul>
         <li @click="selectMenu('my-resolution-list')">목표 리스트</li>
         <li @click="selectMenu('my-like-list')">좋아요 리스트</li>
-        <li @click="selectMenu('my-password-update')">비밀번호 변경</li>
-        <li @click="selectMenu('my-profile')">회원 정보 조회</li>
-        <li @click="selectMenu('my-profile-update')">회원 정보 수정</li>
-        <li @click="selectMenu('my-profile-delete')">회원 탈퇴</li>
+        <li @click="selectMenu('my-profile-Infomation')">회원 정보 수정</li>
       </ul>
     </div>
     <div class="my-pagelist-container">
@@ -40,34 +37,6 @@
                 <!-- <p>좋아요: {{ like.likeCount }}</p> -->
               </li>
             </ul>
-          </div>
-        </form>
-      </div>
-      <div class="my-password-form" v-if="selectedMenu === 'my-password-update'">
-        <h2>비밀번호 변경</h2>
-        <form class="my-password-box">
-          <div class="my-password-container">
-            <label for="updated-password">패스워드</label>
-            <input type="text" id="update-password" v-model="UserPasswordRequest.password" required>
-          </div>
-          <div class="my-password-container">
-            <label for="updated-password">패스워드 다시 입력해주세요!</label>
-            <input type="text" id="update-password" v-model="UserPasswordRequest.newPassword" required>
-            <button class="password-update-button" type="submit" @click="updateUserPassword(newPassword)">
-              수정하기
-            </button>
-          </div>
-        </form>
-      </div>
-      <div class="my-profile-form" v-if="selectedMenu === 'my-profile'">
-        <h2>회원 정보 조회</h2>
-        <form class="my-profile-box">
-          <div class="profile-container">
-            <div class="profile-list">
-              <p>이메일: {{ user.email }}</p>
-              <p>닉네임: {{ user.nickname }}</p>
-              <p>생일: {{ user.birth }}</p>
-            </div>
           </div>
         </form>
       </div>

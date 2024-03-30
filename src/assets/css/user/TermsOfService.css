@@ -28,7 +28,7 @@
     max-width: 700px;
     margin: 0 auto;
     padding: 20px;
-    background-color: rgba(255, 255, 255, 0.8); /* 투명도 조정 */
+    background-color: rgba(255, 255, 255, 0.6); /* 투명도 조정 */
     border-radius: 10px;
 }
 
@@ -42,7 +42,7 @@
 
 .text-main-title {
     margin: auto;
-    padding-left: 65px;
+    padding-left: 80px;
 }
 
 .main-box {
