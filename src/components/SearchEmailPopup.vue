@@ -9,18 +9,18 @@
         <div class="search-results" v-show="showResults" ref="searchResultsContainer">
           <table>
             <thead>
-            <tr>
-              <th>ID</th>
-              <th>Email</th>
-              <th>Created At</th>
-            </tr>
+              <tr>
+                <th>ID</th>
+                <th>Email</th>
+                <th>Created At</th>
+              </tr>
             </thead>
             <tbody>
-            <tr v-for="(result, index) in searchResults" :key="index">
-              <td>{{ result.id }}</td>
-              <td>{{ result.email }}</td>
-              <td>{{ result.createdAt }}</td>
-            </tr>
+              <tr v-for="(result, index) in searchResults" :key="index">
+                <td>{{ result.id }}</td>
+                <td>{{ result.email }}</td>
+                <td>{{ result.createdAt }}</td>
+              </tr>
             </tbody>
           </table>
         </div>

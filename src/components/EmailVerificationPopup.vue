@@ -1,7 +1,7 @@
 <template>
   <div class="email-verification-popup">
-    <div class="popup-content" :style="{ height: popupHeight }">
-      <h2 class="popup-title">이메일 인증</h2>
+    <div class="email-verification-popup-content" :style="{ height: verificationPopupHeight }">
+      <h2 class="email-verification-popup-title">이메일 인증</h2>
       <input type="email" v-model="emailInput" required placeholder="메일주소를 입력해주세요.">
       <button @click="sendVerificationCode">
         {{ isCodeSent ? "인증번호 재전송" : "인증 번호 보내기" }}
@@ -28,7 +28,7 @@ export default {
       timer: null,
       timeLeft: 5 * 60, // 5 minutes in seconds
       errorMessage: "",
-      popupHeight: "400px", // 초기 높이 설정
+      verificationPopupHeight: "400px", // 초기 높이 설정
     };
   },
   methods: {
@@ -37,7 +37,7 @@ export default {
       this.startTimer();
       // 이메일로 인증 코드 전송 로직을 구현하세요
       // 예: this.fakeSendVerificationCode();
-      this.popupHeight = '460px'; // 인증번호 보내기 버튼을 눌렀을 때 높이 변경
+      this.verificationPopupHeight = '460px'; // 인증번호 보내기 버튼을 눌렀을 때 높이 변경
 
       if (!this.emailInput.trim()) {
         this.errorMessage = "메일주소를 입력해주세요."

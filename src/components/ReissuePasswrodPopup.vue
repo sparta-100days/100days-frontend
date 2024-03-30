@@ -1,10 +1,12 @@
 <template>
   <div class="reissue-password-popup">
-    <div class="popup-content">
+    <div class="reissue-password-popup-content">
       <h2>비밀번호 찾기</h2>
-      <input type="email" v-model="email" placeholder="이메일 주소 입력" required>
-      <button class="send-button" @click="submitEmail" :disabled="isEmailSending">확인</button>
-      <button class="close-button" @click="closePopup">닫기</button>
+      <div class="reissue-password-popup-form">
+        <input type="email" v-model="email" placeholder="이메일 주소 입력" required>
+        <button class="send-button" @click="submitEmail" :disabled="isEmailSending">확인</button>
+        <button class="close-button" @click="closePopup">닫기</button>
+      </div>
     </div>
   </div>
 </template>
