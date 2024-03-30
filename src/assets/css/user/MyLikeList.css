@@ -1,0 +1,14 @@
+.myinfo-like-list-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 800px;
+    background-color: white; /* 배경색 하양 */
+    border-radius: 20px;
+}
+
+.myinfo-like-list-black-box {
+    width: 600px;
+    height: 650px;
+    background-color: black; /* 까만 박스 */
+}

@@ -6,7 +6,7 @@ import CreateResolution from "@/views/resolution/CreateResolution.vue";
 import Login from "@/views/user/Login.vue";
 import SignUp from "@/views/user/SignUp.vue";
 import Message from "@/views/Message.vue";
-import MyInfo from "@/views/MyInfo.vue";
+import MyInfo from "@/views/user/MyInfo.vue";
 import TermsOfService from "@/components/TermsOfService.vue";
 
 const routes = [
