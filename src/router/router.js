@@ -5,7 +5,7 @@ import ResolutionPage from "../views/resolution/ResolutionPage.vue";
 import CreateResolution from "@/views/resolution/CreateResolution.vue";
 import Login from "@/views/user/Login.vue";
 import SignUp from "@/views/user/SignUp.vue";
-import Message from "@/views/Message.vue";
+import Message from "@/views/message/Message.vue";
 import MyInfo from "@/views/user/MyInfo.vue";
 import TermsOfService from "@/components/TermsOfService.vue";
 

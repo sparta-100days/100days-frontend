@@ -1,0 +1,109 @@
+.message-container {
+    display: grid;
+    grid-template-columns: 15% 70%;
+    height: 100%;
+}
+
+.side-message-menu {
+    margin: 100px;
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid #eee;
+    color: rgb(65, 35, 95);
+    cursor: pointer;
+}
+
+.side-message-menu p {
+    padding: 10px;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    background-color: #f1e2d9;
+}
+
+.main-content {
+    margin: 100px 50px 50px 80px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    color: rgb(65, 35, 95);
+}
+
+.submit-btn {
+    width: 100%;
+    margin: -10px 0px auto 15px;
+}
+
+.form-group label {
+    color: rebeccapurple;
+}
+
+.info-box {
+    display: flex;
+    justify-content: flex-start;
+    border: none;
+}
+
+.table-form {
+    width: 80%;
+}
+
+.table-form table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table-form th,
+.table-form td {
+    border: 1px solid #ddd;
+    text-align: left;
+    padding: 8px;
+}
+
+.table-form th {
+    background-color: #f2f2f2;
+}
+
+.table-form tr {
+    cursor: pointer;
+}
+
+.table-form tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.table-form tr:hover {
+    background-color: #eaeaea;
+}
+
+.table-form button {
+    padding: 10px 20px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.table-form button:hover {
+    background-color: #45a049;
+}
+
+.table-form th:first-child,
+.table-form td:first-child {
+    width: 30px;
+    text-align: center;
+}
+
+.table-form th:nth-child(2),
+.table-form td:nth-child(2) {
+    width: 150px;
+}
+
+.table-form th:nth-child(4),
+.table-form td:nth-child(4) {
+    width: 150px;
+}
