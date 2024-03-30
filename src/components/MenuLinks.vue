@@ -14,7 +14,7 @@
             <span class="icon-text">로그인</span>
           </div>
         </router-link>
-        <router-link to="/signup" class="icon-link" data-text="회원가입">
+        <router-link to="/terms-of-service" class="icon-link" data-text="회원가입">
           <div class="icon-container">
             <img class="signup-icon" src="../assets/img/signup.png" alt="signup" @click="goToMainPage">
             <span class="icon-text">회원가입</span>

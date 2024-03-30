@@ -7,7 +7,7 @@ import Login from "@/views/user/Login.vue";
 import SignUp from "@/views/user/SignUp.vue";
 import Message from "@/views/Message.vue";
 import MyInfo from "@/views/MyInfo.vue";
-
+import TermsOfService from "@/components/TermsOfService.vue";
 
 const routes = [
   {
@@ -50,8 +50,11 @@ const routes = [
     name: "myInfo",
     component: MyInfo,
   },
-
-
+  {
+    path: "/terms-of-service",
+    name: "termsOfService",
+    component: TermsOfService,
+  },
 ];
 
 const router = createRouter({
