@@ -62,7 +62,7 @@
 .small-box {
     padding: 5px;
     margin-left: 40px;
-    background-color: rgba(247, 175, 175, 0.6);
+    background-color: rgba(246, 216, 216, 0.6);
     border-radius: 5px;
     width: 80%;
 }
@@ -85,7 +85,7 @@
 .info-cell {
     display: table-cell;
     padding: 8px;
-    border: 2px solid #e2e5ef;
+    border: 2px solid #4b4b4f;
     text-align: center;
 }
 
@@ -111,7 +111,7 @@ input[type="checkbox"] {
 }
 
 .checkmark:hover {
-    background-color: #f7afaf; /* 체크 전 호버 시 색상: 연보라색 */
+    background-color: #FFB0B0FF; /* 체크 전 호버 시 색상: 연보라색 */
 }
 
 .checkmark:checked {
@@ -124,7 +124,7 @@ input[type="checkbox"] {
         background-color: #ffffff; /* 시작 색상: 연보라색 */
     }
     50% {
-        background-color: #f7afaf; /* 중간 색상: 연하늘색 */
+        background-color: #ffb0b0; /* 중간 색상: 연하늘색 */
     }
     100% {
         background-color: #000000; /* 종료 색상: 연보라색 */
@@ -165,7 +165,7 @@ button {
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
-    background-color: #f7afaf;
+    background-color: #ffb0b0;
     color: #fff;
     cursor: pointer;
     width: 300px;
