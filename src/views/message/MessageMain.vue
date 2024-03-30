@@ -1,5 +1,10 @@
 <template>
   <div class="message-back-container">
+    <div class="flowerWind">
+      <div class="flower">
+        <div v-for="(petal, index) in petals" :key="index" class="petal" :style="petal.style"></div>
+      </div>
+    </div>
     <div class="message-container">
     <!-- 사이드 메뉴 -->
     <div class="message-tab-container">
@@ -8,19 +13,19 @@
         :key="index"
         @click="changeTab(index)"
         :class="{ active: activeTab === index }"
-        class="massage-tab-item"
+        class="message-tab-item"
       >
-          {{ tab }}}
+          {{ tab }}
       </div>
     </div>
 
       <!-- 쪽지 메뉴 -->
-      <div class="massage-main-content">
+      <div class="message-main-content">
         <component :is="writeComponent" v-if="activeTab === 0"></component>
         <component :is="sendComponent" v-if="activeTab === 1"></component>
         <component :is="receivedComponent" v-if="activeTab === 2"></component>
         <component :is="adminComponent" v-if="activeTab === 3"></component>
-        <!-- 수정된 부분 -->
+        <!-- 쪽지 상세 -->
         <component :is="messageDetailComponent" v-if="activeTab === 1 && selectedMenu === 'detail'"></component>
         <component :is="messageDetailComponent" v-if="activeTab === 2 && selectedMenu === 'detail'"></component>
         <component :is="messageDetailComponent" v-if="activeTab === 3 && selectedMenu === 'detail'"></component>
@@ -49,6 +54,8 @@ export default {
       messageDetailComponent: MessageDetail,
       selectedMessage: '', // 선택된 쪽지 정보
       selectedMenu: '', // 선택된 메뉴
+      petals: [], // 꽃잎 배열
+      numPetals: 30, // 생성할 꽃잎 개수
     };
   },
   components: {
@@ -75,6 +82,23 @@ export default {
           this.messageDetailComponent = null;
       }
     },
+    createPetals() {
+      for (let i = 0; i < this.numPetals; i++) {
+        const petal = {
+          style: {
+            top: `${Math.random() * 100}%`,
+            left: `${Math.random() * 100}%`,
+            '--x': Math.random(),
+            '--rotate': Math.random(),
+            '--size': Math.random() * 2 + 1, // 꽃잎 크기
+          }
+        };
+        this.petals.push(petal);
+      }
+    }
+  },
+  mounted() {
+    this.createPetals();
   }
 };
 </script>
