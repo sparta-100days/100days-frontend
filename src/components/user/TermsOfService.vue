@@ -91,4 +91,4 @@ export default {
 };
 </script>
 
-<style src="../assets/css/user/TermsOfService.css" lang="css"></style>
+<style src="../../assets/css/user/TermsOfService.css" lang="css"></style>

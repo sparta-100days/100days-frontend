@@ -1,7 +1,7 @@
 <template>
   <div class="myinfo-profile-container">
     <div class="myinfo-profile-black-box">
-      <div class="myinfo-title"><h2>회원정보수정</h2></div>
+      <div class="myinfo-profile-title"><h2>회원정보수정</h2></div>
       <!-- 이메일 입력 폼 -->
       <div class="form-item">
         <input type="text" id="email" name="email" :value="user.email" readonly>
@@ -22,6 +22,7 @@
       <div class="form-item">
         <input type="password" id="password" name="password" :value="user.password">
       </div>
+      <button class="password-change-button">비밀번호변경</button>
       <!-- 회원정보저장 버튼 -->
       <button class="save-button">회원정보저장</button>
     </div>
@@ -44,4 +45,4 @@ export default {
 };
 </script>
 
-<style src="../assets/css/user/Profile.css" lang="css"></style>
+<style src="../../assets/css/user/Profile.css" lang="css"></style>

@@ -162,7 +162,6 @@
 
 .sub-login-links {
     margin-top: 10px;
-    color: #000000; /* 로그인 타이틀과 같은 검정색 */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -170,7 +169,6 @@
 
 .sub-login-links .separator {
     margin: 0 5px;
-    color: #FFB0B0FF; /* 요청된 색상 적용 */
 }
 
 .forgot-password-link {
@@ -178,33 +176,21 @@
     text-decoration: none;
 }
 
-.forgot-password-link:hover {
+.forgot-password-link:hover,
+.email-find-link:hover,
+.terms-of-service-link:hover {
     color: #FFB0B0FF; /* 호버 시 색상 변경 */
 }
-
 
 .email-find-link {
     color: #000000; /* 로그인 타이틀과 같은 검정색 */
     text-decoration: none;
 }
 
-.email-find-link:hover {
-    color: #FFB0B0FF; /* 호버 시 색상 변경 */
-}
-
 .terms-of-service-link {
     color: #000000; /* 검은색 텍스트 색상 */
     text-decoration: none;
     display: inline-block; /* 인라인 요소로 배치 */
-}
-
-.terms-of-service-link {
-    color: inherit; /* 부모 요소(.sign-up-link)의 색상 상속 */
-    text-decoration: none; /* 밑줄 제거 */
-}
-
-.terms-of-service-link:hover {
-    color: #FFB0B0FF; /* 호버 시 색상 변경 */
 }
 
 .social-login-buttons {
@@ -224,14 +210,12 @@
     justify-content: center;
     align-items: center;
     margin: 0 10px; /* 버튼 사이의 간격을 좁힘 */
+    background-color: rgb(255, 255, 255, 0.5);
 }
 
-.google-login-button {
-    background-color: rgba(255, 255, 255, 0.3) /* 파스텔톤의 무지개색 */
-}
-
-.kakao-login-button {
-    background-color: rgb(255, 255, 255, 0.3); /* 카카오 노란색 계열 */
+.google-login-button:hover,
+.kakao-login-button:hover {
+    background-color: white;
 }
 
 .kakao {

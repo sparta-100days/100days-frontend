@@ -72,4 +72,4 @@ export default {
 };
 </script>
 
-<style src="../assets/css/user/ReissuePasswrod.css" lang="css"></style>
+<style src="../../assets/css/user/ReissuePasswrod.css" lang="css"></style>

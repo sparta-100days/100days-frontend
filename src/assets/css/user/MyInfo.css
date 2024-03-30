@@ -57,7 +57,7 @@
 .myinfo-tab-container {
     display: flex;
     margin-top: 20px; /* 탭과 페이지 간 여백 */
-    margin-left: 360px;
+    margin-left: 340px;
 }
 
 .myinfo-tab-item {
@@ -66,7 +66,7 @@
     cursor: pointer;
     background-color: rgba(255, 255, 255, 0.5); /* 탭 배경색 하양 */
     color: black; /* 글자색 검정 */
-    border-radius: 5px; /* 라운드 처리 */
+    border-radius: 5px 5px 0 0; /* 라운드 처리 */
 }
 
 .myinfo-tab-item.active {

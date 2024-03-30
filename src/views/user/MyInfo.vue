@@ -27,10 +27,10 @@
 </template>
 
 <script>
-import Tab1 from "@/components/Profile.vue";
-import Tab2 from "@/components/MyResolutionList.vue";
-import Tab3 from "@/components/MyLikeList.vue";
-import Tab4 from "@/components/Withdraw.vue";
+import Tab1 from "@/components/user/Profile.vue";
+import Tab2 from "@/components/user/MyResolutionList.vue";
+import Tab3 from "@/components/user/MyLikeList.vue";
+import Tab4 from "@/components/user/Withdraw.vue";
 
 export default {
   data() {

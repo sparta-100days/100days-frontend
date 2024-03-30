@@ -27,4 +27,4 @@ export default {
 };
 </script>
 
-<style src="../assets/css/user/Withdraw.css" lang="css"></style>
+<style src="../../assets/css/user/Withdraw.css" lang="css"></style>

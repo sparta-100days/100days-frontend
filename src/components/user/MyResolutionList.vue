@@ -87,4 +87,4 @@ export default {
 };
 </script>
 
-<style src="../assets/css/user/MyInfoResolutionList.css" lang="css"></style>
+<style src="../../assets/css/user/MyInfoResolutionList.css" lang="css"></style>
