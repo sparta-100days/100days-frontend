@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import ReissuePasswordPopup from "../../components/user/ReissuePasswrodPopup.vue";
+import ReissuePasswordPopup from "../../components/user/ReissuePasswordPopup.vue";
 import SearchEmailPopup from "@/components/user/SearchEmailPopup.vue";
 import TermsOfService from "@/components/user/TermsOfService.vue";
 import { apiClient } from "@/views";
