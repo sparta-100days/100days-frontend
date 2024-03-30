@@ -9,7 +9,7 @@
     /*background-image: url("@/assets/img/myinfo_background.jpg");*/
     background: radial-gradient(circle, #be96b2, #a8a3c7, #9293ce) no-repeat center center;
     background-size: 200% 200%;
-    animation: gradientAnimation 5s linear infinite;
+    animation: gradientAnimation 20s linear infinite;
     display: flex;
     justify-content: center;
     align-items: center;

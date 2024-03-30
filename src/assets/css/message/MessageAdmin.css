@@ -1,0 +1,74 @@
+.message-admin-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 800px;
+}
+
+.message-admin-black-box {
+    width: 500px;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: rgba(255, 0, 0, 0);
+    margin-bottom: 250px;
+    margin-left: 20px;
+    margin-top: 200px;
+}
+
+.message-delete-btn {
+    width: 80px;
+    height: 40px;
+    margin-left: 420px;
+}
+
+.message-admin-title {
+    margin-left: 190px;
+}
+
+.message-admin-list-box {
+    height: 445px;
+    overflow-y: auto; /* 세로 스크롤이 생기도록 설정 */
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.title-section {
+    width: 200px;
+}
+
+.admin-table th,
+.admin-table td {
+    border: 1px solid #7c7c7c;
+    padding: 8px;
+    text-align: left;
+}
+
+.admin-table th {
+    background-color: #f2f2f2;
+}
+
+.admin-table tbody tr:hover {
+    background-color: #f9f9f9;
+}
+
+.message-admin-pagination-container {
+    display: flex;
+    justify-content: space-between;
+    width: 500px;
+    height: 40px;
+}
+
+.message-admin-pagination-container button {
+    padding: 8px 16px;
+    border-radius: 3px;
+}
+
+.ellipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

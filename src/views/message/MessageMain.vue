@@ -9,8 +9,7 @@
     <!-- 사이드 메뉴 -->
     <div class="message-tab-container">
       <div
-        v-for="(tab, index) in tabs"
-        :key="index"
+        v-for="(tab, index) in tabs" :key="index"
         @click="changeTab(index)"
         :class="{ active: activeTab === index }"
         class="message-tab-item"
@@ -21,14 +20,10 @@
 
       <!-- 쪽지 메뉴 -->
       <div class="message-main-content">
-        <component :is="writeComponent" v-if="activeTab === 0"></component>
+        <component :is="writeComponent" v-if="activeTab === 0" @submit.prevent="submitMessage"></component>
         <component :is="sendComponent" v-if="activeTab === 1"></component>
         <component :is="receivedComponent" v-if="activeTab === 2"></component>
         <component :is="adminComponent" v-if="activeTab === 3"></component>
-        <!-- 쪽지 상세 -->
-        <component :is="messageDetailComponent" v-if="activeTab === 1 && selectedMenu === 'detail'"></component>
-        <component :is="messageDetailComponent" v-if="activeTab === 2 && selectedMenu === 'detail'"></component>
-        <component :is="messageDetailComponent" v-if="activeTab === 3 && selectedMenu === 'detail'"></component>
       </div>
     </div>
   </div>
@@ -99,7 +94,10 @@ export default {
   },
   mounted() {
     this.createPetals();
-  }
+  },
+  selectedMenu(menu) {
+    this.selectedMenu = menu;
+  },
 };
 </script>
 

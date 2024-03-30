@@ -22,9 +22,9 @@
       <div class="form-item">
         <input type="password" id="password" name="password" :value="user.password">
       </div>
-      <button class="password-change-button">비밀번호변경</button>
+      <button type="button" class="password-change-button">비밀번호변경</button>
       <!-- 회원정보저장 버튼 -->
-      <button class="save-button">회원정보저장</button>
+      <button type="button" class="save-button">회원정보저장</button>
     </div>
   </div>
 </template>
