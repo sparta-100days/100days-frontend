@@ -7,6 +7,7 @@ import Login from "@/views/user/Login.vue";
 import SignUp from "@/views/user/SignUp.vue";
 import Message from "@/views/Message.vue";
 import MyInfo from "@/views/MyInfo.vue";
+import Report from "@/views/Report.vue";
 
 
 const routes = [
@@ -49,6 +50,11 @@ const routes = [
     path: "/myInfo",
     name: "myInfo",
     component: MyInfo,
+  },
+  {
+    path: "/report",
+    name: "report",
+    component: Report,
   },
 
 
