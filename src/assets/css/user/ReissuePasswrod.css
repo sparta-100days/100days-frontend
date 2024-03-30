@@ -13,6 +13,18 @@
     z-index: 1000; /* 확실한 최상위 레이어 */
 }
 
+.reissue-password-popup-content {
+    width: 500px;
+    height: 250px;
+    background-color: #ffffff;
+}
+
+.reissue-password-popup-form {
+    width: 450px;
+    height: 200px;
+    margin-left: 25px;
+}
+
 /* 팝업 내 버튼 고유 스타일 */
 .reissue-password-popup .send-button {
     width: calc(50% - 15px); /* 버튼의 너비를 50%로 설정하고, 좌우 여백을 조정 */
@@ -51,12 +63,12 @@
 
 /* 입력 필드 스타일 */
 .reissue-password-popup input[type="email"] {
-    width: 370px; /* 입력 필드를 가득 채우도록 설정 */
+    width: 410px; /* 입력 필드를 가득 채우도록 설정 */
     height: 30px;
     padding: 10px;
     margin: 10px 0 20px;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 3px;
 }
 
 .reissue-password-popup input[type="email"]:focus {

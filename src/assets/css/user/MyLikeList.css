@@ -1,0 +1,69 @@
+.myinfo-like-list-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 800px;
+    background-color: rgba(255, 255, 255, 0.0);
+    border-radius: 20px;
+}
+
+.myinfo-like-list-black-box {
+    width: 560px;
+    height: 650px;
+    background-color: rgba(255, 255, 255, 0.0);
+}
+
+.myinfo-like-list-title {
+    margin-left: 180px;
+    margin-bottom: 10px;
+}
+
+.like-list-container {
+    margin: 40px 0 20px 0;
+}
+
+.myinfo-like-table-container {
+    height: 445px; /* 테이블 최대 높이 지정 */
+    overflow-y: auto; /* 세로 스크롤이 생기도록 설정 */
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 3px;
+}
+
+.like-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.like-table th,
+.like-table td {
+    border: 1px solid #7c7c7c;
+    padding: 8px;
+    text-align: left;
+}
+
+.like-table th {
+    background-color: #f2f2f2;
+}
+
+.like-table tbody tr:hover {
+    background-color: #f9f9f9;
+}
+
+.my-like-pagination-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    width: 560px;
+    height: 40px;
+}
+
+.my-like-pagination-container button {
+    padding: 8px 16px;
+    border-radius: 3px;
+}
+
+.ellipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

@@ -39,9 +39,9 @@
 </template>
 
 <script>
-import ReissuePasswordPopup from "../../components/ReissuePasswrodPopup.vue";
-import SearchEmailPopup from "@/components/SearchEmailPopup.vue";
-import TermsOfService from "@/components/TermsOfService.vue";
+import ReissuePasswordPopup from "../../components/user/ReissuePasswrodPopup.vue";
+import SearchEmailPopup from "@/components/user/SearchEmailPopup.vue";
+import TermsOfService from "@/components/user/TermsOfService.vue";
 import { apiClient } from "@/views";
 // import axios from "axios";
 

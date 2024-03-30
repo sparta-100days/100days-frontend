@@ -6,7 +6,7 @@
     height: 100%;
     background: radial-gradient(circle, #d5f4e6, #e6ccff, #ffb3e6);
     background-size: 200% 200%;
-    animation: gradientAnimation 5s linear infinite;
+    animation: gradientAnimation 20s linear infinite;
     display: flex;
     justify-content: center;
     align-items: center;

@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import EmailVerificationPopup from "../../components/EmailVerificationPopup.vue";
+import EmailVerificationPopup from "../../components/user/EmailVerificationPopup.vue";
 
 export default {
   data() {
