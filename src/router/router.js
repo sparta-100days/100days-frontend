@@ -55,7 +55,6 @@ const routes = [
     name: "termsOfService",
     component: TermsOfService,
   },
-
 ];
 
 const router = createRouter({

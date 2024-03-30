@@ -2,16 +2,31 @@
   <div class="email-verification-popup">
     <div class="popup-content" :style="{ height: popupHeight }">
       <h2 class="popup-title">이메일 인증</h2>
-      <input type="email" v-model="emailInput" required placeholder="메일주소를 입력해주세요.">
+      <input
+        type="email"
+        v-model="emailInput"
+        required
+        placeholder="메일주소를 입력해주세요."
+      />
       <button @click="sendVerificationCode">
         {{ isCodeSent ? "인증번호 재전송" : "인증 번호 보내기" }}
       </button>
       <!-- Timer and Error Message Display -->
       <div v-if="isCodeSent">
-        <span class="timeer">{{ Math.floor(timeLeft / 60) }}:{{ ('0' + (timeLeft % 60)).slice(-2) }}</span>
-        <span v-if="errorMessage" class="error-message">{{ errorMessage }}</span>
+        <span class="timeer"
+          >{{ Math.floor(timeLeft / 60) }}:{{
+            ("0" + (timeLeft % 60)).slice(-2)
+          }}</span
+        >
+        <span v-if="errorMessage" class="error-message">{{
+          errorMessage
+        }}</span>
       </div>
-      <input type="text" v-model="verificationCodeInput" placeholder="인증번호를 입력해주세요.">
+      <input
+        type="text"
+        v-model="verificationCodeInput"
+        placeholder="인증번호를 입력해주세요."
+      />
       <button @click="verifyCode">인증하기</button>
       <button @click="closePopup">닫기</button>
     </div>
@@ -28,7 +43,7 @@ export default {
       timer: null,
       timeLeft: 5 * 60, // 5 minutes in seconds
       errorMessage: "",
-      popupHeight: '400px', // 초기 높이 설정
+      popupHeight: "400px", // 초기 높이 설정
     };
   },
   methods: {
@@ -37,13 +52,13 @@ export default {
       this.startTimer();
       // 이메일로 인증 코드 전송 로직을 구현하세요
       // 예: this.fakeSendVerificationCode();
-      this.popupHeight = '460px'; // 인증번호 보내기 버튼을 눌렀을 때 높이 변경
+      this.popupHeight = "460px"; // 인증번호 보내기 버튼을 눌렀을 때 높이 변경
 
       if (!this.emailInput.trim()) {
-        this.errorMessage = "메일주소를 입력해주세요."
+        this.errorMessage = "메일주소를 입력해주세요.";
         setTimeout(() => {
-          this.errorMessage = ""
-          }, 3000);
+          this.errorMessage = "";
+        }, 3000);
       }
     },
     startTimer() {
