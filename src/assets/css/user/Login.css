@@ -63,7 +63,7 @@
     margin-top: 20px;
 }
 
-.login-button p.login-text {
+.login-button {
     font-size: 1.3rem; /* 글씨 크기를 1.5배로 설정 */
     margin: 0;
     padding-top: 6px; /* 글씨 위치 조정 */

@@ -12,7 +12,7 @@
           <input type="password" id="password" v-model="loginRequest.password" required placeholder="8~16자의 영문, 숫자, 특수문자">
         </div>
         <div class="login-button-container">
-          <button type="submit" class="login-button"><p class="login-text">Login</p></button>
+          <button type="submit" class="login-button">Login</button>
         </div>
         <div class="sub-login-links">
           <div class="email-find-link">

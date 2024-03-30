@@ -1,4 +1,4 @@
-<template xmlns="" xmlns="">
+<template>
   <div class="outer-container">
     <div class="inner-container">
       <div class="agreement-container">
