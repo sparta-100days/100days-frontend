@@ -44,7 +44,7 @@ import ReissuePasswordPopup from "../../components/ReissuePasswrodPopup.vue";
 import SearchEmailPopup from "@/components/SearchEmailPopup.vue";
 import TermsOfService from "@/components/TermsOfService.vue";
 import { apiClient } from "@/views";
-import axios from "axios";
+// import axios from "axios";
 
 export default {
   data() {
