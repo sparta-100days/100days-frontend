@@ -1,58 +1,88 @@
-/* CreateResolution.css */
-.create-resolution {
-    max-width: 600px;
-    margin: 100px auto;
-    padding: 20px;
-    background: #f0f0f0;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-.create-resolution h2 {
-    color: #333;
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.form-group {
-    margin-bottom: 1rem;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 0.5rem;
-}
-
-.form-group input[type="text"],
-.form-group textarea {
+.create-resolution-background {
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
-    padding: 0.5rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    margin-bottom: 0.5rem;
+    height: 100%;
+    z-index: -1;
+    background: radial-gradient(circle, #243b55, #141e30, #000000) no-repeat center center;
+    background-size: 200% 200%;
+    animation: gradientAnimation 10s linear infinite;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.form-group input[type="text"]:focus,
-.form-group textarea:focus {
-    border-color: #007bff;
+.fa-moon {
+    position: absolute;
+    top: 19%;
+    left: 33%;
+    font-size: 130px;
+    color: rgba(255,255,255,0.8);
+    animation: moon-rotation 4s infinite linear;
+}
+
+.blur {
+    filter: blur(10px);
+    -webkit-filter: blur(10px);
+}
+
+@keyframes moon-rotation {
+    0%, 100% {
+        transform: rotate(0deg);
+    }
+    50% {
+        transform: rotate(-20deg);
+    }
+}
+
+.create-resolution-container {
+    max-width: 350px;
+    width: 100%;
+    height: 550px;
+    border-radius: 20px;
+    background-color: rgba(255, 255, 255, 0.5); /* 투명도 조정 */
+    padding: 30px;
+    text-align: center;
+    position: relative;
+    z-index: 0; /* 로그인 버튼 위에 보이도록 */
+    margin-left: 30px;
+}
+
+.create-resolution-title {
+    width: 305px;
+    border-radius: 2px;
+    margin-bottom: 15px;
+    border: 1px solid #989898;
+}
+
+.create-resolution-description {
+    height: 200px;
+    width: 315px;
+    border-radius: 2px;
+    background-color: rgba(255, 255, 255, 0.5);
+    color: #000000;
     outline: none;
+    border: 1px solid #989898;
 }
 
-.form-group span {
-    color: red;
-    font-size: 0.9rem;
+.create-resolution-description:hover {
+    border-color: #8a2be2; /* 핑크색 테두리 색상 적용 */
+    border-width: 2px; /* 테두리 선 굵기 조정 */
+    outline: none; /* 포커스 효과 제거 */
+    box-shadow: 0 0 5px rgba(72, 209, 204, 0.8)
 }
 
-button[type="submit"] {
-    padding: 0.5rem 1rem;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.2s;
+.create-resolution-category {
+    width: 305px;
+    height: 45px;
+    border-radius: 2px;
+    border: 1px solid #989898;
+    margin-bottom: 15px;
 }
 
-button[type="submit"]:hover {
-    background-color: #0056b3;
+.create-resolution-btn {
+    width: 320px;
+    height: 45px;
+    border-radius: 2px;
 }
