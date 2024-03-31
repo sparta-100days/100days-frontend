@@ -33,7 +33,7 @@ export default {
           confirmButtonText: "확인",
           confirmButtonColor: "#007bff",
         });
-        return;
+        return this.$router.push({ name: "Home" });
       }
 
       // 이메일 전송 중이거나 재전송 중인 경우 함수를 종료합니다.
