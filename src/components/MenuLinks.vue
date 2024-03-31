@@ -5,27 +5,41 @@
       <div v-if="windowWidth > 768" class="links">
         <router-link to="/create-resolution">목표작성</router-link>
         <router-link to="/resolutions">둘러보기</router-link>
+        <router-link to="/resolution/:id">(페이지 제작시 바로 확인용 임시링크) 목표상세페이지</router-link>
       </div>
       <div class="account-menu" v-if="windowWidth > 768">
-        <router-link to="/login">
-          <img class="login-icon" src="../assets/img/login.png" alt="login" @click="goToMainPage">
+        <router-link to="/login" class="icon-link" data-text="로그인">
+          <div class="icon-container">
+            <img class="login-icon" src="../assets/img/login.png" alt="login" @click="goToMainPage">
+            <span class="icon-text">로그인</span>
+          </div>
         </router-link>
-        <router-link to="/signup">
-          <img class="signup-icon" src="../assets/img/signup.png" alt="signup" @click="goToMainPage">
+        <router-link to="/terms-of-service" class="icon-link" data-text="회원가입">
+          <div class="icon-container">
+            <img class="signup-icon" src="../assets/img/signup.png" alt="signup" @click="goToMainPage">
+            <span class="icon-text">회원가입</span>
+          </div>
         </router-link>
-        <router-link to="/myInfo">
-          <img class="myinfo-icon" src="../assets/img/myInfo.png" alt="myinfo" @click="goToMainPage">
+        <router-link to="/myInfo" class="icon-link" data-text="회원정보">
+          <div class="icon-container">
+            <img class="myinfo-icon" src="../assets/img/myInfo.png" alt="myinfo" @click="goToMainPage">
+            <span class="icon-text">회원정보</span>
+          </div>
         </router-link>
-        <router-link to="/message">
-          <img class="message-icon" src="../assets/img/message.png" alt="message" @click="goToMainPage">
+        <router-link to="/message" class="icon-link" data-text="쪽지">
+          <div class="icon-container">
+            <img class="message-icon" src="../assets/img/message.png" alt="message" @click="goToMainPage">
+            <span class="icon-text">쪽지</span>
+          </div>
         </router-link>
       </div>
-      <div class="dropdown" v-else @mouseenter="showDropdown = true" @mouseleave="showDropdown = false">
-        <button class="dropdown-btn" @mouseenter="showDropdown = true" @mouseleave="showDropdown = false">메뉴</button>
-        <div v-show="showDropdown" class="dropdown-content show" :style="{ transform: 'translateX(calc(-50% + ' +
+      <div class="menu-dropdown" v-else @mouseenter="showDropdown = true" @mouseleave="showDropdown = false">
+        <button class="menu-dropdown-btn" @mouseenter="showDropdown = true" @mouseleave="showDropdown = false">메뉴</button>
+        <div v-show="showDropdown" class="menu-dropdown-content show" :style="{ transform: 'translateX(calc(-50% + ' +
         dropdownPositionX + 'px))' }" @mouseenter="showDropdown = true" @mouseleave="showDropdown = false">
           <router-link to="/create-resolution">목표작성</router-link>
           <router-link to="/resolutions">둘러보기</router-link>
+          <router-link to="/terms-of-service">회원가입</router-link>
           <router-link to="/login">로그인</router-link>
         </div>
       </div>
@@ -51,13 +65,6 @@ export default {
       this.isMenuFixed = currentScrollPosition > this.lastScrollPosition || currentScrollPosition === 0; // 스크롤이 위로 올라가는 경우에도 메뉴를 표시하기 위해 조건 추가
       this.lastScrollPosition = currentScrollPosition;
     },
-    toggleDropdown() {
-      this.showDropdown = !this.showDropdown;
-      if (this.showDropdown) {
-        // 드롭다운 메뉴가 펼쳐질 때 현재 마우스의 X 위치를 저장
-        this.dropdownPositionX = event.clientX;
-      }
-    },
     goToMainPage() {
       this.$router.push("/");
     },
@@ -73,7 +80,7 @@ export default {
     window.removeEventListener("scroll", this.handleScroll);
     window.removeEventListener("resize", this.handleResize);
   },
-}
+};
 </script>
 
 <style src="../assets/css/Menu.css" lang="css"></style>

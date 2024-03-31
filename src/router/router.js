@@ -5,10 +5,10 @@ import ResolutionPage from "../views/resolution/ResolutionPage.vue";
 import CreateResolution from "@/views/resolution/CreateResolution.vue";
 import Login from "@/views/user/Login.vue";
 import SignUp from "@/views/user/SignUp.vue";
-import Message from "@/views/Message.vue";
-import MyInfo from "@/views/MyInfo.vue";
+import Message from "@/views/message/MessageMain.vue";
+import MyInfo from "@/views/user/MyInfo.vue";
+import TermsOfService from "@/components/user/TermsOfService.vue";
 import Report from "@/views/Report.vue";
-
 
 const routes = [
   {
@@ -50,6 +50,11 @@ const routes = [
     path: "/myInfo",
     name: "myInfo",
     component: MyInfo,
+  },
+  {
+    path: "/terms-of-service",
+    name: "termsOfService",
+    component: TermsOfService,
   },
   {
     path: "/report",

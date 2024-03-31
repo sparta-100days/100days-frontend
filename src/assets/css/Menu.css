@@ -4,41 +4,81 @@ body {
     font-family: 'Black Han Sans', sans-serif;
 }
 
+/* 기존 아이콘 스타일 유지 */
 .login-icon,
 .signup-icon,
 .myinfo-icon,
 .message-icon {
-    /* 그라데이션 색상 설정 */
     background: linear-gradient(to right, #ffc0cb, #add8e6);
-    /* 아이콘 크기 및 여백 설정 */
     width: 20px;
     height: 20px;
     margin: 0 5px;
-    /* 그라데이션을 뒤에 표시하기 위해 Z 인덱스를 설정 */
     z-index: 1;
-    /* 아이콘 모양 및 크기 설정 */
     font-size: 12px;
-    /* 원형 아이콘 모양 설정 */
     border-radius: 50%;
-    /* 그라데이션 색상을 반투명하게 만들어 파스텔 톤으로 표현 */
-    opacity: 0.6; /* 기존 0.8에서 0.6으로 수정 */
-    /* 아이콘을 버튼처럼 보이도록 설정 */
+    opacity: 0.6;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    /* 아이콘에 버무린 효과 추가 */
     box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
-    /* 아이콘에 마우스를 올렸을 때 효과 추가 */
     position: relative;
     overflow: hidden;
 }
 
-/* 아이콘에 마우스를 올렸을 때 테두리에 그림자 효과를 추가하여 빛무리 효과 시뮬레이션 */
 .login-icon:hover,
 .signup-icon:hover,
 .myinfo-icon:hover,
 .message-icon:hover {
     box-shadow: 0 0 20px 10px rgba(255, 255, 255, 0.5);
+}
+
+/* 부모 요소에 position: relative; 적용 */
+.account-menu {
+    margin-right: 50px;
+    position: relative;
+}
+
+/* 아이콘 가운데에 설명 텍스트를 배치 */
+.login-icon:hover::after,
+.signup-icon:hover::after,
+.myinfo-icon:hover::after,
+.message-icon:hover::after {
+    content: attr(data-text); /* 아이콘에 정의된 data-text 속성 값을 가져와서 표시 */
+    top: 50%; /* 아이콘 상단부터의 거리를 50%로 설정하여 아이콘의 세로 중앙으로 위치 */
+    left: 50%; /* 아이콘 왼쪽부터의 거리를 50%로 설정하여 아이콘의 가로 중앙으로 위치 */
+    transform: translate(-50%, -50%); /* 아이콘의 중앙으로 위치 조정 */
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 5px;
+    border-radius: 3px;
+    font-size: 12px;
+    z-index: 999;
+}
+
+/* 아이콘 컨테이너 스타일링 */
+.icon-container {
+    position: relative;
+    display: inline-block; /* 원 모양을 위한 인라인 블록 요소로 설정 */
+}
+
+/* 아이콘 가운데에 설명 텍스트를 배치 */
+.icon-container .icon-text {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 5px;
+    font-size: 12px;
+    z-index: 999;
+    writing-mode: vertical-lr;
+    word-spacing: -1px;
+}
+
+.icon-link:hover .icon-text {
+    display: block;
 }
 
 .fixed-menu {
@@ -69,8 +109,11 @@ body {
 
 .logo {
     width: 100px; /* 로고 너비 설정 */
-    height: 100px; /* 로고 높이 자동으로 조정 */
+    height: 100px; /* 로고 높이 설정 */
     margin-left: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .menu-logo {
@@ -86,10 +129,6 @@ body {
     width: 50px;
     height: 50px;
     cursor: pointer;
-}
-
-.menu-btn {
-    position: relative;
 }
 
 .links {
@@ -118,11 +157,11 @@ body {
     margin-right: 10px;
 }
 
-.dropdown {
+.menu-dropdown {
     position: relative;
 }
 
-.dropdown-content {
+.menu-dropdown-content {
     display: none;
     position: absolute;
     top: 100%;
@@ -132,23 +171,25 @@ body {
     z-index: 1;
     opacity: 0;
     transition: opacity 0.3s ease;
+    margin-left: 20px;
 }
 
-.dropdown-content.show {
+.menu-dropdown-content.show {
     display: block;
     margin-right: 10px;
     opacity: 1;
 }
 
-.dropdown-content a {
+.menu-dropdown-content a {
     color: #ffffff;
     padding: 12px 16px;
     text-decoration: none;
     display: block;
 }
 
-.dropdown-btn {
+.menu-dropdown-btn {
     background-color: #ffb0b0;
+    width: 80px;
     color: white;
     padding: 8px 16px;
     border: none;
@@ -157,10 +198,10 @@ body {
     margin-right: 35px;
 }
 
-.dropdown-btn:hover + .dropdown-content {
+.menu-dropdown-btn:hover + .menu-dropdown-content {
     display: block;
     border-radius: 2px;
-    margin-right: 35px;
+    margin-left: 20px;
 }
 
 .menu-links a {
