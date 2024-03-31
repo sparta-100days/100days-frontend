@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import { apiClient } from "@/views";
+import { apiClient } from "@/index";
 import PasswordChangeMyInfoPopup from  "../../components/user/PasswordChangeMyInfoPopup.vue"
 
 export default {

@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import { apiClient } from "@/views";
+import { apiClient } from "@/index";
 
 export default {
   data() {
