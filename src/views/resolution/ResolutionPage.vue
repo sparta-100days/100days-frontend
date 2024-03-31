@@ -18,8 +18,8 @@
           </p>
         </div>
         <div class="mainpage-resolution-progress-box">
-          <div class="progress-container">
-            <div class="progress-bar" :style="{ width: progress + '%' }">{{ progress }}%</div>
+          <div class="progress-container" :style="{ backgroundColor: containerColor }">
+            <div class="progress-bar" :style="{ width: progress + '%', backgroundColor: progressBarBackground }">{{ progress }}%</div>
           </div>
         </div>
         <div class="mainpage-resolution-daily-status-box">
@@ -58,6 +58,7 @@ export default {
   data() {
     return {
       progress: 0, // 초기 프로그레스 값
+      containerColor: "rgba(255, 255, 255, 0.2)", // 초기 배경색 설정
       isAuthor: false,
     };
   },
@@ -68,12 +69,43 @@ export default {
       this.updateProgressBar(randomValue);
     }, 1000); // 1초마다 업데이트
   },
+  computed: {
+    progressBarBackground() {
+      const percent = this.progress / 100;
+
+      if (percent < 0.1) {
+        return '#0F2027'; // #0F2027
+      } else if (percent < 0.2) {
+        return this.interpolateColor('#0F2027', '#141e30', (percent - 0.1) * 10); // 중간값 계산
+      } else if (percent < 0.4) {
+        return this.interpolateColor('#141e30', '#3f2d60', (percent - 0.2) * 10); // 중간값 계산
+      } else if (percent < 0.6) {
+        return this.interpolateColor('#2d3560', '#b26ca2', (percent - 0.4) * 5); // 중간값 계산
+      } else if (percent < 0.8) {
+        return this.interpolateColor('#6c8db2', '#a1eaea', (percent - 0.6) * 5); // 중간값 계산
+      } else if (percent < 0.9) {
+        return this.interpolateColor('#C6FFDD', '#fff9f0', (percent - 0.8) * 10); // 중간값 계산
+      } else {
+        return "#fff8f8"; // 흰색으로
+      }
+    },
+  },
   methods: {
     checkAuthor() {
       this.isAuthor = true;
     },
     updateProgressBar(data) {
       this.progress = data;
+    },
+    interpolateColor(color1, color2, factor) {
+      const result = color1.slice(1).match(/.{2}/g).map((channel, index) => {
+          const value1 = parseInt(channel, 16);
+          const value2 = parseInt(color2.slice(1).match(/.{2}/g)[index], 16);
+          const delta = value2 - value1;
+          const computedValue = value1 + Math.round(delta * factor);
+          return computedValue.toString(16).padStart(2, "0");
+        });
+      return `#${result.join("")}`;
     },
   },
 };
