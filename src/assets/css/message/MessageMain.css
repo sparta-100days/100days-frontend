@@ -61,7 +61,7 @@
     justify-content: flex-start;
     align-items: center;
     margin-top: 150px; /* 상단 여백 */
-    margin-bottom: 110px;
+    margin-bottom: 30px;
 }
 
 .message-tab-container {
