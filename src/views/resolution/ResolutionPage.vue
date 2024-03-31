@@ -31,7 +31,7 @@
           </div>
         </div>
         <div class="mainpage-resolution-daily-check">
-          <PostList />
+          <PostList v-if="showPostList" />
         </div>
       </div>
     </div>
@@ -51,8 +51,12 @@ export default {
     onMounted(() => {
       console.log(`resolution #${resolutionId.value}`);
     });
+
+    const showPostList = ref(false);
+
     return {
       resolutionId,
+      showPostList,
     };
   },
   data() {
@@ -90,6 +94,8 @@ export default {
   methods: {
     checkAuthor() {
       this.isAuthor = true;
+      // 연결된 게시판의 글을 보여주기 위해 showPostList를 true로 변경
+      this.showPostList = true;
     },
     updateProgressBar() {
       if (this.progress === 100) {
@@ -100,12 +106,12 @@ export default {
     },
     interpolateColor(color1, color2, factor) {
       const result = color1.slice(1).match(/.{2}/g).map((channel, index) => {
-          const value1 = parseInt(channel, 16);
-          const value2 = parseInt(color2.slice(1).match(/.{2}/g)[index], 16);
-          const delta = value2 - value1;
-          const computedValue = value1 + Math.round(delta * factor);
-          return computedValue.toString(16).padStart(2, "0");
-        });
+        const value1 = parseInt(channel, 16);
+        const value2 = parseInt(color2.slice(1).match(/.{2}/g)[index], 16);
+        const delta = value2 - value1;
+        const computedValue = value1 + Math.round(delta * factor);
+        return computedValue.toString(16).padStart(2, "0");
+      });
       return `#${result.join("")}`;
     },
   },

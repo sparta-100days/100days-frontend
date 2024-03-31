@@ -28,7 +28,7 @@ const posts = ref([
   {
     id: 1,
     title: "첫 번째 글",
-    content: "첫 번째 글의 내용입니dfdfdfdfdfdfdfdfddddddddddddddddddddddddddddddddddddddddddddfdfdf다.",
+    content: "첫 번째 글의 내용입니다.",
     author: "작성자1",
     date: "2024-03-31",
   },
@@ -46,18 +46,18 @@ const posts = ref([
     author: "작성자3",
     date: "2024-04-02",
   },
-  // 추가적인 게시글 데이터는 필요에 따라 수정하세요
 ]);
 
 const router = useRouter();
 
 const showPostDetails = (post) => {
+  // 해당 게시글의 상세 페이지로 이동
   router.push(`/posts/${post.id}`);
 };
 
 const formatDate = (dateString) => {
   const options = { year: "numeric", month: "short", day: "numeric" };
-  return new Date(dateString).toLocaleDateString("en-US", options);
+  return new Date(dateString).toLocaleDateString("ko-KR", options);
 };
 
 const truncateText = (text, maxLength) => {
