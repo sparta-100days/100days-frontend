@@ -17,13 +17,20 @@
           />
         </div>
         <div class="form-group">
+          <input type="text" class="form-control" id="accountId" v-model="signUpRequest.accountId"
+            required
+            pattern="^([a-zA-Zㄱ-ㅎ가-힣]{2,50})$"
+            placeholder="회원 ID : 공백일 경우 랜덤하게 발급됩니다."
+          />
+        </div>
+        <div class="form-group">
           <input type="password" class="form-control" id="password" v-model="signUpRequest.password"
             required
             placeholder="비밀번호"
           />
         </div>
         <div class="form-group">
-          <input type="password" class="form-control" id="newPassword" v-model="signUpRequest.newPassword" 
+          <input type="password" class="form-control" id="newPassword" v-model="signUpRequest.newPassword"
             required
             placeholder="비밀번호 재확인"
           />
@@ -50,6 +57,7 @@ export default {
       signUpRequest: {
         email: "",
         nickname: "",
+        accountId: "",
         password: "",
         newPassword: "",
         birth: "",

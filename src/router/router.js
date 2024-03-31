@@ -8,7 +8,6 @@ import SignUp from "@/views/user/SignUp.vue";
 import Message from "@/views/message/MessageMain.vue";
 import MyInfo from "@/views/user/MyInfo.vue";
 import TermsOfService from "@/components/user/TermsOfService.vue";
-import Report from "@/views/Report.vue";
 
 const routes = [
   {
@@ -63,6 +62,11 @@ const routes = [
   },
 
 
+  {
+    path: "/posts",
+    name: "Posts",
+    component: PostList,
+  },
 ];
 
 const router = createRouter({

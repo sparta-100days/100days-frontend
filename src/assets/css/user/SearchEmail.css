@@ -12,9 +12,9 @@
 }
 
 .search-email-popup-content {
-    background: radial-gradient(circle, #d3d7e5, #eee9f3, #f5eeee);
+    background: white;
     padding: 20px;
-    border-radius: 10px;
+    border-radius: 3px;
     width: 500px; /* 적당한 너비 설정 */
     height: 400px; /* 세로 길이 조정 */
     text-align: center;
@@ -31,8 +31,8 @@
 
 .search-button {
     width: 120px;
-    height: 43px;
-    border-radius: 3px;
+    height: 45px;
+    border-radius: 2px;
     background-color: #ffb0b0;
 }
 
@@ -44,11 +44,12 @@
     height: 24px;
     padding: 10px;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 3px;
     flex: 1;
     margin-right: 10px;
     background-color: white; /* 검색 전 배경색을 흰색으로 설정 */
     transition: background-color 0.3s ease; /* 검색 효과를 위한 트랜지션 추가 */
+    margin-bottom: 10px;
 }
 
 .search-form input[type="text"]:focus {
@@ -59,7 +60,7 @@
 }
 
 .search-form.searching input[type="text"] {
-    background-color: black; /* 검색 중 배경색을 검은색으로 설정 */
+    background-color: rgba(0, 0, 0, 0.8); /* 검색 중 배경색을 검은색으로 설정 */
     color: transparent; /* 투명 텍스트로 설정하여 검색 중 효과 구현 */
     text-shadow: 0 0 3px white; /* 어안 렌즈 효과를 위한 텍스트 그림자 */
     animation: wave-effect 0.5s ease infinite; /* 물결치는 흑백 효과를 위한 애니메이션 */
@@ -126,14 +127,14 @@
 
 .close-results-button {
     width: 100%;
-    height: 43px;
+    height: 50px;
     padding: 10px;
     margin-top: 10px;
     background-color: #ffb0b0;
     color: white;
     border: none;
     cursor: pointer;
-    border-radius: 3px;
+    border-radius: 2px;
     transition: background-color 0.5s ease; /* 버튼의 마우스 오버 효과를 위한 트랜지션 추가 */
 }
 

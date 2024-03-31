@@ -5,7 +5,7 @@
         <h2>나의 목표 리스트</h2>
       </div>
       <div class="my-resolution-list-box">
-        <div class="resolution-list-container">
+        <div class="my-resolution-list-container">
           <div class="my-resolution-list-table-container">
             <table class="resolution-table">
               <thead>
@@ -28,8 +28,8 @@
         </div>
       </div>
       <div class="my-resolution-pagination-container">
-        <button @click="prevPage" :disabled="currentPage <= 1">이전</button>
-        <button @click="nextPage" :disabled="currentPage >= pageCount">다음</button>
+        <button class="my-resol-btn" @click="prevPage" :disabled="currentPage <= 1">이전</button>
+        <button class="my-resol-btn" @click="nextPage" :disabled="currentPage >= pageCount">다음</button>
       </div>
     </div>
   </div>

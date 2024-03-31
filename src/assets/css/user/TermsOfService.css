@@ -164,7 +164,7 @@ input[type="checkbox"]:checked + .checkmark:after {
 button {
     padding: 10px 20px;
     border: none;
-    border-radius: 5px;
+    border-radius: 3px;
     background-color: #ffb0b0;
     color: #fff;
     cursor: pointer;

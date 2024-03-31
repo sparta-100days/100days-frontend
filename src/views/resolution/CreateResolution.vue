@@ -1,24 +1,19 @@
 <template>
-  <div class="create-resolution">
+  <div class="create-resolution-background">
+    <i class="fas fa-moon"></i>
+    <i class="fas fa-moon blur"></i>
+    <div class="create-resolution-container">
     <h2>새 목표 만들기</h2>
-    <form @submit.prevent="submitForm">
-      <div class="form-group">
-        <label for="title">목표</label>
-        <input type="text" id="title" v-model="resolution.title" required />
+      <form @submit.prevent="submitForm">
+        <input type="text" class="create-resolution-title" id="title" v-model="resolution.title" required />
         <span>{{ validationMessages.title }}</span>
-      </div>
-      <div class="form-group">
-        <label for="description">설명</label>
-        <textarea id="description" v-model="resolution.description" required></textarea>
+        <textarea class="create-resolution-description" id="description" v-model="resolution.description" required></textarea>
         <span>{{ validationMessages.description }}</span>
-      </div>
-      <div class="form-group">
-        <label for="category">카테고리</label>
-        <input type="text" id="category" v-model="resolution.category" required>
+        <input type="text" class="create-resolution-category" id="category" v-model="resolution.category" required>
         <span>{{ validationMessages.category }}</span>
-      </div>
-      <button type="submit">목표 생성</button>
-    </form>
+        <button type="submit" class="create-resolution-btn">목표 생성</button>
+      </form>
+    </div>
   </div>
 </template>
 
@@ -45,9 +40,9 @@ export default {
       // 폼 데이터가 유효하면 백엔드 API로 데이터를 전송하는 로직을 추가합니다.
       console.log("Form submitted:", this.resolution);
       // API 호출 로직은 여기에 추가합니다.
-    }
-  }
+    },
+  },
 };
 </script>
 
-<style src="../../assets/css/resolution/CreateResolution.css" lang="css"></style>
+<style src="@/assets/css/resolution/CreateResolution.css" lang="css"></style>
