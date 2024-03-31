@@ -116,7 +116,7 @@
     height: 50px;
     border: none;
     margin-left: 10px;
-    border-radius: 20px;
+    border-radius: 3px;
     cursor: pointer;
     overflow: hidden; /* 자식 요소의 넘치는 부분을 숨김 */
 }
