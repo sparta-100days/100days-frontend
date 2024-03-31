@@ -1,6 +1,16 @@
 <template>
   <div class="message-receive-container">
-    <div class="message-receive-black-box">
+    <div class="message-receive-detail" v-if="selectedMessage">
+      <h2>쪽지 상세보기</h2>
+      <div><strong>작성자:</strong> {{ selectedMessage.senderNickname || 'N/A' }}</div>
+      <div><strong>수신자:</strong> {{ selectedMessage.receiverNickname || 'N/A' }}</div>
+      <div><strong>전송 시간:</strong> {{ selectedMessage.sentAt }}</div>
+      <hr>
+      <h3>{{ selectedMessage.title }}</h3>
+      <p>{{ selectedMessage.content }}</p>
+      <button @click="selectedMessage = null">목록으로 돌아가기</button>
+    </div>
+    <div v-else class="message-receive-black-box">
       <div class="message-receive-title">
         <h2>받은 쪽지함</h2>
       </div>
@@ -61,6 +71,8 @@ export default {
           readStatus: false,
         },
       ],
+      selectedMessage: null,
+      selectAll: false,
     };    
   },
   conputed: {
@@ -100,7 +112,7 @@ export default {
     },
     selectMessage(message) {
       this.selectedMessage = message;
-      this.selectedMenu = this.$router.push;
+      this.selectedMenu = 'detail';
     },
   },
 };
