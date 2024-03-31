@@ -7,7 +7,7 @@
     z-index: -1;
     background: radial-gradient(circle, #243b55, #141e30, #000000) no-repeat center center;
     background-size: 200% 200%;
-    animation: gradientAnimation 20s linear infinite;
+    animation: gradientAnimation 10s linear infinite;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -17,11 +17,11 @@
     width: 200px;
     height: 200px;
     border-radius: 50%;
-    background-color: rgba(255, 228, 198, 0.62); /* 주홍빛 색상 */
+    background-color: rgba(232, 232, 232, 0.4); /* 주홍빛 색상 */
     position: absolute;
     animation: sweep 2s linear infinite;
-    filter: blur(10px); /* 블러 처리 */
-    background-image: radial-gradient(circle, rgba(255,255,255,0.8) 10%, transparent 60%);
+    filter: blur(26px); /* 블러 처리 */
+    background-image: radial-gradient(circle, rgba(239, 239, 239, 0.8) 10%, transparent 20%);
     /* 원 안에 달 모양의 무늬 */
 }
 
