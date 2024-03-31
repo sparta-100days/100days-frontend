@@ -96,7 +96,9 @@ export default {
         });
       }, 1000);
 
-      // 임시적으로 검색 실패 시 SweetAlert2로 알림 표시
+
+      /*
+      // 임시적으로 검색 실패 시 SweetAlert2로 알림 표시, 연결전까지 주석처리
       setTimeout(() => {
         this.isSearching = false;
         Swal.fire({
@@ -104,7 +106,7 @@ export default {
           title: "Oops...",
           text: "검색 중 오류가 발생했습니다!",
         });
-      }, 2000);
+      }, 2000);*/
     },
     closePopup() {
       this.$emit("close");

@@ -28,7 +28,7 @@
 
 <script>
 import Tab1 from "@/components/user/Profile.vue";
-import Tab2 from "@/components/user/MyResolutionList.vue";
+import Tab2 from "@/components/user/MyInfoResolutionList.vue";
 import Tab3 from "@/components/user/MyLikeList.vue";
 import Tab4 from "@/components/user/Withdraw.vue";
 
