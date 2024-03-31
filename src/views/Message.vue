@@ -117,7 +117,7 @@
 </template>
 
 <script>
-import { apiClient } from '.';
+import { apiClient } from './index.js';
 
 export default {
   data() {
