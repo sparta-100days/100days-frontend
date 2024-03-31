@@ -19,7 +19,7 @@
                                             </option>
                                         </select>
                                     </div>
-                                    <div>
+                                    <div class="report-nickname-css">
                                         <label class="report-nickname" for="nickname">닉네임</label>
                                         <input class="report-nickname-text" id="nickname" type="text"
                                             placeholder="Enter your nickname"
@@ -118,19 +118,9 @@ label {
     margin: 1000px 10px 10px 10px;
     padding: 10px;
 }
+
 .report-nickname-text {
-    width: 80%;
-}
-
-.report-content-text{
-    width: 85%;
-    margin: 20px;
-    background-color: rgba(255, 255, 255, 0.7);
-}
-
-input[type="text"],
-textarea,
-select {
+    width: 81%;
     background-color: #edf2f7;
     color: #1a202c;
     margin: 20px;
@@ -138,6 +128,22 @@ select {
     background-color: rgba(255, 255, 255, 0.7);
     transition: border-color .3s, box-shadow .3s;
 }
+
+.report-content-text {
+    width: 85%;
+    background-color: #edf2f7;
+    color: #1a202c;
+    margin: 20px;
+    border: 2px solid #edf2f7;
+    background-color: rgba(255, 255, 255, 0.7);
+    transition: border-color .3s, box-shadow .3s;
+}
+
+.report-nickname-css {
+    padding: 10px 0px 10px 0px;
+}
+
+
 
 .report-button-text {
     width: 90%;
@@ -176,4 +182,4 @@ select {
         background-position: 0% 50%;
     }
 }
-</style>../../index.js
+</style>
