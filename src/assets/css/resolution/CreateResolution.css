@@ -13,46 +13,26 @@
     align-items: center;
 }
 
-.headlight {
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    background-color: rgba(232, 232, 232, 0.4); /* 주홍빛 색상 */
+.fa-moon {
     position: absolute;
-    animation: sweep 2s linear infinite;
-    filter: blur(26px); /* 블러 처리 */
-    background-image: radial-gradient(circle, rgba(239, 239, 239, 0.8) 10%, transparent 20%);
-    /* 원 안에 달 모양의 무늬 */
+    top: 19%;
+    left: 33%;
+    font-size: 130px;
+    color: rgba(255,255,255,0.8);
+    animation: moon-rotation 4s infinite linear;
 }
 
-.headlight:nth-child(1) {
-    top: -100vh; /* 화면 상단 밖에서 시작 */
-    left: -100vw; /* 화면 좌측 밖에서 시작 */
-    animation-duration: 6s; /* 첫 번째 원은 6초 동안 이동 */
+.blur {
+    filter: blur(10px);
+    -webkit-filter: blur(10px);
 }
 
-.headlight:nth-child(2) {
-    top: -100vh; /* 화면 상단 밖에서 시작 */
-    right: -100vw; /* 화면 우측 밖에서 시작 */
-    animation-duration: 7s; /* 두 번째 원은 7초 동안 이동 */
-}
-
-.headlight:nth-child(3) {
-    bottom: -100vh; /* 화면 하단 밖에서 시작 */
-    left: -100vw; /* 화면 좌측 밖에서 시작 */
-    animation-duration: 8s; /* 세 번째 원은 8초 동안 이동 */
-}
-
-.headlight:nth-child(4) {
-    bottom: -100vh; /* 화면 하단 밖에서 시작 */
-    right: -100vw; /* 화면 우측 밖에서 시작 */
-    animation-duration: 9s; /* 네 번째 원은 9초 동안 이동 */
-}
-
-@keyframes sweep {
-    100% {
-        top: 100vh; /* 화면 하단 밖으로 이동하여 사라짐 */
-        left: 100vw; /* 화면 우측 밖으로 이동하여 사라짐 */
+@keyframes moon-rotation {
+    0%, 100% {
+        transform: rotate(0deg);
+    }
+    50% {
+        transform: rotate(-20deg);
     }
 }
 
@@ -69,43 +49,40 @@
     margin-left: 30px;
 }
 
-.form-group input[type="text"] {
-    height: 30px;
-    border: none;
-    background-color: rgba(255, 255, 255, 0.7);
-    color: #000000;
-    outline: none;
+.create-resolution-title {
+    width: 305px;
+    border-radius: 2px;
+    margin-bottom: 15px;
+    border: 1px solid #989898;
 }
 
-.form-group textarea {
+.create-resolution-description {
     height: 200px;
-    width: 320px;
-    border-radius: 3px;
-    background-color: rgba(255, 255, 255, 0.7);
+    width: 315px;
+    border-radius: 2px;
+    background-color: rgba(255, 255, 255, 0.5);
     color: #000000;
     outline: none;
+    border: 1px solid #989898;
 }
 
-.form-group textarea:hover {
+.create-resolution-description:hover {
     border-color: #8a2be2; /* 핑크색 테두리 색상 적용 */
     border-width: 2px; /* 테두리 선 굵기 조정 */
     outline: none; /* 포커스 효과 제거 */
     box-shadow: 0 0 5px rgba(72, 209, 204, 0.8)
 }
 
-#category {
-    width: 300px;
+.create-resolution-category {
+    width: 305px;
     height: 45px;
-    border-radius: 3px;
-    margin-bottom: 10px;
-}
-
-#category option {
-    width: 325px;
-    height: 45px;
+    border-radius: 2px;
+    border: 1px solid #989898;
+    margin-bottom: 15px;
 }
 
 .create-resolution-btn {
     width: 320px;
     height: 45px;
+    border-radius: 2px;
 }

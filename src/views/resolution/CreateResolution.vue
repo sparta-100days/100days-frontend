@@ -1,21 +1,16 @@
 <template>
   <div class="create-resolution-background">
+    <i class="fas fa-moon"></i>
+    <i class="fas fa-moon blur"></i>
     <div class="create-resolution-container">
-      <div class="headlight"></div>
-      <h2>새 목표 만들기</h2>
+    <h2>새 목표 만들기</h2>
       <form @submit.prevent="submitForm">
-        <div class="form-group">
-          <input class="create-resolution-title" type="text" id="title" v-model="resolution.title" required />
-          <span>{{ validationMessages.title }}</span>
-        </div>
-        <div class="form-group">
-          <textarea class="create-resolution-description" id="description" v-model="resolution.description" required></textarea>
-          <span>{{ validationMessages.description }}</span>
-        </div>
-        <div class="form-group">
-          <input type="text" id="category" v-model="resolution.category" required>
-          <span>{{ validationMessages.category }}</span>
-        </div>
+        <input type="text" class="create-resolution-title" id="title" v-model="resolution.title" required />
+        <span>{{ validationMessages.title }}</span>
+        <textarea class="create-resolution-description" id="description" v-model="resolution.description" required></textarea>
+        <span>{{ validationMessages.description }}</span>
+        <input type="text" class="create-resolution-category" id="category" v-model="resolution.category" required>
+        <span>{{ validationMessages.category }}</span>
         <button type="submit" class="create-resolution-btn">목표 생성</button>
       </form>
     </div>
@@ -46,7 +41,7 @@ export default {
       console.log("Form submitted:", this.resolution);
       // API 호출 로직은 여기에 추가합니다.
     },
-  }
+  },
 };
 </script>
 
