@@ -42,7 +42,7 @@
 import ReissuePasswordPopup from "../../components/user/ReissuePasswrodPopup.vue";
 import SearchEmailPopup from "@/components/user/SearchEmailPopup.vue";
 import TermsOfService from "@/components/user/TermsOfService.vue";
-import { apiClient } from "@/views";
+import { apiClient } from "@/index";
 // import axios from "axios";
 
 export default {
@@ -94,4 +94,4 @@ export default {
 };
 </script>
 
-<style src="../../assets/css/user/Login.css" lang="css"></style>
+<style src="../../assets/css/user/Login.css" lang="css"></style>index

@@ -30,7 +30,6 @@
 </template>
 
 <script>
-import { apiClient } from '../index';
 import  Tab1  from "@/components/message/MessageWrite.vue";
 import  Tab2  from "@/components/message/MessageSend.vue";
 import  Tab3  from "@/components/message/MessageReceived.vue";
@@ -102,3 +101,4 @@ export default {
 </script>
 
 <style src="@/assets/css/message/MessageMain.css" lang="css"></style>
+../../../index

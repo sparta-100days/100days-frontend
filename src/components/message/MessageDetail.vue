@@ -11,10 +11,33 @@
 </template>
 
 <script>
+import { apiClient } from "@/index"
 
+export default {
+  data() {
+    return {
+      selectedMessage: null,
+      selectAll: false,
+    };
+  },
+  mounted() {
+  },
+  methods: {
+    toggleSelectAll() {
+      this.selectAll = !this.selectAll;
+    },
+    selectMessage(message) {
+      this.selectedMessage = message;
+      this.selectedMenu = "detail";
+    },
+    deleteSelectedMessages() {
+      this.sentMessages = this.sentMessages.filter(
+        (message) => !message.selected
+      );
+    },
+  },
+};
 </script>
-
-
 <style scoped lang="css">
 
 </style>

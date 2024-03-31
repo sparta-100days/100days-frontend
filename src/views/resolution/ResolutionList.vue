@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import {apiClient} from "../index.js"
+import {apiClient} from "@/index"
 
 export default {
   data() {
@@ -48,3 +48,4 @@ export default {
 </script>
 
 <style src="../../assets/css/resolution/ResolutionList.css" lang="css"></style>
+../../../index.js

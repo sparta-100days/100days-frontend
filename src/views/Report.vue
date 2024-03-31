@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import { apiClient } from "./index.js"
+import { apiClient } from "@/index"
 
 const ReportStatus = Object.freeze({
     SPAM: "스팸",
@@ -96,7 +96,7 @@ export default {
     flex-direction: row;
     border-radius: 20px;
     position: relative;
-    color: rgb(65, 35, 95);
+    color: #333;
 }
 
 .container {
@@ -118,8 +118,11 @@ label {
     margin: 1000px 10px 10px 10px;
     padding: 10px;
 }
+.report-nickname-text {
+    width: 80%;
+}
 
-.report-content-text {
+.report-content-text{
     width: 85%;
     margin: 20px;
     background-color: rgba(255, 255, 255, 0.7);
@@ -173,4 +176,4 @@ select {
         background-position: 0% 50%;
     }
 }
-</style>
+</style>../../index.js

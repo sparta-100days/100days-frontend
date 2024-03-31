@@ -37,20 +37,41 @@
         <button @click="prevPage" :disabled="currentPage <= 1">이전</button>
         <button @click="nextPage" :disabled="currentPage >= pageCount">다음</button>
       </div>
+      <div class="message-detail" v-if="selectedMenu === 'detail' && selectedMessage">
+    <h2>쪽지 상세보기</h2>
+    <div><strong>작성자:</strong> {{ selectedMessage.senderNickname || 'N/A' }}</div>
+    <div><strong>수신자:</strong> {{ selectedMessage.receiverNickname || 'N/A' }}</div>
+    <div><strong>전송 시간:</strong> {{ selectedMessage.sentAt }}</div>
+    <hr>
+    <h3>{{ selectedMessage.title }}</h3>
+    <p>{{ selectedMessage.content }}</p>
+  </div>
     </div>
   </div>
 </template>
 
 <script>
+import { apiClient } from "@/index"
+
 export default {
   data() {
     return {
       currentPage: 1,
       pageCount: 3,
-      message: [
-        { receiverNickname: "이름", title: "안녕하세요.", sentAt: 20240331 },
-      ],
+      message: [],
       itemsPerPage: 10,
+      sendMessages: [
+        {
+          id: '',
+          receiverNickname: '',
+          title: '',
+          content: '',
+          sentAt: '',
+          readStatus: false,
+        },
+      ],
+      selectedMessage: null,
+      selectAll: false,
     };
   },
   conputed: {
@@ -59,6 +80,11 @@ export default {
       const endIndex = startIndex + this.itemsPerPage;
       return this.message.slice(startIndex, endIndex);
     },
+    selectedMessage: null,
+    selectAll: false
+  },
+  mounted() {
+    this.sendMessage();
   },
   methods: {
     prevPage() {
@@ -73,7 +99,23 @@ export default {
     },
     selectMessage() {
 
-    }
+    },
+    async sendMessage() {
+      const response = await apiClient.get(
+        "/api/messages/sender"
+      );
+      this.sendMessages = response.data.content
+    },
+    toggleSelectAll() {
+      this.selectAll = !this.selectAll;
+      this.sentMessages.forEach((message) => {
+        message.selected = this.selectAll;
+      });
+    },
+    selectMessage(message) {
+      this.selectedMessage = message;
+      this.selectedMenu = "detail";
+    },
   },
 };
 </script>

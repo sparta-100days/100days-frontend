@@ -42,15 +42,25 @@
 </template>
 
 <script>
+import { apiClient } from "@/index"
+
 export default {
   data() {
     return {
       currentPage: 1,
       pageCount: 3,
-      message: [
-        { senderNickname: "이름", title: "안녕하세요.", sentAt: 20240331 },
-      ],
+      message: [],
       itemsPerPage: 10,
+      adminMessages: [
+        {
+          id: '',
+          receiverNickname: '',
+          title: '',
+          content: '',
+          sentAt: '',
+          readStatus: false,
+        },
+      ],
     };
   },
   conputed: {
@@ -59,6 +69,11 @@ export default {
       const endIndex = startIndex + this.itemsPerPage;
       return this.message.slice(startIndex, endIndex);
     },
+    selectedMessage: null,
+    selectAll: false
+  },
+  mounted() {
+    this.adminMessage();
   },
   methods: {
     prevPage() {
@@ -72,8 +87,20 @@ export default {
       }
     },
     selectMessage() {
-
-    }
+    },
+    async adminMessage() {
+      const response = await apiClient.get(
+        "/api/messages/admins"
+      );
+      this.adminMessages = response.data.content
+    },
+    toggleSelectAll() {
+      this.selectAll = !this.selectAll;
+    },
+    selectMessage(message) {
+      this.selectedMessage = message;
+      this.selectedMenu = "detail";
+    },
   },
 };
 </script>
