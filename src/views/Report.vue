@@ -1,4 +1,5 @@
 <template>
+<div class="report-background">
   <div class="main-report">
     <div class="container mx-auto p-8">
       <div class="max-w-md mx-auto bg-white rounded-lg overflow-hidden md:max-w-lg">
@@ -34,6 +35,7 @@
       </div>
     </div>
   </div>
+</div>  
 </template>
 
 <script>
@@ -56,7 +58,6 @@ export default {
 </script>
 
 <style>
-/* Additional styles */
 .main-report {
   max-width: 350px;
   width: 100%;
@@ -75,45 +76,73 @@ export default {
 }
 
 h3 {
-  color: #333;
-  margin: 10px;
+    color: #333;
+    margin: 10px;
 }
 
 label {
-  margin-bottom: .5rem;
+    margin-bottom: .5rem;
 }
 
 .report-status,
 .report-nickname,
 .report-content {
-  margin: 1000px 10px 10px 10px;
-  padding: 10px;
+    margin: 1000px 10px 10px 10px;
+    padding: 10px;
 }
 
 .report-content-text {
-  width: 85%;
-  margin: 15px;
+    width: 85%;
+    margin: 20px;
+    background-color: rgba(255, 255, 255, 0.7);
 }
 
 input[type="text"],
 textarea,
 select {
-  background-color: #edf2f7;
-  color: #1a202c;
-  margin: 15px;
-  border: 2px solid #edf2f7;
-  /* Slightly thicker border for better visual appeal */
-  transition: border-color .3s, box-shadow .3s;
-  /* Smooth transition for focus states */
+    background-color: #edf2f7;
+    color: #1a202c;
+    margin: 20px;
+    border: 2px solid #edf2f7;
+    background-color: rgba(255, 255, 255, 0.7);
+    transition: border-color .3s, box-shadow .3s;
 }
 
 .report-button-text {
-  width: 85%;
-  margin: 15px;
-  height: 45px;
-  background-color: rgb(255, 176, 176);
-  border: 2px solid #edf2f7;
-  border-radius: 10px;
+    width: 90%;
+    margin: 15px;
+    height: 45px;
+    background-color: rgb(255, 176, 176);
+    border: 2px solid #edf2f7;
+    border-radius: 10px;
 
+}
+
+.report-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, #d5f4e6, #b9d6fc, #b3ffe8);
+    background-size: 200% 200%;
+    animation: gradientAnimation 5s linear infinite;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@keyframes gradientAnimation {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
 }
 </style>
