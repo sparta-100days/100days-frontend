@@ -8,7 +8,6 @@ import SignUp from "@/views/user/SignUp.vue";
 import Message from "@/views/message/MessageMain.vue";
 import MyInfo from "@/views/user/MyInfo.vue";
 import TermsOfService from "@/components/user/TermsOfService.vue";
-import PostList from "@/views/post/PostList.vue";
 
 const routes = [
   {
@@ -56,6 +55,13 @@ const routes = [
     name: "termsOfService",
     component: TermsOfService,
   },
+  {
+    path: "/report",
+    name: "report",
+    component: Report,
+  },
+
+
   {
     path: "/posts",
     name: "Posts",

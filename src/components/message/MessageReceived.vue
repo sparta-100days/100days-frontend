@@ -1,6 +1,16 @@
 <template>
   <div class="message-receive-container">
-    <div class="message-receive-black-box">
+    <div class="message-receive-detail" v-if="selectedMessage">
+      <h2>쪽지 상세보기</h2>
+      <div><strong>작성자:</strong> {{ selectedMessage.senderNickname || 'N/A' }}</div>
+      <div><strong>수신자:</strong> {{ selectedMessage.receiverNickname || 'N/A' }}</div>
+      <div><strong>전송 시간:</strong> {{ selectedMessage.sentAt }}</div>
+      <hr>
+      <h3>{{ selectedMessage.title }}</h3>
+      <p>{{ selectedMessage.content }}</p>
+      <button @click="selectedMessage = null">목록으로 돌아가기</button>
+    </div>
+    <div v-else class="message-receive-black-box">
       <div class="message-receive-title">
         <h2>받은 쪽지함</h2>
       </div>
@@ -42,16 +52,28 @@
 </template>
 
 <script>
+import { apiClient } from "@/index"
+
 export default {
   data() {
     return {
       currentPage: 1,
       pageCount: 3,
-      message: [
-        { senderNickname: "이름", title: "안녕하세요.", sentAt: 20240331 },
-      ],
+      message: [],
       itemsPerPage: 10,
-    };
+      receiveMessages: [
+        {
+          id: '',
+          senderNickname: '',
+          title: '',
+          content: '',
+          sentAt: '',
+          readStatus: false,
+        },
+      ],
+      selectedMessage: null,
+      selectAll: false,
+    };    
   },
   conputed: {
     receiveMessages() {
@@ -59,6 +81,11 @@ export default {
       const endIndex = startIndex + this.itemsPerPage;
       return this.message.slice(startIndex, endIndex);
     },
+    selectedMessage: null,
+    selectAll: false
+  },
+  mounted() {
+    this.receiverMessage();
   },
   methods: {
     prevPage() {
@@ -73,7 +100,20 @@ export default {
     },
     selectMessage() {
 
-    }
+    },
+    async receiverMessage() {
+      const response = await apiClient.get(
+        "/api/messages/receiver"
+      );
+      this.receiveMessages = response.data.content
+    },
+    toggleSelectAll() {
+      this.selectAll = !this.selectAll;
+    },
+    selectMessage(message) {
+      this.selectedMessage = message;
+      this.selectedMenu = 'detail';
+    },
   },
 };
 </script>

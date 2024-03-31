@@ -1,6 +1,16 @@
 <template>
   <div class="message-send-container">
-    <div class="message-send-black-box">
+    <div class="message-sender-detail" v-if="selectedMessage">
+      <h2>쪽지 상세보기</h2>
+      <div><strong>작성자:</strong> {{ selectedMessage.senderNickname || 'N/A' }}</div>
+      <div><strong>수신자:</strong> {{ selectedMessage.receiverNickname || 'N/A' }}</div>
+      <div><strong>전송 시간:</strong> {{ selectedMessage.sentAt }}</div>
+      <hr>
+      <h3>{{ selectedMessage.title }}</h3>
+      <p>{{ selectedMessage.content }}</p>
+      <button @click="selectedMessage = null">목록으로 돌아가기</button>
+    </div>
+    <div v-else class="message-send-black-box">
       <div class="message-send-title">
         <h2>보낸 쪽지함</h2>
       </div>
@@ -42,15 +52,27 @@
 </template>
 
 <script>
+import { apiClient } from "@/index"
+
 export default {
   data() {
     return {
       currentPage: 1,
       pageCount: 3,
-      message: [
-        { receiverNickname: "이름", title: "안녕하세요.", sentAt: 20240331 },
-      ],
+      message: [],
       itemsPerPage: 10,
+      sendMessages: [
+        {
+          id: '',
+          receiverNickname: '',
+          title: '',
+          content: '',
+          sentAt: '',
+          readStatus: false,
+        },
+      ],
+      selectedMessage: null,
+      selectAll: false,
     };
   },
   conputed: {
@@ -59,6 +81,11 @@ export default {
       const endIndex = startIndex + this.itemsPerPage;
       return this.message.slice(startIndex, endIndex);
     },
+    selectedMessage: null,
+    selectAll: false
+  },
+  mounted() {
+    this.sendMessage();
   },
   methods: {
     prevPage() {
@@ -73,7 +100,23 @@ export default {
     },
     selectMessage() {
 
-    }
+    },
+    async sendMessage() {
+      const response = await apiClient.get(
+        "/api/messages/sender"
+      );
+      this.sendMessages = response.data.content
+    },
+    toggleSelectAll() {
+      this.selectAll = !this.selectAll;
+      this.sentMessages.forEach((message) => {
+        message.selected = this.selectAll;
+      });
+    },
+    selectMessage(message) {
+      this.selectedMessage = message;
+      this.selectedMenu = "detail";
+    },
   },
 };
 </script>

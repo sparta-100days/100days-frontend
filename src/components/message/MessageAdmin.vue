@@ -1,6 +1,16 @@
 <template>
   <div class="message-admin-container">
-    <div class="message-admin-black-box">
+    <div class="message-admin-detail" v-if="selectedMessage">
+      <h2>쪽지 상세보기</h2>
+      <div><strong>작성자:</strong> {{ selectedMessage.senderNickname || 'N/A' }}</div>
+      <div><strong>수신자:</strong> {{ selectedMessage.receiverNickname || 'N/A' }}</div>
+      <div><strong>전송 시간:</strong> {{ selectedMessage.sentAt }}</div>
+      <hr>
+      <h3>{{ selectedMessage.title }}</h3>
+      <p>{{ selectedMessage.content }}</p>
+      <button @click="selectedMessage = null">목록으로 돌아가기</button>
+    </div>
+    <div v-else class="message-admin-black-box">
       <div class="message-admin-title">
         <h2>관리자 쪽지</h2>
       </div>
@@ -42,15 +52,25 @@
 </template>
 
 <script>
+import { apiClient } from "@/index"
+
 export default {
   data() {
     return {
       currentPage: 1,
       pageCount: 3,
-      message: [
-        { senderNickname: "이름", title: "안녕하세요.", sentAt: 20240331 },
-      ],
+      message: [],
       itemsPerPage: 10,
+      adminMessages: [
+        {
+          id: '',
+          receiverNickname: '',
+          title: '',
+          content: '',
+          sentAt: '',
+          readStatus: false,
+        },
+      ],
     };
   },
   conputed: {
@@ -59,6 +79,11 @@ export default {
       const endIndex = startIndex + this.itemsPerPage;
       return this.message.slice(startIndex, endIndex);
     },
+    selectedMessage: null,
+    selectAll: false
+  },
+  mounted() {
+    this.adminMessage();
   },
   methods: {
     prevPage() {
@@ -72,8 +97,20 @@ export default {
       }
     },
     selectMessage() {
-
-    }
+    },
+    async adminMessage() {
+      const response = await apiClient.get(
+        "/api/messages/admins"
+      );
+      this.adminMessages = response.data.content
+    },
+    toggleSelectAll() {
+      this.selectAll = !this.selectAll;
+    },
+    selectMessage(message) {
+      this.selectedMessage = message;
+      this.selectedMenu = "detail";
+    },
   },
 };
 </script>
