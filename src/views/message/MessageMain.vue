@@ -34,6 +34,7 @@ import  Tab1  from "@/components/message/MessageWrite.vue";
 import  Tab2  from "@/components/message/MessageSend.vue";
 import  Tab3  from "@/components/message/MessageReceived.vue";
 import  Tab4  from "@/components/message/MessageAdmin.vue";
+import MessageDetail from "@/components/message/MessageDetail.vue";
 
 export default {
   data() {

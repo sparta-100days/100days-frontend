@@ -60,8 +60,6 @@ const routes = [
     name: "report",
     component: Report,
   },
-
-
   {
     path: "/posts",
     name: "Posts",
