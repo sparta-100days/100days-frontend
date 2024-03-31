@@ -31,7 +31,7 @@
           </div>
         </div>
         <div class="mainpage-resolution-daily-check">
-          <!-- 달력 형식이나 스크롤 형식 컴포넌트 추가 -->
+          <PostList />
         </div>
       </div>
     </div>
@@ -41,6 +41,7 @@
 <script>
 import { useRoute } from "vue-router";
 import { onMounted, ref } from "vue";
+import PostList from "@/views/post/PostList.vue";
 
 export default {
   setup() {
@@ -48,7 +49,6 @@ export default {
     const resolutionId = ref(route.params.id);
 
     onMounted(() => {
-      // 컴포넌트가 마운트 될 때 수행할 작업.
       console.log(`resolution #${resolutionId.value}`);
     });
     return {
@@ -57,36 +57,33 @@ export default {
   },
   data() {
     return {
-      progress: 0, // 초기 프로그레스 값
-      containerColor: "rgba(255, 255, 255, 0.2)", // 초기 배경색 설정
+      progress: 0,
+      containerColor: "rgba(255, 255, 255, 0.2)",
       isAuthor: false,
     };
   },
   mounted() {
     this.checkAuthor();
-    setInterval(() => {
-      const randomValue = Math.floor(Math.random() * 101); // 0부터 100까지의 랜덤한 값
-      this.updateProgressBar(randomValue);
-    }, 1000); // 1초마다 업데이트
+    setInterval(this.updateProgressBar, 1000);
   },
   computed: {
     progressBarBackground() {
       const percent = this.progress / 100;
 
       if (percent < 0.1) {
-        return '#0F2027'; // #0F2027
+        return "#0F2027";
       } else if (percent < 0.2) {
-        return this.interpolateColor('#0F2027', '#141e30', (percent - 0.1) * 10); // 중간값 계산
+        return this.interpolateColor('#0F2027', '#141e30', (percent - 0.1) * 10);
       } else if (percent < 0.4) {
-        return this.interpolateColor('#141e30', '#3f2d60', (percent - 0.2) * 10); // 중간값 계산
+        return this.interpolateColor('#141e30', '#3f2d60', (percent - 0.2) * 10);
       } else if (percent < 0.6) {
-        return this.interpolateColor('#2d3560', '#b26ca2', (percent - 0.4) * 5); // 중간값 계산
+        return this.interpolateColor('#494380', '#6383a2', (percent - 0.4) * 5);
       } else if (percent < 0.8) {
-        return this.interpolateColor('#6c8db2', '#a1eaea', (percent - 0.6) * 5); // 중간값 계산
+        return this.interpolateColor('#63a2a0', '#96d2a5', (percent - 0.6) * 5);
       } else if (percent < 0.9) {
-        return this.interpolateColor('#C6FFDD', '#fff9f0', (percent - 0.8) * 10); // 중간값 계산
+        return this.interpolateColor('#fbd786', '#f7797d', (percent - 0.8) * 10);
       } else {
-        return "#fff8f8"; // 흰색으로
+        return "#f5afb2";
       }
     },
   },
@@ -94,8 +91,12 @@ export default {
     checkAuthor() {
       this.isAuthor = true;
     },
-    updateProgressBar(data) {
-      this.progress = data;
+    updateProgressBar() {
+      if (this.progress === 100) {
+        this.progress = 0;
+      } else {
+        this.progress += 1;
+      }
     },
     interpolateColor(color1, color2, factor) {
       const result = color1.slice(1).match(/.{2}/g).map((channel, index) => {
@@ -107,6 +108,9 @@ export default {
         });
       return `#${result.join("")}`;
     },
+  },
+  components: {
+    PostList,
   },
 };
 </script>
