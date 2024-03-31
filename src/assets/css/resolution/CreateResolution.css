@@ -1,58 +1,111 @@
-/* CreateResolution.css */
-.create-resolution {
-    max-width: 600px;
-    margin: 100px auto;
-    padding: 20px;
-    background: #f0f0f0;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-.create-resolution h2 {
-    color: #333;
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.form-group {
-    margin-bottom: 1rem;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 0.5rem;
-}
-
-.form-group input[type="text"],
-.form-group textarea {
+.create-resolution-background {
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
-    padding: 0.5rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    margin-bottom: 0.5rem;
+    height: 100%;
+    z-index: -1;
+    background: radial-gradient(circle, #243b55, #141e30, #000000) no-repeat center center;
+    background-size: 200% 200%;
+    animation: gradientAnimation 20s linear infinite;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.form-group input[type="text"]:focus,
-.form-group textarea:focus {
-    border-color: #007bff;
+.headlight {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background-color: rgba(255, 228, 198, 0.62); /* 주홍빛 색상 */
+    position: absolute;
+    animation: sweep 2s linear infinite;
+    filter: blur(10px); /* 블러 처리 */
+    background-image: radial-gradient(circle, rgba(255,255,255,0.8) 10%, transparent 60%);
+    /* 원 안에 달 모양의 무늬 */
+}
+
+.headlight:nth-child(1) {
+    top: -100vh; /* 화면 상단 밖에서 시작 */
+    left: -100vw; /* 화면 좌측 밖에서 시작 */
+    animation-duration: 6s; /* 첫 번째 원은 6초 동안 이동 */
+}
+
+.headlight:nth-child(2) {
+    top: -100vh; /* 화면 상단 밖에서 시작 */
+    right: -100vw; /* 화면 우측 밖에서 시작 */
+    animation-duration: 7s; /* 두 번째 원은 7초 동안 이동 */
+}
+
+.headlight:nth-child(3) {
+    bottom: -100vh; /* 화면 하단 밖에서 시작 */
+    left: -100vw; /* 화면 좌측 밖에서 시작 */
+    animation-duration: 8s; /* 세 번째 원은 8초 동안 이동 */
+}
+
+.headlight:nth-child(4) {
+    bottom: -100vh; /* 화면 하단 밖에서 시작 */
+    right: -100vw; /* 화면 우측 밖에서 시작 */
+    animation-duration: 9s; /* 네 번째 원은 9초 동안 이동 */
+}
+
+@keyframes sweep {
+    100% {
+        top: 100vh; /* 화면 하단 밖으로 이동하여 사라짐 */
+        left: 100vw; /* 화면 우측 밖으로 이동하여 사라짐 */
+    }
+}
+
+.create-resolution-container {
+    max-width: 350px;
+    width: 100%;
+    height: 550px;
+    border-radius: 20px;
+    background-color: rgba(255, 255, 255, 0.5); /* 투명도 조정 */
+    padding: 30px;
+    text-align: center;
+    position: relative;
+    z-index: 0; /* 로그인 버튼 위에 보이도록 */
+    margin-left: 30px;
+}
+
+.form-group input[type="text"] {
+    height: 30px;
+    border: none;
+    background-color: rgba(255, 255, 255, 0.7);
+    color: #000000;
     outline: none;
 }
 
-.form-group span {
-    color: red;
-    font-size: 0.9rem;
+.form-group textarea {
+    height: 200px;
+    width: 320px;
+    border-radius: 3px;
+    background-color: rgba(255, 255, 255, 0.7);
+    color: #000000;
+    outline: none;
 }
 
-button[type="submit"] {
-    padding: 0.5rem 1rem;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.2s;
+.form-group textarea:hover {
+    border-color: #8a2be2; /* 핑크색 테두리 색상 적용 */
+    border-width: 2px; /* 테두리 선 굵기 조정 */
+    outline: none; /* 포커스 효과 제거 */
+    box-shadow: 0 0 5px rgba(72, 209, 204, 0.8)
 }
 
-button[type="submit"]:hover {
-    background-color: #0056b3;
+#category {
+    width: 300px;
+    height: 45px;
+    border-radius: 3px;
+    margin-bottom: 10px;
+}
+
+#category option {
+    width: 325px;
+    height: 45px;
+}
+
+.create-resolution-btn {
+    width: 320px;
+    height: 45px;
 }
