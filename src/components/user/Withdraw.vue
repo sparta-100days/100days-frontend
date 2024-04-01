@@ -16,13 +16,20 @@
 </template>
 
 <script>
+import { apiClient } from "@/index";
+
 export default {
   data() {
     return {
       user: {
-        password: "1234",
+        password: "",
       },
     };
+  },
+  methods: {
+    async searchEmail() {
+
+    }
   },
 };
 </script>
