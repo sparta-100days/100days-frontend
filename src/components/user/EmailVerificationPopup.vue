@@ -38,8 +38,16 @@ export default {
   },
   methods: {
     async sendVerificationCode() {
-      if (!this.EmailRequest.email.trim()) {
-        this.errorMessage = "메일주소를 입력해주세요.";
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailPattern.test(this.EmailRequest.email.trim())) {
+        // 이메일 주소가 유효하지 않은 경우
+        await Swal.fire({
+          icon: "error",
+          title: "다시 확인해주세요.",
+          text: `올바른 메일 주소가 아닙니다.`,
+          confirmButtonText: "확인",
+          confirmButtonColor: "#007bff",
+        });
         setTimeout(() => {
           this.errorMessage = "";
         }, 3000);
@@ -62,7 +70,13 @@ export default {
             confirmButtonColor: "#007bff",
           });
         } else {
-          throw new Error("인증 코드 전송에 실패했습니다.");
+          await Swal.fire({
+            icon: "error",
+            title: "메일 발송 실패",
+            text: `유효한 메일 주소가 아닙니다.`,
+            confirmButtonText: "확인",
+            confirmButtonColor: "#007bff",
+          });
         }
       } catch (error) {
         console.error("Error sending verification code:", error);
