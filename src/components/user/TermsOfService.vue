@@ -67,6 +67,8 @@
 </template>
 
 <script>
+import Swal from "sweetalert2";
+
 export default {
   data() {
     return {
@@ -82,9 +84,14 @@ export default {
         alert("개인정보 수집 및 이용에 동의해야 합니다.");
       }
     },
-    handleCancel() {
-      // 동의하지 않은 경우 메인페이지로 이동
-      alert("이용해주셔서 감사합니다.");
+    async handleCancel() {
+      await Swal.fire({
+        icon: "success",
+        title: "동의하지 않으셨습니다.",
+        text: `이용해주셔서 감사합니다.`,
+        confirmButtonText: "확인",
+        confirmButtonColor: "#007bff",
+      });
       this.$router.push("/");
     },
   },

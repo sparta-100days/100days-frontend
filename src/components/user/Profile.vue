@@ -1,9 +1,9 @@
 <template>
   <div class="myinfo-profile-container">
     <div class="myinfo-profile-black-box">
-        <div class="myinfo-profile-title"><h2>회원정보수정</h2></div>
-        <!-- 이메일 입력 폼 -->
-        <div class="form-item">
+      <div class="myinfo-profile-title"><h2>회원정보수정</h2></div>
+      <!-- 이메일 입력 폼 -->
+      <div class="form-item">
           <input type="text" id="email" name="email" :value="user.email" readonly>
         </div>
         <!-- 닉네임 입력 폼 -->
@@ -26,7 +26,7 @@
         <button type="button" @click="openPasswordChangeMyInfoPopup" class="password-change-button">비밀번호변경</button>
       <PasswordChangeMyInfoPopup v-if="showPasswordChangeMyInfoPopup" @close="closePasswordChangeMyInfoPopup" @verified="handlePasswordChangeMyInfoPopup"/>
         <!-- 회원정보저장 버튼 -->
-        <button type="button" class="save-button">회원정보저장</button>
+      <button type="button" class="save-button">회원정보저장</button>
     </div>
   </div>
 </template>
