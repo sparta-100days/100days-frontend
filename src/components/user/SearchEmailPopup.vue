@@ -2,25 +2,25 @@
   <div class="search-email-popup">
     <div class="search-email-popup-content">
       <div class="search-form" :class="{ searching: isSearching }">
-        <input type="text" v-model="searchText" placeholder="닉네임을 입력해주세요" required>
+        <input type="text" v-model="nickname" placeholder="닉네임을 입력해주세요" required>
         <button class="search-button" @click="searchByEmail">검색</button>
       </div>
       <transition name="fade">
         <div class="search-results" v-show="showResults" ref="searchResultsContainer">
           <table>
             <thead>
-              <tr>
-                <th>ID</th>
-                <th>Email</th>
-                <th>Created At</th>
-              </tr>
+            <tr>
+              <th>ID</th>
+              <th>Email</th>
+              <th>Created At</th>
+            </tr>
             </thead>
             <tbody>
-              <tr v-for="(result, index) in searchResults" :key="index">
-                <td>{{ result.id }}</td>
-                <td>{{ result.email }}</td>
-                <td>{{ result.createdAt }}</td>
-              </tr>
+            <tr v-for="(result, index) in EmailResponse" :key="index">
+              <td>{{ result.id }}</td>
+              <td>{{ result.email }}</td>
+              <td>{{ result.createdAt }}</td>
+            </tr>
             </tbody>
           </table>
         </div>
@@ -32,88 +32,41 @@
 
 <script>
 import Swal from "sweetalert2";
+import { apiClient } from "@/index";
+
 export default {
   data() {
     return {
-      searchText: "",
-      searchResults: [],
+      nickname: "",
+      EmailResponse: [], // 배열로 변경
       isSearching: false,
       showResults: false,
     };
   },
   methods: {
     async searchByEmail() {
-      this.isSearching = true;
-      this.searchResults = [];
-      // 가짜 검색 결과 예시
-      setTimeout(() => {
-        this.searchResults = [
+      try {
+        this.isSearching = true;
+        const response = await apiClient.get(
+          `/api/users/search/email`,
           {
-            id: 1,
-            email: "example1@example.com",
-            createdAt: "2020-10-10 23:10:10",
-          },
-          {
-            id: 2,
-            email: "example1@example.com",
-            createdAt: "2020-10-10 23:10:10",
-          },
-          {
-            id: 3,
-            email: "example1@example.com",
-            createdAt: "2020-10-10 23:10:10",
-          },
-          {
-            id: 4,
-            email: "example1@example.com",
-            createdAt: "2020-10-10 23:10:10",
-          },
-          {
-            id: 5,
-            email: "example1@example.com",
-            createdAt: "2020-10-10 23:10:10",
-          },
-          {
-            id: 6,
-            email: "example1@example.com",
-            createdAt: "2020-10-10 23:10:10",
-          },
-          {
-            id: 7,
-            email: "example1@example.com",
-            createdAt: "2020-10-10 23:10:10",
-          },
-          {
-            id: 8,
-            email: "example1@example.com",
-            createdAt: "2020-10-10 23:10:10",
-          },
-        ];
+          params: { nickname: this.nickname }, // 검색어를 쿼리 파라미터로 전달
+        });
+        this.EmailResponse = response.data; // 서버에서 받은 검색 결과 설정
         this.showResults = true;
         this.isSearching = false;
-        this.$nextTick(() => {
-          this.scrollToBottom();
-        });
-      }, 1000);
-
-
-      /*
-      // 임시적으로 검색 실패 시 SweetAlert2로 알림 표시, 연결전까지 주석처리
-      setTimeout(() => {
+      } catch (error) {
+        console.error(error);
         this.isSearching = false;
-        Swal.fire({
+        await Swal.fire({
           icon: "error",
           title: "Oops...",
           text: "검색 중 오류가 발생했습니다!",
         });
-      }, 2000);*/
+      }
     },
     closePopup() {
       this.$emit("close");
-    },
-    scrollToBottom() {
-      this.$refs.searchResultsContainer.scrollTop =
-        this.$refs.searchResultsContainer.scrollHeight;
     },
   },
 };

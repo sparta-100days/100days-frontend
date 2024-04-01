@@ -106,12 +106,12 @@ export default {
     },
     interpolateColor(color1, color2, factor) {
       const result = color1.slice(1).match(/.{2}/g).map((channel, index) => {
-        const value1 = parseInt(channel, 16);
-        const value2 = parseInt(color2.slice(1).match(/.{2}/g)[index], 16);
-        const delta = value2 - value1;
-        const computedValue = value1 + Math.round(delta * factor);
-        return computedValue.toString(16).padStart(2, "0");
-      });
+          const value1 = parseInt(channel, 16);
+          const value2 = parseInt(color2.slice(1).match(/.{2}/g)[index], 16);
+          const delta = value2 - value1;
+          const computedValue = value1 + Math.round(delta * factor);
+          return computedValue.toString(16).padStart(2, "0");
+        });
       return `#${result.join("")}`;
     },
   },

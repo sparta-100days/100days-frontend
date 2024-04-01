@@ -2,7 +2,7 @@
   <div class="email-verification-popup">
     <div class="email-verification-popup-content" :style="{ height: verificationPopupHeight }">
       <h2 class="email-verification-popup-title">이메일 인증</h2>
-      <input type="email" v-model="emailInput" required placeholder="메일주소를 입력해주세요.">
+      <input type="email" v-model="EmailRequest.email" required placeholder="메일주소를 입력해주세요.">
       <button @click="sendVerificationCode">
         {{ isCodeSent ? "인증번호 재전송" : "인증 번호 보내기" }}
       </button>
@@ -11,7 +11,7 @@
         <span class="timeer">{{ Math.floor(timeLeft / 60) }}:{{ ('0' + (timeLeft % 60)).slice(-2) }}</span>
         <span v-if="errorMessage" class="error-message">{{ errorMessage }}</span>
       </div>
-      <input type="text" v-model="verificationCodeInput" placeholder="인증번호를 입력해주세요.">
+      <input type="text" v-model="code" placeholder="인증번호를 입력해주세요.">
       <button @click="verifyCode">인증하기</button>
       <button @click="closePopup">닫기</button>
     </div>
@@ -19,11 +19,16 @@
 </template>
 
 <script>
+import { apiClient } from "@/index";
+import Swal from "sweetalert2";
+
 export default {
   data() {
     return {
-      emailInput: "",
-      verificationCodeInput: "",
+      EmailRequest: {
+        email: "", // 초기화 수정
+      },
+      code: "",
       isCodeSent: false,
       timer: null,
       timeLeft: 5 * 60, // 5 minutes in seconds
@@ -32,18 +37,39 @@ export default {
     };
   },
   methods: {
-    sendVerificationCode() {
-      this.isCodeSent = true;
-      this.startTimer();
-      // 이메일로 인증 코드 전송 로직을 구현하세요
-      // 예: this.fakeSendVerificationCode();
-      this.verificationPopupHeight = '460px'; // 인증번호 보내기 버튼을 눌렀을 때 높이 변경
-
-      if (!this.emailInput.trim()) {
-        this.errorMessage = "메일주소를 입력해주세요."
+    async sendVerificationCode() {
+      if (!this.EmailRequest.email.trim()) {
+        this.errorMessage = "메일주소를 입력해주세요.";
         setTimeout(() => {
-          this.errorMessage = ""
-          }, 3000);
+          this.errorMessage = "";
+        }, 3000);
+        return;
+      }
+      this.isCodeSent = true;
+      this.verificationPopupHeight = "460px"; // 인증번호 보내기 버튼을 눌렀을 때 높이 변경
+      try {
+        const response = await apiClient.post("/api/mail/sendmail", {
+          email: this.EmailRequest.email,
+        });
+        console.log(response);
+        if (response.status === 200) {
+          this.startTimer();
+          await Swal.fire({
+            icon: "success",
+            title: "이메일 전송 완료",
+            text: `${this.EmailRequest.email}로 코드를 전송했습니다.`,
+            confirmButtonText: "확인",
+            confirmButtonColor: "#007bff",
+          });
+        } else {
+          throw new Error("인증 코드 전송에 실패했습니다.");
+        }
+      } catch (error) {
+        console.error("Error sending verification code:", error);
+        this.errorMessage = "인증 코드 전송에 실패했습니다.";
+        setTimeout(() => {
+          this.errorMessage = ""; // 오류 메시지 초기화
+        }, 5000); // 5초 후에 초기화 (5000ms)
       }
     },
     startTimer() {
@@ -60,14 +86,34 @@ export default {
         }
       }, 1000);
     },
-    verifyCode() {
-      if (this.verificationCodeInput === "123456") {
-        this.$emit("verified", this.emailInput);
-        clearInterval(this.timer);
-      } else {
+    async verifyCode() {
+      console.log(this.EmailRequest.email, this.code);
+      try {
+        const response = await apiClient.get(`/api/mail/verifycode`, {
+          params: {
+            code: this.code,
+            email: this.EmailRequest.email,
+          },
+        });
+        console.log(response);
+        if (response.status === 200) {
+          this.$emit("verified", this.EmailRequest.email);
+          clearInterval(this.timer);
+          await Swal.fire({
+            icon: "success",
+            title: "메일 인증에 성공했습니다.",
+            text: `회원가입을 계속 진행해 주세요.`,
+            confirmButtonText: "확인",
+            confirmButtonColor: "#007bff",
+          });
+        } else {
+          throw new Error("인증 번호가 올바르지 않습니다.");
+        }
+      } catch (error) {
+        console.error("Error verifying code:", error);
         this.errorMessage = "인증 번호가 올바르지 않습니다.";
         setTimeout(() => {
-          this.errorMessage = ""; // 일정 시간 후에 에러 메시지 초기화
+          this.errorMessage = "";
         }, 5000); // 5초 후에 초기화 (5000ms)
       }
     },
