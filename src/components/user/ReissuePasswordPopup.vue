@@ -70,21 +70,18 @@ export default {
         if (response.data.success) {
           this.lastSentTime = Date.now();
           console.log(response);
-
+        } else {
           await Swal.fire({
             icon: "success",
             title: "이메일 전송 완료",
-            text: `${this.email}로 비밀번호를 재발급했습니다.`,
+            text: `${this.EmailRequest.email}로 비밀번호를 재발급했습니다.`,
             confirmButtonText: "확인",
             confirmButtonColor: "#007bff",
           });
           await this.$router.push("/login");
-        } else {
-          throw new Error(response.data.message); // 에러 처리
         }
       } catch (error) {
         console.error(error);
-
         await Swal.fire({
           icon: "error",
           title: "오류",
