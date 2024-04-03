@@ -79,8 +79,6 @@ export default {
                 "/api/reports/users", { reportedUserNickname: this.UserReportRequest.reportedUserNickname, reportStatus: this.UserReportRequest.reportStatus, content: this.UserReportRequest.content }
             );
             alert("신고 접수하였습니다.")
-            console.log(response)
-            localStorage.setItem(response.data)
         }
     },
 };

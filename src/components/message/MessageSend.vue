@@ -2,8 +2,8 @@
   <div class="message-send-container">
     <div class="message-sender-detail" v-if="selectedMessage">
       <h2>쪽지 상세보기</h2>
-      <div><strong>작성자:</strong> {{ selectedMessage.senderNickname || 'N/A' }}</div>
-      <div><strong>수신자:</strong> {{ selectedMessage.receiverNickname || 'N/A' }}</div>
+      <div><strong>작성자:</strong> {{ selectedMessage.senderAccountId || 'N/A' }}</div>
+      <div><strong>수신자:</strong> {{ selectedMessage.receiverAccountId || 'N/A' }}</div>
       <div><strong>전송 시간:</strong> {{ selectedMessage.sentAt }}</div>
       <hr>
       <h3>{{ selectedMessage.title }}</h3>
@@ -22,7 +22,7 @@
               <thead>
                 <tr>
                   <th>
-                    <input type="checkbox" v-model="selectAll" @click="toggleSelectAll" />
+                    <input type="checkbox" v-model="selectAll" class="messages-all" @click="toggleSelectAll" />
                   </th>
                   <th>받는사람</th>
                   <th class="title-section">제목</th>
@@ -34,7 +34,7 @@
                   <td>
                     <input type="checkbox" v-model="message.selected" @click.stop />
                   </td>
-                  <td colspan="ellipsis">{{ message.receiverNickname }}</td>
+                  <td colspan="ellipsis">{{ message.receiverAccountId }}</td>
                   <td>{{ message.title }}</td>
                   <td>{{ message.sentAt }}</td>
                 </tr>
@@ -64,7 +64,7 @@ export default {
       sendMessages: [
         {
           id: '',
-          receiverNickname: '',
+          receiverAccountId: '',
           title: '',
           content: '',
           sentAt: '',

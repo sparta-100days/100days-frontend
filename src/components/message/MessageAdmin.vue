@@ -64,13 +64,16 @@ export default {
       adminMessages: [
         {
           id: '',
-          receiverNickname: '',
+          receiverAccountId: '',
+          receiverNickname:'',
           title: '',
           content: '',
           sentAt: '',
           readStatus: false,
         },
       ],
+      selectedMessage: null,
+      selectAll: false
     };
   },
   conputed: {
