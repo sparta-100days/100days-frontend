@@ -21,7 +21,7 @@
               <thead>
               <tr>
                 <th>
-                  <input type="checkbox" v-model="selectAll" @click.stop="toggleSelectAll" />
+                  삭제
                 </th>
                 <th>보낸사람</th>
                 <th class="title-section">제목</th>
@@ -29,13 +29,13 @@
               </tr>
               </thead>
               <tbody>
-              <tr v-for="(message, index) in receiveMessages" :key="index" @click="selectMessage(message)">
+              <tr v-for="(message, index) in receiveMessages" :key="index">
                 <td>
-                  <input type="checkbox" v-model="message.selected" @click.stop />
+                  <button @click="deleteReceive(message.id)" class="message-delete-btn">X</button>
                 </td>
-                <td>{{ message.senderAccountId }}</td>
-                <td>{{ message.title }}</td>
-                <td>{{ message.sentAt }}</td>
+                <td @click="selectMessage(message)">{{ message.senderAccountId }}</td>
+                <td @click="selectMessage(message)">{{ message.title }}</td>
+                <td @click="selectMessage(message)">{{ message.sentAt }}</td>
               </tr>
               </tbody>
             </table>
@@ -113,11 +113,17 @@ export default {
       );
       this.receiveMessages = response.data.content
     },
-    toggleSelectAll() {
-      this.selectAll = !this.selectAll;
-      this.receiveMessages.forEach(message => {
-        message.selected = this.selectAll;
-      });
+    async deleteReceive(id){
+      try {
+        const response = await apiClient.delete(
+          `/api/messages/receiver/${id}`
+        )
+        alert("삭제되었습니다")
+        // this.$router.go(0);
+        window.location.reload();
+      } catch(error) {
+        alert("잘못된 요청입니다")
+      }
     },
     selectMessage(message) {
       this.selectedMessage = message;
