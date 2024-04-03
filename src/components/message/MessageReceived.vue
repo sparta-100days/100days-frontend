@@ -2,8 +2,8 @@
   <div class="message-receive-container">
     <div class="message-receive-detail" v-if="selectedMessage">
       <h2>쪽지 상세보기</h2>
-      <div><strong>작성자:</strong> {{ selectedMessage.senderNickname || 'N/A' }}</div>
-      <div><strong>수신자:</strong> {{ selectedMessage.receiverNickname || 'N/A' }}</div>
+      <div><strong>작성자:</strong> {{ selectedMessage.senderAccountId || 'N/A' }}</div>
+      <div><strong>수신자:</strong> {{ selectedMessage.receiverAccountId || 'N/A' }}</div>
       <div><strong>전송 시간:</strong> {{ selectedMessage.sentAt }}</div>
       <hr>
       <h3>{{ selectedMessage.title }}</h3>
@@ -17,12 +17,11 @@
       <div class="message-receive-list-box">
         <div class="receive-list-container">
           <div class="message-receive-table-container">
-            <button @click="" class="message-delete-btn">삭제</button>
             <table class="receive-table">
               <thead>
               <tr>
                 <th>
-                  <input type="checkbox" v-model="selectAll" @click="toggleSelectAll" />
+                  삭제
                 </th>
                 <th>보낸사람</th>
                 <th class="title-section">제목</th>
@@ -30,13 +29,13 @@
               </tr>
               </thead>
               <tbody>
-              <tr v-for="(message, index) in receiveMessages" :key="index" @click="selectMessage(message)">
+              <tr v-for="(message, index) in receiveMessages" :key="index">
                 <td>
-                  <input type="checkbox" v-model="message.selected" @click.stop />
+                  <button @click="deleteReceive(message.id)" class="message-delete-btn">X</button>
                 </td>
-                <td colspan="ellipsis">{{ message.senderNickname }}</td>
-                <td>{{ message.title }}</td>
-                <td>{{ message.sentAt }}</td>
+                <td @click="selectMessage(message)">{{ message.senderAccountId }}</td>
+                <td @click="selectMessage(message)">{{ message.title }}</td>
+                <td @click="selectMessage(message)">{{ message.sentAt }}</td>
               </tr>
               </tbody>
             </table>
@@ -64,7 +63,7 @@ export default {
       receiveMessages: [
         {
           id: '',
-          senderNickname: '',
+          senderAccountId: '',
           title: '',
           content: '',
           sentAt: '',
@@ -81,11 +80,18 @@ export default {
       const endIndex = startIndex + this.itemsPerPage;
       return this.message.slice(startIndex, endIndex);
     },
-    selectedMessage: null,
-    selectAll: false
   },
   mounted() {
     this.receiverMessage();
+  },
+  watch: {
+    // 개별 메시지 선택 상태를 감시하여 전체 선택 체크박스 상태 업데이트
+    receiveMessages: {
+      handler(newMessages) {
+        this.selectAll = newMessages.every(message => message.selected);
+      },
+      deep: true,
+    },
   },
   methods: {
     prevPage() {
@@ -107,8 +113,17 @@ export default {
       );
       this.receiveMessages = response.data.content
     },
-    toggleSelectAll() {
-      this.selectAll = !this.selectAll;
+    async deleteReceive(id){
+      try {
+        const response = await apiClient.delete(
+          `/api/messages/receiver/${id}`
+        )
+        alert("삭제되었습니다")
+        // this.$router.go(0);
+        window.location.reload();
+      } catch(error) {
+        alert("잘못된 요청입니다")
+      }
     },
     selectMessage(message) {
       this.selectedMessage = message;

@@ -2,8 +2,8 @@
   <div class="message-send-container">
     <div class="message-sender-detail" v-if="selectedMessage">
       <h2>쪽지 상세보기</h2>
-      <div><strong>작성자:</strong> {{ selectedMessage.senderNickname || 'N/A' }}</div>
-      <div><strong>수신자:</strong> {{ selectedMessage.receiverNickname || 'N/A' }}</div>
+      <div><strong>작성자:</strong> {{ selectedMessage.senderAccountId || 'N/A' }}</div>
+      <div><strong>수신자:</strong> {{ selectedMessage.receiverAccountId || 'N/A' }}</div>
       <div><strong>전송 시간:</strong> {{ selectedMessage.sentAt }}</div>
       <hr>
       <h3>{{ selectedMessage.title }}</h3>
@@ -17,12 +17,11 @@
       <div class="message-send-list-box">
         <div class="send-list-container">
           <div class="message-send-table-container">
-            <button @click="" class="message-delete-btn">삭제</button>
             <table class="send-table">
               <thead>
                 <tr>
                   <th>
-                    <input type="checkbox" v-model="selectAll" @click="toggleSelectAll" />
+                    삭제
                   </th>
                   <th>받는사람</th>
                   <th class="title-section">제목</th>
@@ -30,13 +29,13 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="(message, index) in sendMessages" :key="index" @click="selectMessage(message)">
+                <tr v-for="(message, index) in sendMessages" :key="index">
                   <td>
-                    <input type="checkbox" v-model="message.selected" @click.stop />
+                    <button @click="deleteSend(message.id)" class="message-delete-btn">X</button>
                   </td>
-                  <td colspan="ellipsis">{{ message.receiverNickname }}</td>
-                  <td>{{ message.title }}</td>
-                  <td>{{ message.sentAt }}</td>
+                  <td @click="selectMessage(message)">{{ message.receiverAccountId }}</td>
+                  <td @click="selectMessage(message)">{{ message.title }}</td>
+                  <td @click="selectMessage(message)">{{ message.sentAt }}</td>
                 </tr>
               </tbody>
             </table>
@@ -64,7 +63,7 @@ export default {
       sendMessages: [
         {
           id: '',
-          receiverNickname: '',
+          receiverAccountId: '',
           title: '',
           content: '',
           sentAt: '',
@@ -107,11 +106,17 @@ export default {
       );
       this.sendMessages = response.data.content
     },
-    toggleSelectAll() {
-      this.selectAll = !this.selectAll;
-      this.sentMessages.forEach((message) => {
-        message.selected = this.selectAll;
-      });
+    async deleteSend(id){
+      try {
+        const response = await apiClient.delete(
+          `/api/messages/sender/${id}`
+        )
+        alert("삭제되었습니다")
+        // this.$router.go(0);
+        window.location.reload();
+      } catch(error) {
+        alert("잘못된 요청입니다")
+      }
     },
     selectMessage(message) {
       this.selectedMessage = message;

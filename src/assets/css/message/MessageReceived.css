@@ -16,9 +16,8 @@
 }
 
 .message-delete-btn {
-    width: 80px;
-    height: 40px;
-    margin-left: 420px;
+    width: 15px;
+    height: 30px;
 }
 
 .message-receive-title {
@@ -43,8 +42,7 @@
 .receive-table th,
 .receive-table td {
     border: 1px solid #7c7c7c;
-    padding: 8px;
-    text-align: left;
+    padding: 10px;
 }
 
 .receive-table th {
