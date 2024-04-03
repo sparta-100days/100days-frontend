@@ -20,10 +20,10 @@
                                         </select>
                                     </div>
                                     <div class="report-nickname-css">
-                                        <label class="report-nickname" for="nickname">닉네임</label>
+                                        <label class="report-nickname" for="nickname">아이디</label>
                                         <input class="report-nickname-text" id="nickname" type="text"
                                             placeholder="Enter your nickname"
-                                            v-model="UserReportRequest.reportedUserNickname" required />
+                                            v-model="UserReportRequest.reportedUserAccountId" required />
                                     </div>
                                     <div>
                                         <label class="report-content" for="report-content">신고할 내용</label>
@@ -60,7 +60,7 @@ export default {
         return {
             report: [],
             UserReportRequest: {
-                reportedUserNickname: '',
+                reportedUserAccountId: '',
                 reportStatus: 'SPAM, HARMFUL, ILLEGAL',
                 content: ''
             },
@@ -76,9 +76,11 @@ export default {
     methods: {
         async summitReport() {
             const response = await apiClient.post(
-                "/api/reports/users", { reportedUserNickname: this.UserReportRequest.reportedUserNickname, reportStatus: this.UserReportRequest.reportStatus, content: this.UserReportRequest.content }
+                "/api/reports/users", { reportedUserAccountId: this.UserReportRequest.reportedUserAccountId, reportStatus: this.UserReportRequest.reportStatus, content: this.UserReportRequest.content }
             );
+            console.log(response)
             alert("신고 접수하였습니다.")
+            window.location.reload();
         }
     },
 };
