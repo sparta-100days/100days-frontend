@@ -9,7 +9,7 @@
       </div>
       <form @submit.prevent="withdraw">
         <div class="form-item">
-          <input type="password" id="password" name="password" v-model="password" placeholder="비밀번호">
+          <input type="password" id="password" name="password" v-model="WithdrawRequest.password" placeholder="비밀번호">
         </div>
         <button class="withdraw-button">회원탈퇴</button>
       </form>
@@ -23,7 +23,9 @@ import { apiClient } from "@/index";
 export default {
   data() {
     return {
-      password: "",
+      WithdrawRequest: {
+        password: "",
+      },
     };
   },
   methods: {
@@ -31,7 +33,7 @@ export default {
       try {
         const response = await apiClient.delete("/api/users", {
           data: {
-            password: this.password,
+            password: this.WithdrawRequest.password,
           },
         });
         console.log("회원탈퇴 성공:", response);
