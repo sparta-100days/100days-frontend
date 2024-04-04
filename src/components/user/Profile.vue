@@ -27,7 +27,8 @@
         <button type="button" @click="openPasswordChangeMyInfoPopup" class="password-change-button">비밀번호변경</button>
         <PasswordChangeMyInfoPopup v-if="showPasswordChangeMyInfoPopup" @close="closePasswordChangeMyInfoPopup" @verified="handlePasswordChangeMyInfoPopup"/>
         <!-- 회원정보저장 버튼 -->
-        <button type="submit" class="save-button">회원정보저장</button></form>
+        <button type="submit" class="save-button">회원정보저장</button>
+      </form>
     </div>
   </div>
 </template>
@@ -110,7 +111,6 @@ export default {
           this.ModifyMyInfoRequest,
           config
         );
-        console.log(response);
         console.log("회원정보 수정 성공:", response.data);
         await this.getUserInfo(accessToken); // 수정 후 사용자 정보 다시 가져오기
       } catch (error) {
