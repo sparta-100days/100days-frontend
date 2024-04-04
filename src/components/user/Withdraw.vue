@@ -19,6 +19,7 @@
 
 <script>
 import { apiClient } from "@/index";
+import Swal from "sweetalert2";
 
 export default {
   data() {
@@ -35,6 +36,13 @@ export default {
           data: {
             password: this.WithdrawRequest.password,
           },
+        });
+        await Swal.fire({
+          icon: "success",
+          title: "탈퇴되었습니다.",
+          text: "지금까지 이용해주셔서 감사합니다.",
+          confirmButtonText: "확인",
+          confirmButtonColor: "#007bff",
         });
         console.log("회원탈퇴 성공:", response);
         // 회원탈퇴 성공 시 처리 (예: 로그아웃 등)

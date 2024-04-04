@@ -76,7 +76,7 @@ export default {
           confirmButtonText: "확인",
           confirmButtonColor: "#007bff",
         });
-        await this.$router.push("/");
+        await this.$router.push("/login");
       } catch (error) {
         console.log(error.response.data);
       }

@@ -37,6 +37,7 @@
 import { apiClient } from "@/index";
 import PasswordChangeMyInfoPopup from "../../components/user/PasswordChangeMyInfoPopup.vue";
 import { shallowRef } from "vue";
+import Swal from "sweetalert2";
 
 export default {
   setup() {
@@ -111,9 +112,23 @@ export default {
           this.ModifyMyInfoRequest,
           config
         );
+        await Swal.fire({
+          icon: "success",
+          title: "성공!",
+          text: "회원정보를 수정했습니다.",
+          confirmButtonText: "확인",
+          confirmButtonColor: "#007bff",
+        });
         console.log("회원정보 수정 성공:", response.data);
         await this.getUserInfo(accessToken); // 수정 후 사용자 정보 다시 가져오기
       } catch (error) {
+        await Swal.fire({
+          icon: "error",
+          title: "실패!",
+          text: "회원정보를 수정하지 못했습니다.",
+          confirmButtonText: "확인",
+          confirmButtonColor: "#007bff",
+        });
         console.error("회원정보 수정 실패:", error.response.data);
       }
     },

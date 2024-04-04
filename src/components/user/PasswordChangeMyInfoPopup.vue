@@ -21,6 +21,7 @@
 
 <script>
 import { apiClient } from "@/index";
+import Swal from "sweetalert2";
 
 export default {
   data() {
@@ -79,6 +80,13 @@ export default {
           this.UserPasswordRequest,
           config
         );
+        await Swal.fire({
+          icon: "success",
+          title: "성공!",
+          text: "비밀번호를 수정했습니다.",
+          confirmButtonText: "확인",
+          confirmButtonColor: "#007bff",
+        });
         console.log("회원정보 수정 성공:", response.data);
         await this.getUserInfo(accessToken); // 수정 후 사용자 정보 다시 가져오기
       } catch (error) {
