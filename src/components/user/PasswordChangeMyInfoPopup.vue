@@ -4,46 +4,98 @@
     <div class="password-change-popup-content">
       <h2 class="password-change-title">비밀번호 변경</h2>
       <div class="password-change-popup-form">
-        <div class="form-group">
-          <input type="password" v-model="password" placeholder="새 비밀번호" required>
-          <input type="password" v-model="newPassword" placeholder="새 비밀번호 확인" required>
-        </div>
-        <div class="form-group">
-          <button class="password-change-submit" @click="submitPassword">변경</button>
-          <button class="password-change-close" @click="closePopup">닫기</button>
-        </div>
+        <form @submit.prevent="submitPassword">
+          <div class="form-group">
+            <input type="password" v-model="UserPasswordRequest.password" placeholder="새 비밀번호" required>
+            <input type="password" v-model="UserPasswordRequest.newPassword" placeholder="새 비밀번호 확인" required>
+          </div>
+          <div class="form-group">
+            <button type="submit" class="password-change-submit">변경</button>
+            <button type="button" class="password-change-close" @click="closePopup">닫기</button>
+          </div>
+        </form>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { apiClient } from "@/index";
+import Swal from "sweetalert2";
+
 export default {
   data() {
     return {
-      password: '', // 새 비밀번호
-      newPassword: '', // 새 비밀번호 확인
+      UserPasswordRequest: {
+        password: "", // 새 비밀번호
+        newPassword: "", // 새 비밀번호 확인
+      },
     };
   },
+  async mounted() {
+    try {
+      const accessToken = localStorage.getItem("accessToken");
+      if (!accessToken) {
+        console.error("토큰이 없습니다.");
+        return;
+      }
+      await this.getUserInfo(accessToken); // 사용자 정보 가져오기
+    } catch (error) {
+      console.error("회원 정보 가져오기 실패:", error.response.data);
+    }
+  },
   methods: {
-    submitPassword() {
-      // 비밀번호 변경 처리 로직
-      // this.password와 this.newPassword를 사용하여 비밀번호 변경 API를 호출하도록 구현
-      // 성공 시 팝업을 닫거나 다른 처리를 수행할 수 있습니다.
-      // 예시: apiClient.post('/api/change-password', { password: this.password, newPassword: this.newPassword })
-      //      .then(response => {
-      //        console.log('비밀번호 변경 성공');
-      //        this.closePopup(); // 성공 시 팝업 닫기
-      //      })
-      //      .catch(error => {
-      //        console.error('비밀번호 변경 실패:', error);
-      //      });
-      console.log('새 비밀번호:', this.password);
-      console.log('새 비밀번호 확인:', this.newPassword);
+    async getUserInfo(accessToken) {
+      try {
+        const config = {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        };
+        const response = await apiClient.put(
+          `/api/users`,
+          config
+        );
+        const userInfo = response.data;
+        this.UserPasswordRequest.password = userInfo.password;
+        this.UserPasswordRequest.newPassword = userInfo.newPassword;
+      } catch (error) {
+        console.error("사용자 정보 요청 실패:", error.response.data);
+      }
+    },
+    async submitPassword() {
+      try {
+        const accessToken = localStorage.getItem("accessToken");
+        if (!accessToken) {
+          console.error("토큰이 없습니다.");
+          return;
+        }
+        const config = {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        };
+        const response = await apiClient.patch(
+          `/api/users/passwordchange`, // API 경로 수정
+          this.UserPasswordRequest,
+          config
+        );
+        await Swal.fire({
+          icon: "success",
+          title: "성공!",
+          text: "비밀번호를 수정했습니다.",
+          confirmButtonText: "확인",
+          confirmButtonColor: "#007bff",
+        });
+        console.log("회원정보 수정 성공:", response.data);
+        await this.getUserInfo(accessToken); // 수정 후 사용자 정보 다시 가져오기
+      } catch (error) {
+        console.error("회원정보 수정 실패:", error.response.data);
+      }
     },
     closePopup() {
       // 팝업 닫기 메서드
-      this.$emit('close'); // 부모 컴포넌트에 이벤트 전달
+      this.$emit("close"); // 부모 컴포넌트에 이벤트 전달
     },
   },
 };
