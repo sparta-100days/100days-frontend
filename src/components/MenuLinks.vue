@@ -8,24 +8,26 @@
         <router-link to="/resolutions">둘러보기</router-link>
         <router-link to="/myInfo">회원정보</router-link>
         <router-link to="/message">메세지</router-link>
+        <router-link to="/" @click="logoutBtn">로그아웃</router-link>
       </div>
       <div v-else-if="!isLoggedIn && windowWidth > 768" class="links">
         <router-link to="/login">로그인</router-link>
         <router-link to="/terms-of-service">회원가입</router-link>
       </div>
       <div class="account-menu" v-if="windowWidth > 768">
-        <!-- 로그인 상태에 따라 추가적인 메뉴 항목을 표시할 수도 있습니다 -->
       </div>
       <div class="menu-dropdown" v-else @mouseenter="showDropdown = true" @mouseleave="showDropdown = false">
         <button class="menu-dropdown-btn" @mouseenter="showDropdown = true" @mouseleave="showDropdown = false">메뉴</button>
-        <div v-show="showDropdown" class="menu-dropdown-content show" :style="{ transform: 'translateX(calc(-50% + ' + dropdownPositionX + 'px))' }" @mouseenter="showDropdown = true" @mouseleave="showDropdown = false">
+        <div v-show="showDropdown" class="menu-dropdown-content show" :style="{ transform: 'translateX(calc(-50% + ' + dropdownPositionX + 'px))' }"
+             @mouseenter="showDropdown = true" @mouseleave="showDropdown = false">
           <div v-if="isLoggedIn" class="menu-dropdown">
             <router-link to="/create-resolution">목표작성</router-link>
             <router-link to="/resolutions">둘러보기</router-link>
             <router-link to="/myInfo">회원정보</router-link>
             <router-link to="/message">메세지</router-link>
+            <router-link to="/" @click="logoutBtn">로그아웃</router-link>
           </div>
-          <div v-else class="menu-dropdown">
+          <div v-else-if="!isLoggedIn" class="menu-dropdown">
             <router-link to="/login">로그인</router-link>
             <router-link to="/terms-of-service">회원가입</router-link>
           </div>
@@ -36,6 +38,8 @@
 </template>
 
 <script>
+import { mapMutations, mapState } from "vuex";
+
 export default {
   name: "MenuBar",
   data() {
@@ -45,10 +49,11 @@ export default {
       isMenuFixed: false,
       lastScrollPosition: 0,
       dropdownPositionX: 0,
-      isLoggedIn: false, // 로그인 상태 여부를 관리하는 변수
     };
   },
   async mounted() {
+    const accessToken = await localStorage.getItem("accessToken");
+    /*
     try {
       const accessToken = localStorage.getItem("accessToken");
       if (!accessToken) {
@@ -59,8 +64,28 @@ export default {
     } catch (error) {
       console.error("회원 정보 가져오기 실패:", error.response.data);
     }
+
+     */
+  },
+  computed: {
+    /*
+    isLoggedIn(){
+      return this.$store.state.isLoggedIn
+    }
+     */
+    ...mapState(['isLoggedIn'])
   },
   methods: {
+    ...mapMutations(['logout']),
+    loginCheck() {
+      const accessToken = localStorage.getItem("accessToken");
+    },
+    logoutBtn() {
+      // 로그아웃 처리
+      console.log("logout 버튼실행")
+      localStorage.removeItem("accessToken"); // 토큰 삭제
+      this.logout()
+    },
     handleScroll() {
       const currentScrollPosition = window.scrollY || document.documentElement.scrollTop;
       this.isMenuFixed = currentScrollPosition > this.lastScrollPosition || currentScrollPosition === 0; // 스크롤이 위로 올라가는 경우에도 메뉴를 표시하기 위해 조건 추가
@@ -76,7 +101,7 @@ export default {
   created() {
     window.addEventListener("scroll", this.handleScroll);
     window.addEventListener("resize", this.handleResize);
-    this.isLoggedIn = true; // 로그인 상태 설정
+    const accessToken = localStorage.getItem("accessToken");
   },
   unmounted() {
     window.removeEventListener("scroll", this.handleScroll);
