@@ -3,59 +3,120 @@
     <div class="myinfo-profile-black-box">
       <div class="myinfo-profile-title"><h2>회원정보수정</h2></div>
       <!-- 이메일 입력 폼 -->
-      <div class="form-item">
-          <input type="text" id="email" name="email" :value="user.email" readonly>
+      <form @submit.prevent="submitModify">
+        <div class="form-item">
+          <input type="text" id="email" name="email" v-model="email" readonly />
         </div>
         <!-- 닉네임 입력 폼 -->
         <div class="form-item">
-          <input type="text" id="nickname" name="nickname" :value="user.nickname">
+          <input type="text" id="nickname" name="nickname" v-model="ModifyMyInfoRequest.nickname">
         </div>
         <!-- 회원 ID 입력 폼 -->
         <div class="form-item">
-          <input type="text" id="userId" name="userId" :value="user.userId">
+          <input type="text" id="userId" name="userId" v-model="ModifyMyInfoRequest.accountId">
         </div>
         <!-- 생일 입력 폼 -->
         <div class="form-item">
-          <input type="text" id="birthday" name="birthday" :value="user.birthday">
+          <input type="text" id="birthday" name="birthday" v-model="ModifyMyInfoRequest.birth">
         </div>
         <!-- 비밀번호 입력 폼 -->
         <div class="form-item">
-          <input type="password" id="password" name="password" :value="user.password">
+          <input type="password" id="password" name="password" v-model="ModifyMyInfoRequest.password">
         </div>
         <!-- 비밀번호 변경 버튼을 클릭하면 openPasswordChangeMyInfoPopup 메서드를 호출하여 팝업을 엽니다. -->
         <button type="button" @click="openPasswordChangeMyInfoPopup" class="password-change-button">비밀번호변경</button>
-      <PasswordChangeMyInfoPopup v-if="showPasswordChangeMyInfoPopup" @close="closePasswordChangeMyInfoPopup" @verified="handlePasswordChangeMyInfoPopup"/>
+        <PasswordChangeMyInfoPopup v-if="showPasswordChangeMyInfoPopup" @close="closePasswordChangeMyInfoPopup" @verified="handlePasswordChangeMyInfoPopup"/>
         <!-- 회원정보저장 버튼 -->
-      <button type="button" class="save-button">회원정보저장</button>
+        <button type="submit" class="save-button">회원정보저장</button></form>
     </div>
   </div>
 </template>
 
 <script>
 import { apiClient } from "@/index";
-import PasswordChangeMyInfoPopup from  "../../components/user/PasswordChangeMyInfoPopup.vue"
+import PasswordChangeMyInfoPopup from "../../components/user/PasswordChangeMyInfoPopup.vue";
+import { shallowRef } from "vue";
 
 export default {
-  data() {
+  setup() {
+    // setup 함수 내에서 데이터 및 메서드 설정
+    const email = shallowRef("");
+    const userPasswordRequest = shallowRef({
+      password: "",
+      newPassword: "",
+    });
+    const ModifyMyInfoRequest = shallowRef({
+      nickname: "",
+      accountId: "",
+      birth: "",
+      password: "",
+    });
+    const showPasswordChangeMyInfoPopup = shallowRef(false);
+    // 실제 컴포넌트에서 사용할 때는 .value로 접근
     return {
-      userPasswordRequest: {
-        password: "",
-        newPassword: "",
-      },
-      user: {
-        email: "user@example.com",
-        nickname: "사용자",
-        userId: "@" + "idrandom12312",
-        birthday: "1990-01-01",
-        password: "********", // 비밀번호는 가려진 상태로 초기화
-      },
-      showPasswordChangeMyInfoPopup: false, // 비밀번호 변경 팝업 표시 여부
+      email,
+      userPasswordRequest,
+      ModifyMyInfoRequest,
+      showPasswordChangeMyInfoPopup,
     };
   },
   components: {
     PasswordChangeMyInfoPopup, // 비밀번호 변경 팝업 컴포넌트 등록
   },
+  async mounted() {
+    try {
+      const accessToken = localStorage.getItem("accessToken");
+      if (!accessToken) {
+        console.error("토큰이 없습니다.");
+        return;
+      }
+      await this.getUserInfo(accessToken); // 사용자 정보 가져오기
+    } catch (error) {
+      console.error("회원 정보 가져오기 실패:", error.response.data);
+    }
+  },
   methods: {
+    async getUserInfo(accessToken) {
+      try {
+        const config = {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        };
+        const response = await apiClient.get(`/api/users/myinfo`, config);
+        const userInfo = response.data;
+        this.email = userInfo.email;
+        this.ModifyMyInfoRequest.nickname = userInfo.nickname;
+        this.ModifyMyInfoRequest.accountId = userInfo.accountId;
+        this.ModifyMyInfoRequest.birth = userInfo.birth;
+      } catch (error) {
+        console.error("사용자 정보 요청 실패:", error.response.data);
+      }
+    },
+    async submitModify() {
+      try {
+        const accessToken = localStorage.getItem("accessToken");
+        if (!accessToken) {
+          console.error("토큰이 없습니다.");
+          return;
+        }
+        const config = {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        };
+        const response = await apiClient.put(
+          `/api/users`,
+          this.ModifyMyInfoRequest,
+          config
+        );
+        console.log(response);
+        console.log("회원정보 수정 성공:", response.data);
+        await this.getUserInfo(accessToken); // 수정 후 사용자 정보 다시 가져오기
+      } catch (error) {
+        console.error("회원정보 수정 실패:", error.response.data);
+      }
+    },
     openPasswordChangeMyInfoPopup() {
       this.showPasswordChangeMyInfoPopup = true; // 비밀번호 변경 팝업 표시
     },
@@ -65,17 +126,6 @@ export default {
     handlePasswordChangeMyInfoPopup() {
       this.userPasswordRequest.password = "";
       this.showPasswordChangeMyInfoPopup = false;
-    },
-    submitPassword() {
-      // 비밀번호 변경 처리 로직
-      apiClient.post('/api/change-password', { password: this.password, newPassword: this.newPassword })
-        .then(response => {
-          console.log('비밀번호 변경 성공');
-          this.closePasswordChangeMyInfoPopup(); // 성공 시 팝업 닫기
-        })
-        .catch(error => {
-          console.error('비밀번호 변경 실패:', error);
-        });
     },
   },
 };

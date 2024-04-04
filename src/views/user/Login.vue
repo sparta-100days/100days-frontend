@@ -69,14 +69,15 @@ export default {
         email: this.loginRequest.email,
         password: this.loginRequest.password,
       });
-      console.log("로그인 요청: ", response.data.accessToken);
-      localStorage.setItem("AccessToken", response.data.accessToken);
-      console.log("토큰: ", localStorage.getItem("AccessToken"));
+      const token = response.data.token;
+      localStorage.setItem("accessToken", token);
+      const userInfoResponse = await apiClient.get("/api/users/myinfo", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("AccessToken")}`,
+        },
+      });
+      console.log("회원정보 : ", userInfoResponse);
       await this.$router.push("/");
-    },
-    goToSignUp() {
-      // 회원가입 페이지로 이동하는 로직을 여기에 구현합니다.
-      this.$router.push("/signup");
     },
     closeReissuePasswordPopup() {
       this.showReissuePasswordPopup = false;

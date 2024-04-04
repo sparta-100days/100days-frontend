@@ -7,10 +7,12 @@
           그 전에 다시 로그인하시면 정상이용 가능합니다.
         </p>
       </div>
-      <div class="form-item">
-        <input type="text" id="password" name="password" :value="user.password">
-      </div>
-      <button class="withdraw-button">회원탈퇴</button>
+      <form @submit.prevent="withdraw">
+        <div class="form-item">
+          <input type="password" id="password" name="password" v-model="password" placeholder="비밀번호">
+        </div>
+        <button class="withdraw-button">회원탈퇴</button>
+      </form>
     </div>
   </div>
 </template>
@@ -21,17 +23,27 @@ import { apiClient } from "@/index";
 export default {
   data() {
     return {
-      user: {
-        password: "",
-      },
+      password: "",
     };
   },
   methods: {
-    async searchEmail() {
-
-    }
+    async withdraw() {
+      try {
+        const response = await apiClient.delete("/api/users", {
+          data: {
+            password: this.password,
+          },
+        });
+        console.log("회원탈퇴 성공:", response);
+        // 회원탈퇴 성공 시 처리 (예: 로그아웃 등)
+      } catch (error) {
+        console.error("회원탈퇴 실패:", error.response.data);
+        // 회원탈퇴 실패 시 에러 처리 (예: 메시지 표시 등)
+      }
+    },
   },
 };
 </script>
+
 
 <style src="../../assets/css/user/Withdraw.css" lang="css"></style>
