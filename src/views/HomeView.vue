@@ -1,22 +1,15 @@
 <template>
   <div class="main-view">
     <div class="section section1">
-      <h1>작심백일</h1>
-      <p>이루고 싶은 목표가 무엇인가요?</p>
+      <video class="background-video" autoplay loop muted @click="handleVideoClick">
+        <source src="src/assets/img/13495-248644905.mp4" type="video/mp4">
+      </video>
+      <div class="overlay">
+        <h1>작심백일</h1>
+        <p>이루고 싶은 목표가 무엇인가요?</p>
+      </div>
     </div>
     <div class="section section2">
-      <!-- lorem ipsum으로 대체 -->
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec
-        odio. Praesent libero. Sed cursus ante dapibus diam.
-      </p>
-    </div>
-    <div class="section section3">
-      <!-- lorem ipsum으로 대체 -->
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec
-        odio. Praesent libero. Sed cursus ante dapibus diam.
-      </p>
     </div>
   </div>
 </template>
@@ -26,6 +19,10 @@ export default {
   data() {
     return {};
   },
+  methods: {
+    handleVideoClick() {
+    }
+  }
 };
 </script>
 
