@@ -19,7 +19,7 @@
                 <tr v-for="(like, index) in displayedLikes" :key="index" @click="goToLikeDetail(like)">
                   <td class="ellipsis">{{ like.resolution.title }}</td>
                   <td>{{ like.resolution.category }}</td>
-                  <td>{{ like.likeCount.likeCount }}</td>
+                  <td>{{ like.likeCount }}</td>
                 </tr>
               </tbody>
             </table>
@@ -41,9 +41,21 @@ export default {
       currentPage: 1,
       pageCount: 3,
       likes: [
-        { resolution: { title: "목표 1", category: "운동" }, likeCount: 10 },
-        { resolution: { title: "목표 2", category: "공부" }, likeCount: 15 },
-        { resolution: { title: "목표 3", category: "다이어트" }, likeCount: 20 },
+        { resolution: { title: "추후 구현 예정입니다.", category: "아래는 더미입니다."}, likeCount: 10 },
+        { resolution: { title: "하루에 운동 30분", category: "운동" }, likeCount: 15 },
+        { resolution: { title: "책 한달에 10권 읽기", category: "독서" }, likeCount: 5 },
+        { resolution: { title: "만보계", category: "운동" }, likeCount: 8 },
+        { resolution: { title: "간식 안먹기대회", category: "다이어트" }, likeCount: 2 },
+        { resolution: { title: "영어 하루 1시간 회화", category: "공부" }, likeCount: 3 },
+        { resolution: { title: "청소잘하시나요?", category: "생활" }, likeCount: 22 },
+        { resolution: { title: "코딩공부하기", category: "공부" }, likeCount: 28 },
+        { resolution: { title: "자전거 타고 10km", category: "운동" }, likeCount: 30 },
+        { resolution: { title: "독서감상회", category: "독서" }, likeCount: 1 },
+        { resolution: { title: "물 하루에 5잔마시기", category: "생활" }, likeCount: 7 },
+        { resolution: { title: "일찍 잘 사람 구함", category: "생활" }, likeCount: 5 },
+        { resolution: { title: "하루 한끼 요리하기", category: "생활" }, likeCount: 3 },
+        { resolution: { title: "책 1주 1권", category: "독서" }, likeCount: 15 },
+        { resolution: { title: "시험공부 합시다.", category: "공부" }, likeCount: 12 },
       ],
       itemsPerPage: 10,
     };
