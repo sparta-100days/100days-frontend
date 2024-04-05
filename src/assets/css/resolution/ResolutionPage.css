@@ -1,4 +1,5 @@
 .mainpage-resolution-background {
+    overflow: auto;
     position: fixed;
     top: 0;
     left: 0;
@@ -11,19 +12,22 @@
     display: flex;
     justify-content: center;
     align-items: center;
+
 }
 
-.fa-moon {
+#first-moon {
     position: absolute;
     top: 19%;
-    left: 33%;
+    left: 20%;
     font-size: 130px;
     color: rgba(255,255,255,0.8);
     animation: moon-rotation 4s infinite linear;
     z-index: -1;
 }
 
-.blur {
+#first-moon-blur {
+    top: 19%;
+    left: 20%;
     filter: blur(10px);
     -webkit-filter: blur(10px);
 }
@@ -40,15 +44,16 @@
 .mainpage-resolution-container {
     width: 800px;
     height: 950px;
-    margin-top: 150px;
+    margin-top: 290px;
     padding: 20px;
     background-color: rgba(255, 255, 255, 0.2);
 }
 
 .main-resol-title-box {
-    width: 900px;
-    height: 50px;
     display: flex;
+    justify-content: space-between;
+    width: 780px;
+    height: 50px;
 }
 
 .main-resol-title {
@@ -96,9 +101,10 @@
 }
 
 .mainpage-resolution-d-day-box {
-    width: 750px;
-    height: 20px;
     display: flex;
+    justify-content: space-between;
+    width: 750px;
+    height: 50px;
     margin: 10px 50px 0 10px;
 }
 
@@ -125,4 +131,48 @@
     overflow-y: auto;
     background-color: rgba(255, 255, 255, 0.3);
     border-radius: 5px;
+}
+.button-not-liked{
+    margin-top: 15px;
+    width: 50px;
+    height: 50px;
+    background-color: rgba(134, 172, 255, 0.65);
+    border-radius: 20px;
+}
+.button-liked{
+    margin-top: 15px;
+    width: 50px;
+    height: 50px;
+    background-color: rgb(120, 157, 255);
+    border-radius: 20px;
+
+}
+.resol-feedback-footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: transparent; /* 배경색을 투명하게 설정 */
+    padding: 10px;
+    z-index: 999;
+    text-align: center;
+}
+
+.resol-feedback-button {
+    background-color: #6674bb; /* 밝은 남색 */
+    color: #000000; /* 검은색 */
+    border: 2px solid #ffffff; /* 하얀색 테두리 */
+    border-radius: 20px; /* 모서리를 둥글게 */
+    padding: 10px 20px; /* 버튼 내 여백 설정 */
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.resol-feedback-button:hover {
+    background-color: #1976D2; /* 어두운 남색 */
+    color: #ffffff; /* 흰색 */
+}
+.resol-feedback-button:disabled {
+    background-color: #A9A9A9; /* 회색 */
+    cursor: not-allowed;
+    opacity: 0.7; /* 비활성화 효과를 위한 투명도 설정 */
 }

@@ -23,36 +23,17 @@
 <script setup>
 import { ref } from "vue";
 import { useRouter } from "vue-router";
+const props = defineProps({
+  resolutionId: Number,
+});
 
-const posts = ref([
-  {
-    id: 1,
-    title: "첫 번째 글",
-    content: "첫 번째 글의 내용입니다.",
-    author: "작성자1",
-    date: "2024-03-31",
-  },
-  {
-    id: 2,
-    title: "두 번째 글",
-    content: "두 번째 글의 내용입니다.",
-    author: "작성자2",
-    date: "2024-04-01",
-  },
-  {
-    id: 3,
-    title: "세 번째 글",
-    content: "세 번째 글의 내용입니다.",
-    author: "작성자3",
-    date: "2024-04-02",
-  },
-]);
-
+const posts = ref([]);
+console.log("posts");
 const router = useRouter();
 
-const showPostDetails = (post) => {
+const showPostDetails = async (post) => {
   // 해당 게시글의 상세 페이지로 이동
-  router.push(`/posts/${post.id}`);
+  return await router.push(`/post/${post.id}`);
 };
 
 const formatDate = (dateString) => {

@@ -1,78 +1,169 @@
 <template>
   <div class="mainpage-resolution-background">
-    <i class="fas fa-moon"></i>
-    <i class="fas fa-moon blur"></i>
+    <i class="fas fa-moon" id="first-moon"></i>
+    <i class="fas fa-moon blur" id="first-moon-blur"></i>
     <div class="mainpage-resolution-container">
       <div class="mainpage-resolution-box">
         <div class="main-resol-title-box">
-          <h2 class="main-resol-title">작성 목표 제목</h2>
-          <p class="main-resol-userId">| {{ resolutionId }}</p>
+          <h2 class="main-resol-title">{{ resolution.title }}</h2>
+          <button @click="toggleLike" :class="{ 'button-liked': likeStatus, 'button-not-liked': !likeStatus }">
+            <a style="font-size: 1.5em">{{ likeStatus ? "♥" : "♡" }}</a>
+            <br />
+            <a>{{ likeCount }}</a>
+          </button>
         </div>
         <div class="mainpage-resolution-description-box">
           <p class="mainpage-resolution-description">
-            설명 : 예시를위해길게적어볼게요예시를위해길게적어볼게요
-            예시를위해길게적어볼게요예시를위해길게적어볼게요
-            예시를위해길게적어볼게요예시를위해길게적어볼게요
-            예시를위해길게적어볼게요예시를위해길게적어볼게요
-            예시를위해길게적어볼게요예시를위해길게적어볼게요
+            {{ resolution.description }}
           </p>
         </div>
         <div class="mainpage-resolution-progress-box">
           <div class="progress-container" :style="{ backgroundColor: containerColor }">
-            <div class="progress-bar" :style="{ width: progress + '%', backgroundColor: progressBarBackground }">{{ progress }}%</div>
+            <div class="progress-bar" :style="{ width: resolution.progress + '%', backgroundColor: progressBarBackground }">{{ resolution.progress }}%</div>
           </div>
         </div>
         <div class="mainpage-resolution-daily-status-box">
           <div class="mainpage-resolution-d-day-box">
-            <p class="mainpage-resolution-like-check">♥</p>
-            <footer class="footer" v-if="isAuthor">
-              <button class="resol-feedback-button">데일리 체크 하러 가기</button>
-            </footer>
+            <p class="d-day">d - {{ dDay }}</p>
+            <p class="daily-status">
+              오늘 목표 완료:
+              <span v-if="resolution.dailyStatus" class="completed">완료</span>
+              <span v-else class="not-completed">미완료</span>
+            </p>
           </div>
         </div>
         <div class="mainpage-resolution-daily-check">
-          <PostList v-if="showPostList" />
+          <PostList v-if="showPostList" :resolutionId="resolutionId" />
         </div>
       </div>
+      <DailyCheckPopup v-if="showDailyCheckPopup" :resolutionId="resolutionId" @close="toggleDailyCheckPopup"/>
     </div>
   </div>
+  <footer class="resol-feedback-footer" v-if="isAuthor">
+    <button class="resol-feedback-button" @click="toggleDailyCheckPopup" :disabled="resolution.dailyStatus">데일리 체크 하러 가기</button>
+  </footer>
 </template>
 
 <script>
 import { useRoute } from "vue-router";
 import { onMounted, ref } from "vue";
+import { apiClient } from "@/index.js";
 import PostList from "@/views/post/PostList.vue";
+import DailyCheckPopup from "@/components/resolution/DailyCheckPopup.vue";
 
 export default {
   setup() {
     const route = useRoute();
     const resolutionId = ref(route.params.id);
+    const resolution = ref({});
+    const dDay = ref(0);
+    const likeStatus = ref(false);
+    const likeCount = ref(0);
+    const showDailyCheckPopup = ref(false);
+    function getDDay(deadline) {
+      const now = new Date();
+      const deadlineDate = new Date(deadline);
+      const dateDiff = deadlineDate - now;
 
-    onMounted(() => {
-      console.log(`resolution #${resolutionId.value}`);
-    });
+      return Math.ceil(dateDiff / (1000 * 60 * 60 * 24));
+    }
+    const fetchResolution = async () => {
+      try {
+        console.log("ID: ", resolutionId.value);
+        const response = await apiClient.get(
+          `/api/v1/resolution/${resolutionId.value}`
+        );
+        resolution.value = response.data;
+        dDay.value = getDDay(resolution.value.deadline);
+        likeStatus.value = await getLikeStatus();
+        likeCount.value = resolution.value.likeCount;
+        console.log("resolution: ", resolution.value);
+      } catch (error) {
+        console.log(error.response.data);
+      }
+    };
+    const getLikeStatus = async () => {
+      try {
+        const response = await apiClient.get(`/api/likes`, {
+          params: {
+            resolutionId: resolutionId.value,
+          },
+        });
+        console.log("status: ", response.data.status);
+        return response.data.status;
+      } catch (error) {
+        console.log(error.response.data);
+        return false;
+      }
+    };
+    const toggleLike = async () => {
+      if (likeStatus.value) {
+        try {
+          await apiClient.delete("/api/likes", {
+            params: {
+              resolutionId: resolutionId.value,
+            },
+          });
+          likeStatus.value = await getLikeStatus();
+          likeCount.value--;
+        } catch (error) {
+          console.log(error.response.data);
+        }
+      } else {
+        try {
+          await apiClient.post("/api/likes", null, {
+            params: {
+              resolutionId: resolutionId.value,
+            },
+          });
+          likeStatus.value = await getLikeStatus();
+          likeCount.value++;
+        } catch (error) {
+          console.log(error.response.data);
+        }
+      }
+    };
+
+    function toggleDailyCheckPopup() {
+      if (showDailyCheckPopup.value) {
+        console.log("close popup", showDailyCheckPopup.value);
+        showDailyCheckPopup.value = false;
+      } else {
+        console.log("open popup", showDailyCheckPopup.value);
+        showDailyCheckPopup.value = true;
+        console.log(showDailyCheckPopup.value);
+      }
+    }
+
+    onMounted(fetchResolution);
 
     const showPostList = ref(false);
 
     return {
       resolutionId,
       showPostList,
+      resolution,
+      dDay,
+      likeStatus,
+      toggleLike,
+      likeCount,
+      toggleDailyCheckPopup,
+      showDailyCheckPopup,
     };
   },
   data() {
     return {
-      progress: 0,
       containerColor: "rgba(255, 255, 255, 0.2)",
       isAuthor: false,
     };
   },
   mounted() {
     this.checkAuthor();
-    setInterval(this.updateProgressBar, 1000);
   },
   computed: {
     progressBarBackground() {
-      const percent = this.progress / 100;
+      const progress = this.resolution.progress;
+      const percent = progress / 100;
 
       if (percent < 0.1) {
         return "#0F2027";
@@ -97,13 +188,6 @@ export default {
       // 연결된 게시판의 글을 보여주기 위해 showPostList를 true로 변경
       this.showPostList = true;
     },
-    updateProgressBar() {
-      if (this.progress === 100) {
-        this.progress = 0;
-      } else {
-        this.progress += 1;
-      }
-    },
     interpolateColor(color1, color2, factor) {
       const result = color1.slice(1).match(/.{2}/g).map((channel, index) => {
           const value1 = parseInt(channel, 16);
@@ -116,6 +200,7 @@ export default {
     },
   },
   components: {
+    DailyCheckPopup,
     PostList,
   },
 };

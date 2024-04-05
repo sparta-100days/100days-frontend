@@ -10,6 +10,8 @@ import MyInfo from "@/views/user/MyInfo.vue";
 import TermsOfService from "@/components/user/TermsOfService.vue";
 import Report from "@/views/report/Report.vue";
 import PostList from "@/views/post/PostList.vue";
+import ResolutionRanking from "@/components/resolution/ResolutionRanking.vue";
+import postPage from "@/views/post/postPage.vue";
 
 const routes = [
   {
@@ -66,6 +68,16 @@ const routes = [
     path: "/posts",
     name: "Posts",
     component: PostList,
+  },
+  {
+    path: "/post/:postId",
+    name: "Post",
+    component: postPage,
+  },
+  {
+    path: "/resolution-ranking",
+    name: "PostRanking",
+    component: ResolutionRanking,
   },
 ];
 

@@ -1,16 +1,18 @@
 <template>
   <div class="create-resolution-background">
-    <i class="fas fa-moon"></i>
-    <i class="fas fa-moon blur"></i>
+    <i class="fas fa-moon" id="second-moon"></i>
+    <i class="fas fa-moon blur" id="second-moon-blur"></i>
     <div class="create-resolution-container">
     <h2>새 목표 만들기</h2>
       <form @submit.prevent="submitForm">
-        <input type="text" class="create-resolution-title" id="title" v-model="resolution.title" required />
-        <span>{{ validationMessages.title }}</span>
-        <textarea class="create-resolution-description" id="description" v-model="resolution.description" required></textarea>
-        <span>{{ validationMessages.description }}</span>
-        <input type="text" class="create-resolution-category" id="category" v-model="resolution.category" required>
-        <span>{{ validationMessages.category }}</span>
+        <input type="text" class="create-resolution-title" id="title" v-model="resolution.title" required placeholder="제목을 입력하세요." />
+        <textarea class="create-resolution-description" id="description" v-model="resolution.description" required placeholder="목표에 대한 설명을 입력해주세요."></textarea>
+        <select class="category-selecter" aria-label="Default select example" @change="selectCategory($event.target.value)">
+          <option selected>카테고리를 선택하세요</option>
+          <option class="selected-category" v-for="(category, index) in categories" :key="index">
+            {{ category.name }}
+          </option>
+        </select>
         <button type="submit" class="create-resolution-btn">목표 생성</button>
       </form>
     </div>
@@ -18,28 +20,43 @@
 </template>
 
 <script>
+import { apiClient } from "@/index.js";
 export default {
   data() {
     return {
       resolution: {
-        title: '',
-        description: '',
-        category: ''
+        title: "",
+        description: "",
+        category: "",
       },
-      validationMessages: {
-        title: '',
-        description: '',
-        category: ''
-      }
+      categories: [],
     };
   },
+  mounted() {
+    this.getCategory();
+  },
   methods: {
-    submitForm() {
-      // 여기에서 폼 검증 로직을 추가할 수 있습니다.
-      // 예를 들어, 각 필드가 비어 있지 않은지 확인하고, 조건을 만족하지 않으면 validationMessages를 업데이트합니다.
-      // 폼 데이터가 유효하면 백엔드 API로 데이터를 전송하는 로직을 추가합니다.
-      console.log("Form submitted:", this.resolution);
-      // API 호출 로직은 여기에 추가합니다.
+    async submitForm() {
+      console.log("resolution: ", this.resolution);
+      try {
+        await apiClient.post("/api/v1/resolution", {
+          title: this.resolution.title,
+          description: this.resolution.description,
+          category: this.resolution.category,
+        });
+        alert("목표 작성이 완료되었습니다.");
+      } catch (error) {
+        console.log(error.response.data);
+      }
+    },
+    async getCategory() {
+      const category = await apiClient.get("/api/categories");
+      console.log(category);
+      this.categories = category.data;
+    },
+    selectCategory(category) {
+      console.log("카테고리 변경됨");
+      this.resolution.category = category;
     },
   },
 };
