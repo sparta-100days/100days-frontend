@@ -21,8 +21,9 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import {onMounted, ref} from "vue";
 import { useRouter } from "vue-router";
+import {apiClient} from "@/index";
 const props = defineProps({
   resolutionId: Number,
 });
@@ -42,11 +43,26 @@ const formatDate = (dateString) => {
 };
 
 const truncateText = (text, maxLength) => {
-  if (text.length > maxLength) {
-    return text.slice(0, maxLength) + "...";
+  if (text == null) {
+    return text;
+  } else {
+    if (text.length > maxLength) {
+      return text.slice(0, maxLength) + "...";
+    }
+    return text;
   }
-  return text;
 };
+
+const getPostList = async () => {
+  try {
+    const response = await apiClient.get(`/api/posts/${props.resolutionId}`);
+    posts.value = response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+onMounted(getPostList);
 </script>
 
 <style src="@/assets/css/post/PostList.css" lang="css"></style>
