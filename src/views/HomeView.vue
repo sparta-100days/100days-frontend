@@ -2,7 +2,7 @@
   <div class="main-view">
     <div class="section section1">
       <video class="background-video" autoplay loop muted @click="handleVideoClick">
-        <source src="src/assets/img/13495-248644905.mp4" type="video/mp4">
+        <source src="@/assets/img/13495-248644905.mp4" type="video/mp4">
       </video>
       <div class="overlay">
         <h1>작심백일</h1>
