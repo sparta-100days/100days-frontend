@@ -60,6 +60,8 @@ export default {
     const likeStatus = ref(false);
     const likeCount = ref(0);
     const showDailyCheckPopup = ref(false);
+    const isAuthor = ref(false);
+    const showPostList = ref(false);
     function getDDay(deadline) {
       const now = new Date();
       const deadlineDate = new Date(deadline);
@@ -67,16 +69,22 @@ export default {
 
       return Math.ceil(dateDiff / (1000 * 60 * 60 * 24));
     }
+    const openPostList = () => {
+      showPostList.value = true;
+    };
     const fetchResolution = async () => {
       try {
         console.log("ID: ", resolutionId.value);
         const response = await apiClient.get(
           `/api/v1/resolution/${resolutionId.value}`
         );
+        openPostList();
         resolution.value = response.data;
         dDay.value = getDDay(resolution.value.deadline);
         likeStatus.value = await getLikeStatus();
         likeCount.value = resolution.value.likeCount;
+        isAuthor.value = resolution.value.isAuthor;
+        console.log(isAuthor.value);
         console.log("resolution: ", resolution.value);
       } catch (error) {
         console.log(error.response.data);
@@ -128,6 +136,7 @@ export default {
       if (showDailyCheckPopup.value) {
         console.log("close popup", showDailyCheckPopup.value);
         showDailyCheckPopup.value = false;
+        fetchResolution();
       } else {
         console.log("open popup", showDailyCheckPopup.value);
         showDailyCheckPopup.value = true;
@@ -136,8 +145,6 @@ export default {
     }
 
     onMounted(fetchResolution);
-
-    const showPostList = ref(false);
 
     return {
       resolutionId,
@@ -149,16 +156,13 @@ export default {
       likeCount,
       toggleDailyCheckPopup,
       showDailyCheckPopup,
+      isAuthor,
     };
   },
   data() {
     return {
       containerColor: "rgba(255, 255, 255, 0.2)",
-      isAuthor: false,
     };
-  },
-  mounted() {
-    this.checkAuthor();
   },
   computed: {
     progressBarBackground() {
@@ -183,11 +187,7 @@ export default {
     },
   },
   methods: {
-    checkAuthor() {
-      this.isAuthor = true;
-      // 연결된 게시판의 글을 보여주기 위해 showPostList를 true로 변경
-      this.showPostList = true;
-    },
+
     interpolateColor(color1, color2, factor) {
       const result = color1.slice(1).match(/.{2}/g).map((channel, index) => {
           const value1 = parseInt(channel, 16);

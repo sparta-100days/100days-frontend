@@ -43,7 +43,7 @@ export default {
       postData: {
         title: "",
         content: "",
-        imageUrl: null,
+        imageUrl: "null",
       },
       isPost: false,
     };
@@ -74,6 +74,7 @@ export default {
       };
       try {
         if (this.postData.content == null) {
+          console.log("check");
           await apiClient.post(
             `/api/posts/${resolutionId}`,
             {
@@ -88,24 +89,19 @@ export default {
             }
           );
         } else {
-          await apiClient.post(
-            `/api/posts/${resolutionId}`,
-            {
-              title: postRequest.title,
-              content: postRequest.content,
-              imageUrl: postRequest.imageUrl,
-            },
-            {
-              params: {
-                type: PostType.APPEND,
-              },
-            }
-          );
+          console.log("append");
+          await apiClient.post(`/api/posts/${resolutionId}?type=APPEND`, {
+            title: postRequest.title,
+            content: postRequest.content,
+            imageUrl: postRequest.imageUrl,
+          });
         }
+        alert("포스트가 등록되었습니다.");
       } catch (error) {
         console.log(error);
+        alert("포스트 등록에 실패했습니다.");
       }
-      alert("포스트가 등록되었습니다.");
+
       this.$emit("close");
     },
     closePopup() {
