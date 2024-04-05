@@ -17,7 +17,7 @@
               </thead>
               <tbody>
                 <!-- 예시 데이터 -->
-                <tr v-for="(resolution, index) in displayedResolutions" :key="index" @click="goToResolutionDetail(resolution)">
+                <tr v-for="(resolution, index) in resolutions" :key="index" @click="goToResolutionDetail(resolution)">
                   <td class="ellipsis">{{ resolution.title }}</td>
                   <td>{{ resolution.category }}</td>
                   <td>{{ resolution.likeCount }}</td>
@@ -28,60 +28,58 @@
         </div>
       </div>
       <div class="my-resolution-pagination-container">
-        <button class="my-resol-btn" @click="prevPage" :disabled="currentPage <= 1">이전</button>
-        <button class="my-resol-btn" @click="nextPage" :disabled="currentPage >= pageCount">다음</button>
+        <button class="my-resol-btn" @click="changPage(currentPage - 1)" :disabled="currentPage <= 0">이전</button>
+        <a class="my-resol-page-check">페이지 {{ currentPage + 1 }} / {{ totalPages }}</a>
+        <button class="my-resol-btn" @click="changPage(currentPage + 1)" :disabled="currentPage >= totalPages - 1">다음</button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { apiClient } from "@/index";
+
 export default {
   data() {
     return {
-      currentPage: 1,
-      pageCount: 3, // 총 페이지 수
-      resolutions: [
-        { title: "목표 1", category: "운동", likeCount: 10 },
-        { title: "목표 2", category: "공부", likeCount: 15 },
-        { title: "목표 3", category: "다이어트", likeCount: 20 },
-        { title: "목표 4", category: "독서", likeCount: 5 },
-        { title: "목표 5", category: "건강", likeCount: 8 },
-        { title: "목표 6", category: "취미", likeCount: 12 },
-        { title: "목표 7", category: "여행", likeCount: 18 },
-        { title: "목표 8", category: "음악", likeCount: 3 },
-        { title: "목표 9", category: "예술", likeCount: 6 },
-        { title: "목표 10", category: "사업", likeCount: 14 },
-        { title: "목표 11", category: "봉사활동", likeCount: 9 },
-        { title: "목표 12", category: "자기계발", likeCount: 7 },
-        { title: "목표 13", category: "자전거 타기", likeCount: 22 },
-        { title: "목표 14", category: "수영 배우기", likeCount: 11 },
-        { title: "목표 15", category: "요리 공부", likeCount: 13 },
-      ],
-      itemsPerPage: 10, // 페이지당 보여줄 항목 수
+      resolutions: [],
+      pageCount: 1,
+      currentPage: 0,
+      sortOrder: "CREATED_AT",
+      totalPages: 1,
     };
   },
-  computed: {
-    displayedResolutions() {
-      const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-      const endIndex = startIndex + this.itemsPerPage;
-      return this.resolutions.slice(startIndex, endIndex);
-    },
+  async mounted() {
+    console.log(localStorage.getItem("accessToken"));
+    try {
+      const accessToken = localStorage.getItem("accessToken");
+      if (!accessToken) {
+        console.error("토큰이 없습니다.");
+        return;
+      }
+      await this.getMyResolutionData();
+    } catch (error) {
+      console.error("회원 정보 가져오기 실패:", error.response.data);
+    }
   },
   methods: {
-    prevPage() {
-      if (this.currentPage > 1) {
-        this.currentPage--;
-      }
-    },
-    nextPage() {
-      if (this.currentPage < this.pageCount) {
-        this.currentPage++;
-      }
-    },
     goToResolutionDetail(resolution) {
-      console.log("Go to resolution detail:", resolution);
-      // 여기에 상세 페이지로 이동하는 로직을 추가하세요.
+      console.log(resolution.id);
+      this.$router.push(`/resolution/${resolution.id}`);
+    },
+    async getMyResolutionData() {
+      const response = await apiClient.get(`/api/v1/resolution`, {
+        params: {
+          page: this.currentPage,
+          sortOrder: this.sortOrder,
+        },
+      });
+      this.resolutions = response.data.content;
+      this.totalPages = response.data.totalPages; // 총 페이지 수 업데이트
+    },
+    changPage(page) {
+      this.currentPage = page;
+      this.getMyResolutionData();
     },
   },
 };
