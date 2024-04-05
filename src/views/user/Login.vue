@@ -43,6 +43,7 @@ import ReissuePasswordPopup from "../../components/user/ReissuePasswordPopup.vue
 import SearchEmailPopup from "@/components/user/SearchEmailPopup.vue";
 import TermsOfService from "@/components/user/TermsOfService.vue";
 import { apiClient } from "@/index";
+import { mapMutations } from "vuex";
 // import axios from "axios";
 
 export default {
@@ -63,21 +64,25 @@ export default {
     TermsOfService,
   },
   methods: {
+    ...mapMutations(['login']),
     async submitLogin() {
       // 로그인 요청 로직을 여기에 구현
       const response = await apiClient.post("/api/users/login", {
         email: this.loginRequest.email,
         password: this.loginRequest.password,
-      });
-      const token = response.data.token;
-      localStorage.setItem("accessToken", token);
+      })
+      console.log(response)
+      const token = await response.data.accessToken;
+      await localStorage.setItem("accessToken", token);
+      console.log(token)
       const userInfoResponse = await apiClient.get("/api/users/myinfo", {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("AccessToken")}`,
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         },
       });
       console.log("회원정보 : ", userInfoResponse);
       await this.$router.push("/");
+      await this.login();
     },
     closeReissuePasswordPopup() {
       this.showReissuePasswordPopup = false;
