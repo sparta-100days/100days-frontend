@@ -4,6 +4,7 @@
       <img :class="{ 'logo': true, 'centered-logo': windowWidth <= 768 }" src="../assets/img/logo.svg" alt="Logo" @click="goToMainPage">
       <router-link to="/" class="main-title-text">100DAYS</router-link>
       <div v-if="isLoggedIn && windowWidth > 768" class="links">
+        <router-link to="/resolution-ranking">목표 랭킹</router-link>
         <router-link to="/create-resolution">목표작성</router-link>
         <router-link to="/resolutions">둘러보기</router-link>
         <router-link to="/myInfo">회원정보</router-link>
@@ -73,7 +74,7 @@ export default {
       return this.$store.state.isLoggedIn
     }
      */
-    ...mapState(['isLoggedIn'])
+    ...mapState(["isLoggedIn"]),
   },
   methods: {
     ...mapMutations(['logout']),

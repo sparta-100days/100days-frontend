@@ -12,11 +12,27 @@
     justify-content: center;
     align-items: center;
 }
+#second-moon {
+    position: absolute;
+    top: 19%;
+    left: 20%;
+    font-size: 130px;
+    color: rgba(255,255,255,0.8);
+    animation: moon-rotation 4s infinite linear;
+    z-index: -1;
+}
+
+#second-moon-blur {
+    top: 19%;
+    left: 20%;
+    filter: blur(10px);
+    -webkit-filter: blur(10px);
+}
 
 .fa-moon {
     position: absolute;
     top: 19%;
-    left: 33%;
+    left: -18%;
     font-size: 130px;
     color: rgba(255,255,255,0.8);
     animation: moon-rotation 4s infinite linear;
@@ -82,7 +98,32 @@
 }
 
 .create-resolution-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 3px;
+    background-color: #ffb0b0;
+    color: #fff;
+    cursor: pointer;
     width: 320px;
     height: 45px;
+}
+.create-resolution-btn:hover{
+    background-color: #000000;
+}
+.category-selecter {
+    width: 320px; /* 다른 요소들과 너비를 맞춤 */
+    height: 45px;
     border-radius: 2px;
+    border: 1px solid #989898;
+    margin-bottom: 15px;
+    background-color: rgba(255, 255, 255, 0.5); /* 배경색 설정 */
+    color: #000000; /* 텍스트 색상 */
+    padding: 0 10px; /* 내부 패딩 설정 */
+    font-size: 16px; /* 폰트 크기 */
+    outline: none; /* 포커스 효과 제거 */
+}
+
+.category-selecter:hover {
+    border-color: #8a2be2; /* 호버 시 테두리 색상 변경 */
+    box-shadow: 0 0 5px rgba(72, 209, 204, 0.8); /* 그림자 효과 추가 */
 }

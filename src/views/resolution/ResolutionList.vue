@@ -9,26 +9,29 @@
           <input type="text" v-model="searchQuery" placeholder="목표 검색..." class="resolution-list-search-input"/>
           <button @click="searchResolutions(searchQuery)" class="resolution-list-search-button"> 검색하기 </button>
         </div>
-        <table class="resolution-list-table">
-          <thead>
-            <tr>
-              <th>제목</th>
-              <th>카테고리</th>
-              <th>좋아요</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="(resolution, index) in resolutions" :key="index" @click="goToResolutionDetail(resolution)">
-              <td>{{ resolution.title }}</td>
-              <td>{{ resolution.category }}</td>
-              <td>{{ resolution.likeCount }}</td>
-            </tr>
-          </tbody>
-        </table>
+        <div>
+          <table class="resolution-list-table">
+            <thead>
+              <tr>
+                <th>제목</th>
+                <th>카테고리</th>
+                <th>좋아요</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="(resolution, index) in resolutions" :key="index" @click="goToResolutionDetail(resolution)">
+                <td>{{ resolution.title }}</td>
+                <td>{{ resolution.category }}</td>
+                <td>{{ resolution.likeCount }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
       <div class="resolution-list-pagination-container">
-        <button class="resolution-list-button" @click="getPreviousPage" :disabled="pageCount <= 1">이전</button>
-        <button class="resolution-list-button" @click="getNextPage" :disabled="pageCount >= totalPages">다음</button>
+        <button class="resolution-list-button" @click="changPage(currentPage - 1)" :disabled="currentPage <= 0">이전</button>
+        <a class="resolution-page-check">페이지 {{ currentPage + 1 }} / {{ totalPages }}</a>
+        <button class="resolution-list-button" @click="changPage(currentPage + 1)" :disabled="currentPage >= totalPages - 1">다음</button>
       </div>
     </div>
   </div>
@@ -43,33 +46,43 @@ export default {
       searchQuery: "",
       resolutions: [],
       pageCount: 1,
+      currentPage: 0,
+      sortOrder: "CREATED_AT",
       totalPages: 1,
     };
   },
-  mounted() {
-    this.getAllData();
+  async mounted() {
+    console.log(localStorage.getItem("accessToken"));
+    try {
+      const accessToken = localStorage.getItem("accessToken");
+      if (!accessToken) {
+        console.error("토큰이 없습니다.");
+        return;
+      }
+      await this.getAllData();
+    } catch (error) {
+      console.error("회원 정보 가져오기 실패:", error.response.data);
+    }
   },
 
   methods: {
     goToResolutionDetail(resolution) {
+      console.log(resolution.id);
       this.$router.push(`/resolution/${resolution.id}`);
     },
     async getAllData() {
-      const response = await apiClient.get(`/api/v1/resolution`);
+      const response = await apiClient.get(`/api/v1/resolution`, {
+        params: {
+          page: this.currentPage,
+          sortOrder: this.sortOrder,
+        },
+      });
       this.resolutions = response.data.content;
       this.totalPages = response.data.totalPages; // 총 페이지 수 업데이트
     },
-    async getNextPage() {
-      if (this.pageCount < this.totalPages) {
-        this.pageCount++;
-        await this.getAllData();
-      }
-    },
-    async getPreviousPage() {
-      if (this.pageCount > 1) {
-        this.pageCount--;
-        await this.getAllData();
-      }
+    changPage(page) {
+      this.currentPage = page;
+      this.getAllData();
     },
     async searchResolutions(query) {
       const response = await apiClient.get(

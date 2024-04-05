@@ -16,7 +16,7 @@
 .fa-moon {
     position: absolute;
     top: 19%;
-    left: 33%;
+    left: -18%;
     font-size: 130px;
     color: rgba(255,255,255,0.8);
     animation: moon-rotation 4s infinite linear;
@@ -118,6 +118,11 @@
     width: 900px;
     height: 40px;
     margin-left: 35px;
+}
+
+.resolution-page-check{
+    margin-top: 520px;
+    color: #edf2f7;
 }
 
 .resolution-list-button {
